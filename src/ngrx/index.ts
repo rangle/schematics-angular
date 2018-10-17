@@ -12,5 +12,5 @@ export function ngrx(options: Options): Rule {
     ngrxEffects(options),
     ngrxReducer(options),
     ngrxStore(options)
-  ])
+  ]);
 }
