@@ -1,0 +1,49 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "feature": {
+      "description": "Create an entire feature module, complete with module, routes, root component, service, state interface and ngrx infrastructure",
+      "factory": "./feature/index#feature"
+    },
+    "module": {
+      "description": "Create a module for a feature",
+      "factory": "./module/index#module"
+    },
+    "routes": {
+      "description": "Create a routing module for a feature",
+      "factory": "./routes/index#routes"
+    },
+    "component": {
+      "description": "Create a component",
+      "factory": "./component/index#component"
+    },
+    "service": {
+      "description": "Create a service",
+      "factory": "./service/index#service"
+    },
+    "type": {
+      "description": "Create the type with interface and functions files",
+      "factory": "./type/index#type"
+    },
+    "ngrx": {
+      "description": "Create all @ngrx files for a feature",
+      "factory": "./ngrx-feature/index#ngrxFeature"
+    },
+    "ngrx:store": {
+      "description": "Create an @ngrx store service for a feature",
+      "factory": "./ngrx-store/index#ngrxStore"
+    },
+    "ngrx:actions": {
+      "description": "Create an @ngrx actions file for a feature",
+      "factory": "./ngrx-actions/index#ngrxActions"
+    },
+    "ngrx:reducer": {
+      "description": "Create an @ngrx reducer function for a feature",
+      "factory": "./ngrx-reducer/index#ngrxReducer"
+    },
+    "ngrx:effects": {
+      "description": "Create an @ngrx effects service for a feature",
+      "factory": "./ngrx-effects/index#ngrxEffects"
+    }
+  }
+}
