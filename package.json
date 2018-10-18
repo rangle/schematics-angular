@@ -4,7 +4,7 @@
   "description": "A blank schematics",
   "scripts": {
     "build:schematics": "tsc -p tsconfig.json --outDir ./dist",
-    "copy:schematics": "cpr src dist/schematics --deleteFirst",
+    "copy:schematics": "cpr src dist --deleteFirst",
     "build:lib": "ng-packagr -p package.json && npm run build:schematics && npm run copy:schematics",
     "test": "npm run build:schematics && jasmine src/**/*.spec.js",
     "pretty:check": "prettier --list-different \"src/**/*.ts\"",
@@ -20,7 +20,7 @@
   ],
   "author": "",
   "license": "MIT",
-  "schematics": "./src/collection.json",
+  "schematics": "./schematics/collection.json",
   "devDependencies": {
     "@angular-devkit/core": "^0.8.5",
     "@angular-devkit/schematics": "^0.8.5",
