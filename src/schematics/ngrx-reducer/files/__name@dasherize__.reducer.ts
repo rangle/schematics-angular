@@ -13,8 +13,7 @@ export function <%= camelize(name) %>Reducer(
       };
     default:
       return {
-        ...state,
-
+        ...state
       };
   }
 }

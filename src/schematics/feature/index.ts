@@ -1,13 +1,13 @@
 import { chain, schematic, Rule } from '@angular-devkit/schematics';
 
-import { validateOptions } from '../../types/options.function';
+import { getModulePath, validateOptions } from '../../types/options.function';
 import { Options } from '../../types/options.interface';
 
 export function feature(options: Options): Rule {
   validateOptions(options);
 
   const childOptions = {
-    path: `${options.path}/${options.name}` || `src/${options.name}`,
+    path: getModulePath(options),
     name: options.name
   };
 

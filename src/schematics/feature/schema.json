@@ -6,7 +6,8 @@
   "properties": {
     "path": {
       "description": "The path to create the feature.",
-      "type": "string"
+      "type": "string",
+      "default": "src"
     },
     "name": {
       "description": "The name of the feature.",
