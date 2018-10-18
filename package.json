@@ -11,7 +11,7 @@
     "lint:fix": "node_modules/.bin/tslint --project ./ --fix",
     "check": "npm run pretty:check && npm run lint:check",
     "fix": "npm run pretty:fix && npm run lint:fix",
-    "start": "npm run build && schematics .:feature --name=login --path=src/app/modules"
+    "feature": "npm run build && schematics .:feature --name=login --path=src/app/modules"
   },
   "keywords": [
     "schematics"
@@ -28,6 +28,7 @@
     "typescript": "^2.5.2"
   },
   "devDependencies": {
+    "@schematics/angular": "^0.8.5",
     "prettier": "^1.14.3",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0"
