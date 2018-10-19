@@ -1,28 +1,53 @@
-# Getting Started With Schematics
+# Angular Schematics for Productivity and Consistency
 
-This repository is a basic Schematic implementation that serves as a starting point to create and publish Schematics to NPM.
+## Installation
 
-### Testing
+To add these schematics to your angular-cli project, type the
+following in the console at the root of your project:
 
-To test locally, install `@angular-devkit/schematics-cli` globally and use the `schematics` command line tool. That tool acts the same as the `generate` command of the Angular CLI, but also has a debug mode.
-
-Check the documentation with
 ```bash
-schematics --help
+npm install @egervari/schematics-angular --save
 ```
 
-### Unit Testing
+## Building and testing
 
-`npm run test` will run the unit tests, using Jasmine as a runner and test framework.
-
-### Publishing
-
-To publish, simply do:
+To build the source code, run:
 
 ```bash
 npm run build
-npm publish
 ```
 
-That's it!
- 
+After the schematics are built, to run them locally from the project
+root, run:
+
+```bash
+cd dist
+schematics .:feature --name=app --path=src/app
+```
+
+## Linting and Prettier
+
+To clean up the source code, run:
+
+```bash
+npm run fix
+```
+
+## Publishing
+
+To publish this to npm, run the following commands:
+
+```bash
+npm version major/minor/patch
+npm run build
+npm run publish
+```
+
+### Quickly create a patch version
+
+To quickly create a patch version, instead of going through all of the
+build and publish commands manually, instead run:
+
+```bash
+npm run release-patch
+```
