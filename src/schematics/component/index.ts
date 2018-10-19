@@ -7,5 +7,5 @@ import { processTemplates } from '../../util/util';
 export function component(options: Options): Rule {
   validateOptions(options);
 
-  return processTemplates(options, `${options.path}/components/${options.name}`);
+  return processTemplates(options, `${options.path}/components`);
 }
