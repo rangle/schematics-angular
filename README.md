@@ -1,5 +1,22 @@
 # Angular Schematics for Productivity and Consistency
 
+Developing large-scale web-applications is *hard*, and without a lot of
+experience building large Angular applications, it's very easy to make
+an architectural or structural mistake that could cost your team a lot
+of money and time to fix down the road once that mistake is realized.
+
+The schematics in this library will help your team develop Angular
+applications that are consistent and have an architecture/folder
+structure that will scale for extremely large projects right from the
+get-go.
+
+The output of these schematics are based on many years of experience
+building large-scale projects in Angular, and have been used in
+applications that contain several hundred-thousand lines of code. Thus,
+the opinions and ideas behind these schematics have been battle-tested
+and proved to prevent and solve scalability problems many people run
+into when building large-scale Angular projects.
+
 ## Installation
 
 To add these schematics to your angular-cli project, type the
