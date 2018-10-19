@@ -1,4 +1,4 @@
-import { <%= classify(name) %>State } from './<%= dasherize(name) %>.interface';
+import { <%= classify(name) %> } from './<%= dasherize(name) %>.interface';
 
 export function create<%= classify(name) %>(): <%= classify(name) %> {
   return {
