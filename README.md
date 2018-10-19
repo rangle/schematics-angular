@@ -6,7 +6,7 @@ To add these schematics to your angular-cli project, type the
 following in the console at the root of your project:
 
 ```bash
-npm install @egervari/schematics-angular --save
+npm install @egervari/schematics-angular --save-dev
 ```
 
 ### Adding Schematics Through Command Line
