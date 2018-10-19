@@ -1,8 +1,7 @@
 import { Rule } from '@angular-devkit/schematics';
 
-import { validateRegularSchema } from '../../types/schema-options.function';
+import { processTemplates, validateRegularSchema } from '../../types/schema-options.functions';
 import { SchemaOptions } from '../../types/schema-options.interface';
-import { processTemplates } from '../../util/util';
 
 export function type(options: SchemaOptions): Rule {
   validateRegularSchema(options);

@@ -2,7 +2,7 @@ import { chain, schematic, Rule, Tree } from '@angular-devkit/schematics';
 
 import { getProjectPrefix } from '../../types/project-schema-options.functions';
 import { ProjectSchemaOptions } from '../../types/project-schema-options.interface';
-import { getModulePath, validateRegularSchema } from '../../types/schema-options.function';
+import { getModulePath, validateRegularSchema } from '../../types/schema-options.functions';
 
 export function feature(options: ProjectSchemaOptions): Rule {
   validateRegularSchema(options);
