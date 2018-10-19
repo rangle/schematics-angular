@@ -1,29 +1,28 @@
 import * as strings from '@angular-devkit/core/src/utils/strings';
-import { chain, Rule, Tree } from '@angular-devkit/schematics';
+import { Rule, Tree } from '@angular-devkit/schematics';
 
-import { getProjectPrefix } from '../../types/project-schema-options.functions';
-import { ProjectSchemaOptions } from '../../types/project-schema-options.interface';
+import { Folders } from '../../types/folders/folders.enum';
+import { getProjectPrefix } from '../../types/project-schema-options/project-schema-options.functions';
+import { ProjectSchemaOptions } from '../../types/project-schema-options/project-schema-options.interface';
 import {
-  getComponentFolderPath,
+  getContainingFolderPath,
   processTemplates,
   updateBarrelFile,
   validateRegularSchema
-} from '../../types/schema-options.functions';
+} from '../../types/schema-options/schema-options.functions';
 
 export function component(options: ProjectSchemaOptions): Rule {
   validateRegularSchema(options);
 
   return (tree: Tree) => {
-    options.path = getComponentFolderPath(options.path);
+    options.path = getContainingFolderPath(options.path, Folders.Components);
     options.prefix = getProjectPrefix(tree, options);
 
     updateBarrelFile(
       tree, options,
-      `export * from './${strings.dasherize(options.name)}/${strings.dasherize(options.name)}.component';`
+      `export * from './${strings.dasherize(options.name)}/${strings.dasherize(options.name)}.component\r\n';`
     );
 
-    return chain([
-      processTemplates(options, `${options.path}`)
-    ]);
+    return processTemplates(options, options.path);
   };
 }

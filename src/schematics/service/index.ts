@@ -1,10 +1,17 @@
 import { Rule } from '@angular-devkit/schematics';
 
-import { processTemplates, validateRegularSchema } from '../../types/schema-options.functions';
-import { SchemaOptions } from '../../types/schema-options.interface';
+import { Folders } from '../../types/folders/folders.enum';
+import {
+  getContainingFolderPath,
+  processTemplates,
+  validateRegularSchema
+} from '../../types/schema-options/schema-options.functions';
+import { SchemaOptions } from '../../types/schema-options/schema-options.interface';
 
 export function service(options: SchemaOptions): Rule {
   validateRegularSchema(options);
 
-  return processTemplates(options, `${options.path}/services`);
+  options.path = getContainingFolderPath(options.path, Folders.Services);
+
+  return processTemplates(options, options.path);
 }
