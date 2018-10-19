@@ -1,4 +1,4 @@
-import './<%= dasherize(name) =>.interface';
+import './<%= dasherize(name) %>.interface';
 
 export function create<%= classify(name) %>(): <%= classify(name) %> {
   return {
