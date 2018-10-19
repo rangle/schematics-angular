@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: '<%= selector %>-<%= name %>',
+  selector: '<%= prefix %>-<%= name %>',
   templateUrl: './<%= name %>.component.html',
   styleUrls: ['./<%= name %>.component.scss']
 })
