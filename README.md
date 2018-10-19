@@ -9,6 +9,45 @@ following in the console at the root of your project:
 npm install @egervari/schematics-angular --save
 ```
 
+### Adding Schematics Through Command Line
+
+To add a schematic through the command, type:
+
+```bash
+schematics @egervari/schematics-angular:feature --name=my-module --path=src/app
+```
+
+And you should see the following files be created
+
+```
+CREATE /src/app/modules/my-module/components/index.ts (50 bytes)
+CREATE /src/app/modules/my-module/components/my-module/my-module.component.html (0 bytes)
+CREATE /src/app/modules/my-module/components/my-module/my-module.component.scss (12 bytes)
+CREATE /src/app/modules/my-module/components/my-module/my-module.component.ts (222 bytes)
+CREATE /src/app/modules/my-module/services/my-module.service.ts (203 bytes)
+CREATE /src/app/modules/my-module/store/my-module.actions.ts (236 bytes)
+CREATE /src/app/modules/my-module/store/my-module.effects.ts (472 bytes)
+CREATE /src/app/modules/my-module/store/my-module.reducer.ts (456 bytes)
+CREATE /src/app/modules/my-module/store/my-module.store.ts (310 bytes)
+CREATE /src/app/modules/my-module/types/my-module-state/my-module-state.functions.ts (159 bytes)
+CREATE /src/app/modules/my-module/types/my-module-state/my-module-state.interface.ts (58 bytes)
+CREATE /src/app/modules/my-module/my-module-routing.module.ts (370 bytes)
+CREATE /src/app/modules/my-module/my-module.module.ts (726 bytes)
+```
+
+### Adding Schematics Through WebStorm
+
+To use the schematics in WebStorm, right-click on a folder, select
+**'New'**, then select **'Angular Schematic'**, and then select any
+schematic from the following list:
+
+![alt text](docs/webstorm-1.png "Angular Schematics Selection")
+
+For the parameter input, set name option for most schematics and
+you're all set:
+
+![alt text](docs/webstorm-2.png "Add name parameter")
+
 ## Building and testing
 
 To build the source code, run:
