@@ -4,8 +4,8 @@ export const <%= classify(name) %>Actions = {
   RETRIEVE: '<%= uppercase(underscore(name)) %>--RETRIEVE'
 };
 
-export class RetrieveAction implements Action {
-  public readonly type = <%= classify(name) %>Actions.RETRIEVE_ACTION;
+export class Retrieve implements Action {
+  public readonly type = <%= classify(name) %>Actions.RETRIEVE;
 
   constructor() {}
 }
