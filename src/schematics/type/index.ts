@@ -1,10 +1,10 @@
 import { Rule, Tree } from '@angular-devkit/schematics';
 
-import { validateOptions } from '../../types/options.function';
-import { Options } from '../../types/options.interface';
+import { validateRegularSchema } from '../../types/schema-options.function';
+import { SchemaOptions } from '../../types/schema-options.interface';
 
-export function type(options: Options): Rule {
-  validateOptions(options);
+export function type(options: SchemaOptions): Rule {
+  validateRegularSchema(options);
 
   const directory = `${options.path}/types/${options.name}`;
 

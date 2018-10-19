@@ -9,9 +9,9 @@ import {
   Rule
 } from '@angular-devkit/schematics';
 
-import { Options } from '../types/options.interface';
+import { SchemaOptions } from '../types/schema-options.interface';
 
-export function processTemplates(options: Options, directory: string = options.path): Rule {
+export function processTemplates(options: SchemaOptions, directory: string = options.path): Rule {
   return branchAndMerge(
     mergeWith(
       apply(url('./files'), [

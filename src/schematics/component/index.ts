@@ -1,11 +1,11 @@
 import { Rule } from '@angular-devkit/schematics';
 
-import { validateOptions } from '../../types/options.function';
-import { Options } from '../../types/options.interface';
+import { ProjectSchemaOptions } from '../../types/project-schema-options.interface';
+import { validateRegularSchema } from '../../types/schema-options.function';
 import { processTemplates } from '../../util/util';
 
-export function component(options: Options): Rule {
-  validateOptions(options);
+export function component(options: ProjectSchemaOptions): Rule {
+  validateRegularSchema(options);
 
   return processTemplates(options, `${options.path}/components`);
 }

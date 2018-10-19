@@ -20,8 +20,18 @@
       "x-prompt": "What name would you like to use for the component?"
     },
     "prefix": {
-      "description": "The prefix to apply to generated selectors.",
       "type": "string",
+      "description": "The prefix to apply to generated selectors.",
+      "alias": "p",
+      "oneOf": [
+        {
+          "maxLength": 0
+        },
+        {
+          "minLength": 1,
+          "format": "html-selector"
+        }
+      ],
       "default": "app"
     }
   },

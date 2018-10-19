@@ -17,11 +17,6 @@
         "index": 0
       },
       "x-prompt": "What name would you like to use for the feature?"
-    },
-    "prefix": {
-      "description": "The prefix to apply to generated selectors.",
-      "type": "string",
-      "default": "app"
     }
   },
   "required": [

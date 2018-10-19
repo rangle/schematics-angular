@@ -1,4 +1,4 @@
-export interface Options {
+export interface SchemaOptions {
   name: string;
   path: string;
 }
