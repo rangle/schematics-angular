@@ -10,7 +10,7 @@ applications that are consistent and have an architecture/folder
 structure that will scale for extremely large projects right from the
 get-go.
 
-The output of these schematics are based on many years of experience
+The output of these schematics is based on many years of experience
 building large-scale projects in Angular, and have been used in
 applications that contain several hundred-thousand lines of code. Thus,
 the opinions and ideas behind these schematics have been battle-tested
