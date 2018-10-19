@@ -45,8 +45,9 @@ schematic from the following list:
 
 ![alt text](docs/webstorm-1.png "Angular Schematics Selection")
 
-For the parameter input, set name option for most schematics and
-you're all set:
+For the parameters input, WebStorm will pass many of the options - such
+as project name and path - on your behalf, so so all you have to do is
+set the `name` parameter for most schematics and you're all set:
 
 ![alt text](docs/webstorm-2.png "Add name parameter")
 
