@@ -39,7 +39,7 @@ CREATE /src/app/modules/my-module/my-module.module.ts (726 bytes)
 
 ### Using Schematics Through WebStorm
 
-To use the schematics in WebStorm, right-click on a folder, select
+To use schematics in WebStorm, right-click on a folder, select
 **'New'**, then select **'Angular Schematic'**, and then select any
 schematic from the following list:
 
