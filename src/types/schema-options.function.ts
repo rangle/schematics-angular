@@ -8,10 +8,10 @@ export function validateRegularSchema(options: SchemaOptions) {
   }
 }
 
-export function getModuleContainerPath(options: SchemaOptions) {
-  return options.path.endsWith('modules') ? options.path : `${options.path}/modules`;
+export function getModuleContainerPath(path: string) {
+  return path.endsWith('modules') ? path : `${path}/modules`;
 }
 
 export function getModulePath(options: SchemaOptions) {
-  return `${getModuleContainerPath(options)}/${options.name}` || `src/${options.name}`;
+  return (options.path ? `${getModuleContainerPath(options.path)}` : 'src') + `/${options.name}`;
 }

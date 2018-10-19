@@ -1,4 +1,4 @@
-import { chain, schematic, Rule } from '@angular-devkit/schematics';
+import { chain, schematic, Rule, Tree } from '@angular-devkit/schematics';
 
 import { ProjectSchemaOptions } from '../../types/project-schema-options.interface';
 import { getModulePath, validateRegularSchema } from '../../types/schema-options.function';
@@ -8,20 +8,21 @@ export function feature(options: ProjectSchemaOptions): Rule {
 
   console.log(options);
 
-  const childOptions = {
-    path: getModulePath(options),
-    name: options.name
-  };
+  return (tree: Tree) => {
+    options.path = getModulePath(options);
 
-  return chain([
-    schematic('component', childOptions),
-    schematic('service', childOptions),
-    schematic('ngrx', childOptions),
-    schematic('type', {
-      ...childOptions,
-      name: `${childOptions.name}-state`
-    }),
-    schematic('routes', childOptions),
-    schematic('module', childOptions)
-  ]);
+    console.log(tree);
+
+    return chain([
+      schematic('component', options),
+      schematic('service', options),
+      schematic('ngrx', options),
+      schematic('type', {
+        ...options,
+        name: `${options.name}-state`
+      }),
+      schematic('routes', options),
+      schematic('module', options)
+    ]);
+  };
 }
