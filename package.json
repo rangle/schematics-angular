@@ -32,7 +32,7 @@
     "lint:fix": "node_modules/.bin/tslint --project ./ --fix",
     "check": "npm run pretty:check && npm run lint:check",
     "fix": "npm run pretty:fix && npm run lint:fix",
-    "publish": "npm publish --access public"
+    "publish": "npm publish dist --access public"
   },
   "devDependencies": {
     "@angular-devkit/core": "^0.8.5",
