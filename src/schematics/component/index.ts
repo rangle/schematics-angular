@@ -12,6 +12,6 @@ export function component(options: ProjectSchemaOptions): Rule {
     options.path = getComponentFolderPath(options.path);
     options.prefix = getProjectPrefix(tree, options);
 
-    return processTemplates(options, `${options.path}/components`);
+    return processTemplates(options, `${options.path}`);
   };
 }
