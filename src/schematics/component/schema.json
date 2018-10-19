@@ -31,7 +31,12 @@
           "minLength": 1,
           "format": "html-selector"
         }
-      ],
+      ]
+    },
+    "selector": {
+      "type": "string",
+      "format": "html-selector",
+      "description": "The selector to use for the component.",
       "default": "app"
     }
   },

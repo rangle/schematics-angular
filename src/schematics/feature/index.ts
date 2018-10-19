@@ -6,6 +6,8 @@ import { getModulePath, validateRegularSchema } from '../../types/schema-options
 export function feature(options: ProjectSchemaOptions): Rule {
   validateRegularSchema(options);
 
+  console.log(options);
+
   const childOptions = {
     path: getModulePath(options),
     name: options.name
