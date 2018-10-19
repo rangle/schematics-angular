@@ -15,6 +15,9 @@
   "author": "Katie Egervari",
   "license": "MIT",
   "schematics": "./schematics/collection.json",
+  "files": [
+    "dist"
+  ],
   "ngPackage": {
     "dest": "dist",
     "lib": {
