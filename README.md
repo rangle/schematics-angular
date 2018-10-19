@@ -9,15 +9,17 @@ following in the console at the root of your project:
 npm install @egervari/schematics-angular --save-dev
 ```
 
-### Adding Schematics Through Command Line
+### Using Schematics Via Console
 
-To add a schematic through the command, type:
+To run a schematic (such as creating a new *feature*) through the
+console, specifying the feature's name, path and selector prefix, type
+the following:
 
 ```bash
-schematics @egervari/schematics-angular:feature --name=my-module --path=src/app
+schematics @egervari/schematics-angular:feature --name=my-module --path=src/app --prefix=rng
 ```
 
-And you should see the following files be created
+You should see the following files be created:
 
 ```
 CREATE /src/app/modules/my-module/components/index.ts (50 bytes)
@@ -35,7 +37,7 @@ CREATE /src/app/modules/my-module/my-module-routing.module.ts (370 bytes)
 CREATE /src/app/modules/my-module/my-module.module.ts (726 bytes)
 ```
 
-### Adding Schematics Through WebStorm
+### Using Schematics Through WebStorm
 
 To use the schematics in WebStorm, right-click on a folder, select
 **'New'**, then select **'Angular Schematic'**, and then select any
