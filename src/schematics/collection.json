@@ -13,39 +13,48 @@
     },
     "module": {
       "description": "Create a module for a feature",
-      "factory": "./module/index#module"
+      "factory": "./module/index#module",
+      "schema": "./module/schema.json"
     },
     "routes": {
       "description": "Create a routing module for a feature",
-      "factory": "./routes/index#routes"
+      "factory": "./routes/index#routes",
+      "schema": "./routes/schema.json"
     },
     "service": {
       "description": "Create a service",
-      "factory": "./service/index#service"
+      "factory": "./service/index#service",
+      "schema": "./service/schema.json"
     },
     "type": {
       "description": "Create the type with interface and functions files",
-      "factory": "./type/index#type"
+      "factory": "./type/index#type",
+      "schema": "./type/schema.json"
     },
     "ngrx": {
       "description": "Create all @ngrx files for a feature",
-      "factory": "./ngrx/index#ngrx"
+      "factory": "./ngrx/index#ngrx",
+      "schema": "./ngrx/schema.json"
     },
     "ngrx-store": {
       "description": "Create an @ngrx store service for a feature",
-      "factory": "./ngrx-store/index#ngrxStore"
+      "factory": "./ngrx-store/index#ngrxStore",
+      "schema": "./ngrx-store/schema.json"
     },
     "ngrx-actions": {
       "description": "Create an @ngrx actions file for a feature",
-      "factory": "./ngrx-actions/index#ngrxActions"
+      "factory": "./ngrx-actions/index#ngrxActions",
+      "schema": "./ngrx-actions/schema.json"
     },
     "ngrx-reducer": {
       "description": "Create an @ngrx reducer function for a feature",
-      "factory": "./ngrx-reducer/index#ngrxReducer"
+      "factory": "./ngrx-reducer/index#ngrxReducer",
+      "schema": "./ngrx-reducer/schema.json"
     },
     "ngrx-effects": {
       "description": "Create an @ngrx effects service for a feature",
-      "factory": "./ngrx-effects/index#ngrxEffects"
+      "factory": "./ngrx-effects/index#ngrxEffects",
+      "schema": "./ngrx-effects/schema.json"
     }
   }
 }

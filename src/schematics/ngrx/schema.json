@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "Ngrx",
+  "title": "Ngrx Schema",
+  "type": "object",
+  "properties": {
+    "path": {
+      "description": "The path to create the feature.",
+      "type": "string",
+      "default": "src"
+    },
+    "name": {
+      "description": "The name of the feature.",
+      "type": "string",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use for the feature?"
+    },
+    "prefix": {
+      "description": "The prefix to apply to generated selectors.",
+      "type": "string",
+      "default": "app"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}
