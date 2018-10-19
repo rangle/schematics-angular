@@ -1,11 +1,30 @@
 {
   "name": "@egervari/schematics-angular",
   "version": "0.1.1",
-  "description": "A blank schematics",
+  "description": "Rangle's Angular Schematics to ensure best-practices and scalable architecture",
+  "keywords": [
+    "angular",
+    "schematics",
+    "structure",
+    "folder structure",
+    "components",
+    "services",
+    "ngrx",
+    "best practices"
+  ],
+  "author": "Katie Egervari",
+  "license": "MIT",
+  "schematics": "./schematics/collection.json",
+  "ngPackage": {
+    "dest": "dist",
+    "lib": {
+      "entryFile": "src/public_api.ts"
+    }
+  },
   "scripts": {
-    "build:schematics": "tsc -p tsconfig.json --outDir ./dist/lib",
-    "copy:schematics": "cpr src dist/lib --overwrite --deleteFirst",
-    "build:lib": "ng-packagr -p package.json && npm run build:schematics && npm run copy:schematics",
+    "build": "ng-packagr -p package.json && npm run build:schematics && npm run copy:schematics",
+    "build:schematics": "tsc -p tsconfig.json --outDir ./dist",
+    "copy:schematics": "cpr src dist --overwrite --deleteFirst",
     "test": "npm run build:schematics && jasmine src/**/*.spec.js",
     "pretty:check": "prettier --list-different \"src/**/*.ts\"",
     "pretty:fix": "prettier --write \"src/**/*.ts\"",
@@ -15,12 +34,6 @@
     "fix": "npm run pretty:fix && npm run lint:fix",
     "publish": "npm publish --access public"
   },
-  "keywords": [
-    "schematics"
-  ],
-  "author": "",
-  "license": "MIT",
-  "schematics": "./lib/schematics/collection.json",
   "devDependencies": {
     "@angular-devkit/core": "^0.8.5",
     "@angular-devkit/schematics": "^0.8.5",
