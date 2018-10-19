@@ -6,7 +6,9 @@
   "properties": {
     "path": {
       "description": "The path to create the component.",
-      "type": "string"
+      "type": "string",
+      "format": "path",
+      "visible": false
     },
     "name": {
       "description": "The name of the component.",

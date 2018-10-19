@@ -7,7 +7,8 @@
     "path": {
       "description": "The path to create the feature.",
       "type": "string",
-      "default": "src"
+      "format": "path",
+      "visible": false
     },
     "name": {
       "description": "The name of the feature.",

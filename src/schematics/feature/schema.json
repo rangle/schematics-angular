@@ -7,7 +7,15 @@
     "path": {
       "description": "The path to create the feature.",
       "type": "string",
-      "default": "src"
+      "format": "path",
+      "visible": false
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
     },
     "name": {
       "description": "The name of the feature.",

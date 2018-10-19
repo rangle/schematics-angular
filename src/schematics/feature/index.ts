@@ -6,6 +6,8 @@ import { Options } from '../../types/options.interface';
 export function feature(options: Options): Rule {
   validateOptions(options);
 
+  console.log(options);
+
   const childOptions = {
     path: getModulePath(options),
     name: options.name
