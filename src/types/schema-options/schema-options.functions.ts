@@ -27,10 +27,9 @@ export function getContainingFolderPath(path: string, folder: string) {
 
 export function getModulePath(options: SchemaOptions) {
   return (
-    options.path ?
-      `${getContainingFolderPath(options.path, Folders.Modules)}` :
-      'src'
-    ) + `/${options.name}`;
+    (options.path ? `${getContainingFolderPath(options.path, Folders.Modules)}` : 'src') +
+    `/${options.name}`
+  );
 }
 
 export function processTemplates(options: SchemaOptions, directory: string = options.path): Rule {

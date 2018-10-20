@@ -19,8 +19,11 @@ export function component(options: ProjectSchemaOptions): Rule {
     options.prefix = getProjectPrefix(tree, options);
 
     updateBarrelFile(
-      tree, options,
-      `export * from './${strings.dasherize(options.name)}/${strings.dasherize(options.name)}.component';\r\n`
+      tree,
+      options,
+      `export * from './${strings.dasherize(options.name)}/${strings.dasherize(
+        options.name
+      )}.component';\r\n`
     );
 
     return processTemplates(options, options.path);

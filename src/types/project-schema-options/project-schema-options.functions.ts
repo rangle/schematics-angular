@@ -17,9 +17,7 @@ export function getProjectPrefix(tree: Tree, options: ProjectSchemaOptions) {
   try {
     const project = getProject(tree, options);
 
-    return project && project.prefix ?
-      project.prefix :
-      defaultPrefix;
+    return project && project.prefix ? project.prefix : defaultPrefix;
   } catch (noWorkspaceError) {
     return defaultPrefix;
   }
