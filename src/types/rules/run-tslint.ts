@@ -5,7 +5,9 @@ export function runTslint(): Rule {
   return (_, context: SchematicContext) => {
     context.addTask(
       new TslintFixTask({
-        ignoreErrors: true
+        ignoreErrors: true,
+        tsConfigPath: '/tsconfig.json',
+        tslintPath: '/tslint.json'
       })
     );
   };
