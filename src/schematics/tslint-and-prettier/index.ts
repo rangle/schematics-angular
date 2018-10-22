@@ -7,6 +7,7 @@ import {
 
 import { processTemplates } from '../../types/path-options/path-options.functions';
 import { PathOptions } from '../../types/path-options/path-options.interface';
+import { deleteFile } from '../../utils/tree-utils';
 
 const dependencies: NodeDependency[] = [
   { type: NodeDependencyType.Dev, version: '^1.14.3', name: 'prettier' },
@@ -15,7 +16,11 @@ const dependencies: NodeDependency[] = [
 
 export default function(options: PathOptions): Rule {
   return chain([
-    processTemplates(options, '/', true),
+    (tree: Tree) => {
+      deleteFile(tree, '/tslint.json');
+      deleteFile(tree, '/prettier.config.js');
+    },
+    processTemplates(options, '/'),
     (tree: Tree, context: SchematicContext) => {
       dependencies.forEach(dependency => {
         addPackageJsonDependency(tree, dependency);
