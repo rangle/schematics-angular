@@ -52,3 +52,9 @@ export function insertTreeChanges(tree: Tree, filename: string, changes: Change[
 
   tree.commitUpdate(declarationRecorder);
 }
+
+export function getTouchedFiles(tree: Tree) {
+  return tree.actions.reduce((files, action) => {
+    return action.path.endsWith('.ts') ? files.concat([action.path.substr(1)]) : files;
+  }, []);
+}
