@@ -2,5 +2,14 @@
   "$schema": "http://json-schema.org/schema",
   "id": "TSLint",
   "title": "TSLint & Prettier Schema",
-  "type": "object"
+  "type": "object",
+  "properties": {
+    "path": {
+      "description": "The path to create the feature.",
+      "type": "string",
+      "format": "path",
+      "visible": false,
+      "default": "/"
+    }
+  }
 }

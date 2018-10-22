@@ -4,5 +4,5 @@ import { processTemplates } from '../../types/path-options/path-options.function
 import { PathOptions } from '../../types/path-options/path-options.interface';
 
 export function tslint(options: PathOptions): Rule {
-  return processTemplates(options, './', MergeStrategy.Overwrite);
+  return processTemplates(options, './', MergeStrategy.AllowOverwriteConflict);
 }
