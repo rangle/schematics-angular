@@ -20,6 +20,6 @@
     }
   },
   "required": [
-    "name"
+    "name", "path"
   ]
 }
