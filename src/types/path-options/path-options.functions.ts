@@ -26,8 +26,8 @@ export function processTemplates(
           ...options
         }),
         move(directory)
-      ])
-    ),
-    mergeStrategy
+      ]),
+      mergeStrategy
+    )
   );
 }
