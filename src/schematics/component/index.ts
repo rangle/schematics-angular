@@ -1,5 +1,7 @@
 import * as strings from '@angular-devkit/core/src/utils/strings';
-import { Rule, Tree } from '@angular-devkit/schematics';
+import { chain, Rule, Tree } from '@angular-devkit/schematics';
+import { addDeclarationToModule } from '@schematics/angular/utility/ast-utils';
+import { InsertChange } from '@schematics/angular/utility/change';
 
 import { Folders } from '../../types/folders/folders.enum';
 import { processTemplates } from '../../types/path-options/path-options.functions';
@@ -10,22 +12,57 @@ import {
   updateBarrelFile,
   validateRegularSchema
 } from '../../types/schema-options/schema-options.functions';
+import { findParentModuleFilename, openTypescriptSourceFile } from '../../utils/tree-utils';
 
 export default function(options: ProjectSchemaOptions): Rule {
   validateRegularSchema(options);
 
-  return (tree: Tree) => {
-    options.path = getContainingFolderPath(options.path, Folders.Components);
-    options.prefix = getProjectPrefix(tree, options);
+  options.path = getContainingFolderPath(options.path, Folders.Components);
 
-    updateBarrelFile(
-      tree,
-      options,
-      `export * from './${strings.dasherize(options.name)}/${strings.dasherize(
-        options.name
-      )}.component';\r\n`
-    );
+  return chain([
+    (tree: Tree) => {
+      options.prefix = getProjectPrefix(tree, options);
 
-    return processTemplates(options, options.path);
-  };
+      return processTemplates(options, options.path);
+    },
+    (tree: Tree) => {
+      updateBarrelFile(
+        tree,
+        options,
+        `export * from './${strings.dasherize(options.name)}/${strings.dasherize(
+          options.name
+        )}.component';\r\n`
+      );
+
+      return tree;
+    },
+    (tree: Tree) => {
+      const moduleFilename = findParentModuleFilename(tree.getDir(options.path));
+
+      if (moduleFilename) {
+        const sourceFile = openTypescriptSourceFile(tree, moduleFilename);
+
+        if (sourceFile) {
+          const changes = addDeclarationToModule(
+            sourceFile,
+            moduleFilename,
+            strings.classify(`${options.name}Component`),
+            './components'
+          );
+
+          const declarationRecorder = tree.beginUpdate(moduleFilename);
+
+          changes.forEach(change => {
+            if (change instanceof InsertChange) {
+              declarationRecorder.insertLeft(change.pos, change.toAdd);
+            }
+          });
+
+          tree.commitUpdate(declarationRecorder);
+        }
+      }
+
+      return tree;
+    }
+  ]);
 }

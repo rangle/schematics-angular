@@ -17,14 +17,14 @@ export default function(options: ProjectSchemaOptions): Rule {
     options.prefix = getProjectPrefix(tree, options);
 
     return chain([
+      processTemplates(options),
       schematic('component', options),
       schematic('service', options),
       schematic('ngrx', options),
       schematic('type', {
         ...options,
         name: `${options.name}-state`
-      }),
-      processTemplates(options)
+      })
     ]);
   };
 }
