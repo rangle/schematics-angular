@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { create<%= classify(name)State %> } from '../types/<%= dasherize(name) %>-state/<%= dasherize(name) %>-state.functions';
+import { create<%= classify(name) %>State } from '../types/<%= dasherize(name) %>-state/<%= dasherize(name) %>-state.functions';
 import { <%= classify(name) %>State } from '../types/<%= dasherize(name) %>-state/<%= dasherize(name) %>-state.interface';
 
 import { <%= classify(name) %>Actions } from './<%= dasherize(name) %>.actions';

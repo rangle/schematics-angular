@@ -1,7 +1,6 @@
 import * as strings from '@angular-devkit/core/src/utils/strings';
 import {
   apply,
-  branchAndMerge,
   mergeWith,
   move,
   template,
@@ -17,17 +16,15 @@ export function processTemplates(
   directory: string = options.path,
   mergeStrategy: MergeStrategy = MergeStrategy.Default
 ): Rule {
-  return branchAndMerge(
-    mergeWith(
-      apply(url('./files'), [
-        template({
-          ...strings,
-          ...{ uppercase: (value: string) => value.toUpperCase() },
-          ...options
-        }),
-        move(directory)
-      ]),
-      mergeStrategy
-    )
+  return mergeWith(
+    apply(url('./files'), [
+      template({
+        ...strings,
+        ...{ uppercase: (value: string) => value.toUpperCase() },
+        ...options
+      }),
+      move(directory)
+    ]),
+    mergeStrategy
   );
 }
