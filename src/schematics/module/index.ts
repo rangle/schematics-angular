@@ -4,7 +4,7 @@ import { processTemplates } from '../../types/path-options/path-options.function
 import { validateRegularSchema } from '../../types/schema-options/schema-options.functions';
 import { SchemaOptions } from '../../types/schema-options/schema-options.interface';
 
-export function module(options: SchemaOptions): Rule {
+export default function(options: SchemaOptions): Rule {
   validateRegularSchema(options);
 
   return processTemplates(options);

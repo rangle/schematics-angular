@@ -8,57 +8,57 @@
     },
     "component": {
       "description": "Create a component",
-      "factory": "./component/index#component",
+      "factory": "./component",
       "schema": "./component/schema.json"
     },
     "feature": {
       "description": "Create an entire feature module, complete with module, routes, root component, service, state interface and ngrx infrastructure",
-      "factory": "./feature/index#feature",
+      "factory": "./feature",
       "schema": "./feature/schema.json"
     },
     "module": {
       "description": "Create a module for a feature",
-      "factory": "./module/index#module",
+      "factory": "./module",
       "schema": "./module/schema.json"
     },
     "routes": {
       "description": "Create a routing module for a feature",
-      "factory": "./routes/index#routes",
+      "factory": "./routes",
       "schema": "./routes/schema.json"
     },
     "service": {
       "description": "Create a service",
-      "factory": "./service/index#service",
+      "factory": "./service",
       "schema": "./service/schema.json"
     },
     "type": {
       "description": "Create the type with interface and functions files",
-      "factory": "./type/index#type",
+      "factory": "./type",
       "schema": "./type/schema.json"
     },
     "ngrx": {
       "description": "Create all @ngrx files for a feature",
-      "factory": "./ngrx/index#ngrx",
+      "factory": "./ngrx",
       "schema": "./ngrx/schema.json"
     },
     "ngrx-store": {
       "description": "Create an @ngrx store service for a feature",
-      "factory": "./ngrx-store/index#ngrxStore",
+      "factory": "./ngrx-store",
       "schema": "./ngrx-store/schema.json"
     },
     "ngrx-actions": {
       "description": "Create an @ngrx actions file for a feature",
-      "factory": "./ngrx-actions/index#ngrxActions",
+      "factory": "./ngrx-actions",
       "schema": "./ngrx-actions/schema.json"
     },
     "ngrx-reducer": {
       "description": "Create an @ngrx reducer function for a feature",
-      "factory": "./ngrx-reducer/index#ngrxReducer",
+      "factory": "./ngrx-reducer",
       "schema": "./ngrx-reducer/schema.json"
     },
     "ngrx-effects": {
       "description": "Create an @ngrx effects service for a feature",
-      "factory": "./ngrx-effects/index#ngrxEffects",
+      "factory": "./ngrx-effects",
       "schema": "./ngrx-effects/schema.json"
     }
   }

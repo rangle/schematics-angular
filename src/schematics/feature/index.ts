@@ -7,7 +7,7 @@ import {
   validateRegularSchema
 } from '../../types/schema-options/schema-options.functions';
 
-export function feature(options: ProjectSchemaOptions): Rule {
+export default function(options: ProjectSchemaOptions): Rule {
   validateRegularSchema(options);
 
   return (tree: Tree) => {

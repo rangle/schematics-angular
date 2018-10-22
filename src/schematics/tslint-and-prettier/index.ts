@@ -1,5 +1,9 @@
 import { chain, MergeStrategy, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { addPackageJsonDependency, NodeDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import {
+  addPackageJsonDependency,
+  NodeDependency,
+  NodeDependencyType
+} from '@schematics/angular/utility/dependencies';
 
 import { processTemplates } from '../../types/path-options/path-options.functions';
 import { PathOptions } from '../../types/path-options/path-options.interface';
