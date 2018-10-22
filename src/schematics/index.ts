@@ -8,4 +8,5 @@ export * from './ngrx-reducer';
 export * from './ngrx-store';
 export * from './routes';
 export * from './service';
+export * from './tslint-and-prettier';
 export * from './type';
