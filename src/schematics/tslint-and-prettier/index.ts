@@ -1,4 +1,4 @@
-import { chain, MergeStrategy, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import {
   addPackageJsonDependency,
   NodeDependency,
@@ -15,7 +15,7 @@ const dependencies: NodeDependency[] = [
 
 export default function(options: PathOptions): Rule {
   return chain([
-    processTemplates(options, '/', MergeStrategy.AllowOverwriteConflict),
+    processTemplates(options, '/', true),
     (tree: Tree, context: SchematicContext) => {
       dependencies.forEach(dependency => {
         addPackageJsonDependency(tree, dependency);
