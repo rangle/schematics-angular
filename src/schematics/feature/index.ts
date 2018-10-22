@@ -1,9 +1,11 @@
 import { chain, schematic, Rule, Tree } from '@angular-devkit/schematics';
 
+import { Folders } from '../../types/folders/folders.enum';
+import { processTemplates } from '../../types/path-options/path-options.functions';
 import { getProjectPrefix } from '../../types/project-schema-options/project-schema-options.functions';
 import { ProjectSchemaOptions } from '../../types/project-schema-options/project-schema-options.interface';
 import {
-  getModulePath,
+  getContainingFolderPath,
   validateRegularSchema
 } from '../../types/schema-options/schema-options.functions';
 
@@ -11,7 +13,7 @@ export default function(options: ProjectSchemaOptions): Rule {
   validateRegularSchema(options);
 
   return (tree: Tree) => {
-    options.path = getModulePath(options);
+    options.path = `${getContainingFolderPath(options.path, Folders.Features)}/${options.name}`;
     options.prefix = getProjectPrefix(tree, options);
 
     return chain([
@@ -22,8 +24,7 @@ export default function(options: ProjectSchemaOptions): Rule {
         ...options,
         name: `${options.name}-state`
       }),
-      schematic('routes', options),
-      schematic('module', options)
+      processTemplates(options)
     ]);
   };
 }

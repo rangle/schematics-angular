@@ -1,7 +1,5 @@
 import { SchematicsException, Tree } from '@angular-devkit/schematics';
 
-import { Folders } from '../folders/folders.enum';
-
 import { SchemaOptions } from './schema-options.interface';
 
 export function validateRegularSchema(options: SchemaOptions) {
@@ -12,13 +10,6 @@ export function validateRegularSchema(options: SchemaOptions) {
 
 export function getContainingFolderPath(path: string, folder: string) {
   return path.endsWith(folder) ? path : `${path}${folder}`;
-}
-
-export function getModulePath(options: SchemaOptions) {
-  return (
-    (options.path ? `${getContainingFolderPath(options.path, Folders.Modules)}` : 'src') +
-    `/${options.name}`
-  );
 }
 
 export function updateBarrelFile(tree: Tree, options: SchemaOptions, newContent: string | Buffer) {

@@ -21,6 +21,6 @@
     }
   },
   "required": [
-    "name"
+    "name", "path"
   ]
 }

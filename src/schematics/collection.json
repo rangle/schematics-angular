@@ -2,29 +2,24 @@
   "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
     "tslint-and-prettier": {
-      "description": "Replaces TSLint Settings with Rangle preferred TSLint and Prettier Settings",
+      "description": "Add TSLint and Prettier. Creates/replaces TSLint and Prettier settings with recommended configuration",
       "factory": "./tslint-and-prettier",
       "schema": "./tslint-and-prettier/schema.json"
+    },
+    "feature": {
+      "description": "Create a feature module, complete with module, routes, root component, service, state interface and ngrx infrastructure",
+      "factory": "./feature",
+      "schema": "./feature/schema.json"
+    },
+    "module": {
+      "description": "Create a module that contains its own ngrx infrastructure without routes and components",
+      "factory": "./module",
+      "schema": "./module/schema.json"
     },
     "component": {
       "description": "Create a component",
       "factory": "./component",
       "schema": "./component/schema.json"
-    },
-    "feature": {
-      "description": "Create an entire feature module, complete with module, routes, root component, service, state interface and ngrx infrastructure",
-      "factory": "./feature",
-      "schema": "./feature/schema.json"
-    },
-    "module": {
-      "description": "Create a module for a feature",
-      "factory": "./module",
-      "schema": "./module/schema.json"
-    },
-    "routes": {
-      "description": "Create a routing module for a feature",
-      "factory": "./routes",
-      "schema": "./routes/schema.json"
     },
     "service": {
       "description": "Create a service",
