@@ -1,9 +1,3 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { EffectsModule } from '@ngrx/effects';
-
-import { <%= classify(name) %>Component } from './components';
 import { <%= classify(name) %>Service } from './services/<%= dasherize(name) %>.service';
 import { <%= classify(name) %>Effects } from './store/<%= dasherize(name) %>.effects';
 import { <%= classify(name) %>Store } from './store/<%= dasherize(name) %>.store';
@@ -17,7 +11,6 @@ import { <%= classify(name) %>Store } from './store/<%= dasherize(name) %>.store
     ])
   ],
   declarations: [
-    <%= classify(name) %>Component
   ],
   exports: [],
   providers: [

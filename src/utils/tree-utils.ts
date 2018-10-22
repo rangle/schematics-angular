@@ -1,5 +1,6 @@
 import { DirEntry, Tree } from '@angular-devkit/schematics';
 import * as typescript from 'typescript';
+import { Change, InsertChange } from '@schematics/angular/utility/change';
 
 export function deleteFile(tree: Tree, filename: string) {
   if (tree.exists(filename)) {
@@ -38,4 +39,16 @@ export function openTypescriptSourceFile(tree: Tree, filename: string): typescri
   }
 
   return null;
+}
+
+export function insertTreeChanges(tree: Tree, filename: string, changes: Change[]) {
+  const declarationRecorder = tree.beginUpdate(filename);
+
+  changes.forEach(change => {
+    if (change instanceof InsertChange) {
+      declarationRecorder.insertLeft(change.pos, change.toAdd);
+    }
+  });
+
+  tree.commitUpdate(declarationRecorder);
 }
