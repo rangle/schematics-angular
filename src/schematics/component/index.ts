@@ -11,7 +11,11 @@ import {
   updateBarrelFile,
   validateRegularSchema
 } from '../../types/schema-options/schema-options.functions';
-import { findParentModuleFilename, insertTreeChanges, openTypescriptSourceFile } from '../../utils/tree-utils';
+import {
+  findParentModuleFilename,
+  insertTreeChanges,
+  openTypescriptSourceFile
+} from '../../utils/tree-utils';
 
 export default function(options: ProjectSchemaOptions): Rule {
   validateRegularSchema(options);

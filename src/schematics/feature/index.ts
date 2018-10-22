@@ -4,6 +4,7 @@ import { Folders } from '../../types/folders/folders.enum';
 import { processTemplates } from '../../types/path-options/path-options.functions';
 import { getProjectPrefix } from '../../types/project-schema-options/project-schema-options.functions';
 import { ProjectSchemaOptions } from '../../types/project-schema-options/project-schema-options.interface';
+import { runTslint } from '../../types/rules/run-tslint';
 import {
   getContainingFolderPath,
   validateRegularSchema
@@ -24,7 +25,8 @@ export default function(options: ProjectSchemaOptions): Rule {
       schematic('type', {
         ...options,
         name: `${options.name}-state`
-      })
+      }),
+      runTslint()
     ]);
   };
 }

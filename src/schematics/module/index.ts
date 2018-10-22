@@ -2,6 +2,7 @@ import { chain, schematic, Rule } from '@angular-devkit/schematics';
 
 import { Folders } from '../../types/folders/folders.enum';
 import { processTemplates } from '../../types/path-options/path-options.functions';
+import { runTslint } from '../../types/rules/run-tslint';
 import {
   getContainingFolderPath,
   validateRegularSchema
@@ -21,7 +22,8 @@ export default function(options: SchemaOptions): Rule {
         ...options,
         name: `${options.name}-state`
       }),
-      processTemplates(options)
+      processTemplates(options),
+      runTslint()
     ]);
   };
 }

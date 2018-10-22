@@ -1,6 +1,6 @@
 import { DirEntry, Tree } from '@angular-devkit/schematics';
-import * as typescript from 'typescript';
 import { Change, InsertChange } from '@schematics/angular/utility/change';
+import * as typescript from 'typescript';
 
 export function deleteFile(tree: Tree, filename: string) {
   if (tree.exists(filename)) {

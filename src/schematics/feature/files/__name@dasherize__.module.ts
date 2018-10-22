@@ -15,8 +15,7 @@ import { <%= classify(name) %>Store } from './store/<%= dasherize(name) %>.store
       <%= classify(name) %>Effects
     ])
   ],
-  declarations: [
-  ],
+  declarations: [],
   exports: [],
   providers: [
     <%= classify(name) %>Service,
