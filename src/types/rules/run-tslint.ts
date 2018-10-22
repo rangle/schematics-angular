@@ -8,7 +8,7 @@ export function runTslint(): Rule {
         ignoreErrors: true,
         tsConfigPath: 'tsconfig.json',
         files: tree.actions.reduce((files, action) => {
-          return action.path.endsWith('.ts') ? files.concat([action.path]) : files;
+          return action.path.endsWith('.ts') ? files.concat([action.path.substr(1)]) : files;
         }, [])
       })
     );
