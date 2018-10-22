@@ -1,15 +1,4 @@
-import * as strings from '@angular-devkit/core/src/utils/strings';
-import {
-  apply,
-  branchAndMerge,
-  mergeWith,
-  move,
-  template,
-  url,
-  Rule,
-  SchematicsException,
-  Tree
-} from '@angular-devkit/schematics';
+import { SchematicsException, Tree } from '@angular-devkit/schematics';
 
 import { Folders } from '../folders/folders.enum';
 
@@ -29,21 +18,6 @@ export function getModulePath(options: SchemaOptions) {
   return (
     (options.path ? `${getContainingFolderPath(options.path, Folders.Modules)}` : 'src') +
     `/${options.name}`
-  );
-}
-
-export function processTemplates(options: SchemaOptions, directory: string = options.path): Rule {
-  return branchAndMerge(
-    mergeWith(
-      apply(url('./files'), [
-        template({
-          ...strings,
-          ...{ uppercase: (value: string) => value.toUpperCase() },
-          ...options
-        }),
-        move(directory)
-      ])
-    )
   );
 }
 

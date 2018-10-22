@@ -1,9 +1,9 @@
 import { Rule } from '@angular-devkit/schematics';
 
 import { Folders } from '../../types/folders/folders.enum';
+import { processTemplates } from '../../types/path-options/path-options.functions';
 import {
   getContainingFolderPath,
-  processTemplates,
   validateRegularSchema
 } from '../../types/schema-options/schema-options.functions';
 import { SchemaOptions } from '../../types/schema-options/schema-options.interface';

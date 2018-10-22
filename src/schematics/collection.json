@@ -1,6 +1,11 @@
 {
   "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
+    "tslint": {
+      "description": "Replaces TSLint Settings with Rangle preferred TSLint and Prettier Settings",
+      "factory": "./tslint/index#tslint",
+      "schema": "./tslint/schema.json"
+    },
     "component": {
       "description": "Create a component",
       "factory": "./component/index#component",
