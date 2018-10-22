@@ -1,13 +1,15 @@
-import { Rule, SchematicContext } from '@angular-devkit/schematics';
+import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { TslintFixTask } from '@angular-devkit/schematics/tasks';
 
 export function runTslint(): Rule {
-  return (_, context: SchematicContext) => {
+  return (tree: Tree, context: SchematicContext) => {
     context.addTask(
       new TslintFixTask({
         ignoreErrors: true,
-        tsConfigPath: '/tsconfig.json',
-        tslintPath: '/tslint.json'
+        tsConfigPath: 'tsconfig.json',
+        files: tree.actions.reduce((files, action) => {
+          return action.path.endsWith('.ts') ? files.concat([action.path]) : files;
+        }, [])
       })
     );
   };
