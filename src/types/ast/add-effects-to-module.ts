@@ -22,11 +22,8 @@ function getNgModuleNodeProperty(
   return properties.length === 1 ? (properties[0] as typescript.PropertyAssignment) : null;
 }
 
-export function getPropertyAssignmentArrayElements(
-  propertyAssignment: typescript.PropertyAssignment
-): typescript.Node[] {
-  return ((propertyAssignment.initializer as typescript.ArrayLiteralExpression)
-    .elements as {}) as typescript.Node[];
+export function getArrayElements(expression: typescript.ArrayLiteralExpression): typescript.Node[] {
+  return (expression.elements as {}) as typescript.Node[];
 }
 
 export function addEffectsToModule(
@@ -37,28 +34,48 @@ export function addEffectsToModule(
 ): Change[] {
   const ngModuleNode = getNgModuleNode(sourceFile);
 
-  if (ngModuleNode) {
-    const propertyAssignment = getNgModuleNodeProperty(ngModuleNode, 'imports');
-
-    if (propertyAssignment) {
-      const elements = getPropertyAssignmentArrayElements(propertyAssignment);
-
-      if (elements.length === 0) {
-        console.log('this array has no imports... how did this happen?');
-      } else if (elements.map(element => element.getText()).includes('EffectsModule')) {
-        console.log('has effects module already');
-      } else {
-        return [
-          new InsertChange(
-            modulePath,
-            elements[elements.length - 1].getEnd(),
-            `, EffectsModule.forFeature([${classifiedName}])`
-          ),
-          insertImport(sourceFile, modulePath, classifiedName, importPath)
-        ];
-      }
-    }
+  if (!ngModuleNode) {
+    return [];
   }
 
-  return [];
+  const propertyAssignment = getNgModuleNodeProperty(ngModuleNode, 'imports');
+
+  if (
+    !propertyAssignment ||
+    propertyAssignment.initializer.kind !== typescript.SyntaxKind.ArrayLiteralExpression
+  ) {
+    return [];
+  }
+
+  const imports = getArrayElements(
+    propertyAssignment.initializer as typescript.ArrayLiteralExpression
+  );
+
+  if (imports.length === 0) {
+    console.log('this array has no imports... how did this happen?');
+
+    return [];
+  }
+
+  const effectsModuleImport = imports.find(element =>
+    element.getText().startsWith('EffectsModule')
+  );
+
+  if (effectsModuleImport && effectsModuleImport.kind === typescript.SyntaxKind.CallExpression) {
+    const effects = (effectsModuleImport as typescript.CallExpression).arguments;
+
+    return [
+      new InsertChange(modulePath, effects[effects.length - 1].end, `, ${classifiedName}`),
+      insertImport(sourceFile, modulePath, classifiedName, importPath)
+    ];
+  } else {
+    return [
+      new InsertChange(
+        modulePath,
+        imports[imports.length - 1].getEnd(),
+        `, EffectsModule.forFeature([${classifiedName}])`
+      ),
+      insertImport(sourceFile, modulePath, classifiedName, importPath)
+    ];
+  }
 }
