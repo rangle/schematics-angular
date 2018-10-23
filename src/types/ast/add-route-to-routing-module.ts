@@ -28,6 +28,8 @@ export function addRouteToRoutingModule(
       'path'
     );
 
+    console.log((pathProperty.initializer as typescript.Identifier).text);
+
     return (pathProperty.initializer as typescript.Identifier).text === '**';
   });
 
