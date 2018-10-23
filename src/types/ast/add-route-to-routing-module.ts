@@ -1,5 +1,4 @@
 import * as strings from '@angular-devkit/core/src/utils/strings';
-import { insertImport } from '@schematics/angular/utility/ast-utils';
 import { Change } from '@schematics/angular/utility/change';
 import * as typescript from 'typescript';
 
