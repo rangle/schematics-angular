@@ -53,7 +53,7 @@ export default function(options: ProjectSchemaOptions): Rule {
               sourceFile,
               moduleFilename,
               strings.classify(`${options.name}Component`),
-              './components'
+              `.${Folders.Components}`
             )
           );
         }
