@@ -4,7 +4,10 @@ import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
-  imports: [],
+  imports: [
+    CommonModule,
+    RouterModule
+  ],
   providers: []
 })
 export class <%= classify(name) %>Module {}

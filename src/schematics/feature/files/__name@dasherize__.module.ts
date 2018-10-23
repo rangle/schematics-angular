@@ -10,6 +10,6 @@ import { EffectsModule } from '@ngrx/effects';
   ],
   declarations: [],
   exports: [],
-  providers: [],
+  providers: []
 })
 export class <%= classify(name) %>Module {}
