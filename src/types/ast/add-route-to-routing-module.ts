@@ -28,9 +28,7 @@ export function addRouteToRoutingModule(
       'path'
     );
 
-    console.log(pathProperty.initializer);
-
-    return true;
+    return (pathProperty.initializer as typescript.Identifier).text === '**';
   });
 
   return [
