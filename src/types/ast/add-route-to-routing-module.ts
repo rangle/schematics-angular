@@ -23,7 +23,7 @@ export function addRouteToRoutingModule(
 
   declarations.forEach(
     declaration => {
-      console.log(declaration.type);
+      console.log((declaration.type as typescript.TypeReferenceNode).typeName);
     }
   );
 
