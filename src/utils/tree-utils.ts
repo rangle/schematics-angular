@@ -8,13 +8,14 @@ export function deleteFile(tree: Tree, filename: string) {
   }
 }
 
-export function findParentModuleFilename(directory: DirEntry): string {
-  const moduleFile = directory.subfiles.find(
-    file => file.endsWith('.module.ts') && !file.includes('-routing')
-  );
+export function findParentFilename(
+  directory: DirEntry,
+  fileMatchesCriteria: (file: string) => boolean
+): string {
+  const pathFragment = directory.subfiles.find(fileMatchesCriteria);
 
-  if (moduleFile) {
-    const fileEntry = directory.file(moduleFile);
+  if (pathFragment) {
+    const fileEntry = directory.file(pathFragment);
 
     if (fileEntry) {
       return fileEntry.path;
@@ -22,6 +23,13 @@ export function findParentModuleFilename(directory: DirEntry): string {
   }
 
   return directory.parent ? findParentModuleFilename(directory.parent) : null;
+}
+
+export function findParentModuleFilename(directory: DirEntry): string {
+  return findParentFilename(
+    directory,
+    file => file.endsWith('.module.ts') && !file.includes('-routing')
+  );
 }
 
 export function openTypescriptSourceFile(tree: Tree, filename: string): typescript.SourceFile {
