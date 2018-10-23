@@ -45,6 +45,15 @@ export function findParentModuleFilenameInTree(tree: Tree, options: SchemaOption
   );
 }
 
+export function findParentRoutingModuleFilenameInTree(tree: Tree, options: SchemaOptions): string {
+  return findFilenameInTree(
+    tree.getDir(options.path),
+    file =>
+      file.endsWith('-routing.module.ts') &&
+      file !== `${strings.dasherize(options.name)}-routing.module.ts`
+  );
+}
+
 export function openTypescriptSourceFile(tree: Tree, filename: string): typescript.SourceFile {
   if (filename) {
     const sourceText = tree.read(filename);

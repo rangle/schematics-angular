@@ -15,29 +15,27 @@ import { findParentModuleFilenameInTree } from '../../utils/tree-utils';
 export default function(options: SchemaOptions): Rule {
   validateRegularSchema(options);
 
-  return () => {
-    options.path = `${getContainingFolderPath(options.path, Folders.Modules)}/${options.name}`;
+  options.path = `${getContainingFolderPath(options.path, Folders.Modules)}/${options.name}`;
 
-    return chain([
-      processTemplates(options),
-      schematic('service', options),
-      schematic('ngrx', options),
-      schematic('type', {
-        ...options,
-        name: `${options.name}-state`
-      }),
-      modifySourceFileRule(
-        tree => findParentModuleFilenameInTree(tree, options),
-        (sourceFile, moduleFilename) =>
-          addImportToModule(
-            sourceFile,
-            moduleFilename,
-            strings.classify(`${options.name}Module`),
-            `.${Folders.Modules}/${strings.dasherize(options.name)}/${strings.dasherize(
-              options.name
-            )}.module`
-          )
-      )
-    ]);
-  };
+  return chain([
+    processTemplates(options),
+    schematic('service', options),
+    schematic('ngrx', options),
+    schematic('type', {
+      ...options,
+      name: `${options.name}-state`
+    }),
+    modifySourceFileRule(
+      tree => findParentModuleFilenameInTree(tree, options),
+      (sourceFile, moduleFilename) =>
+        addImportToModule(
+          sourceFile,
+          moduleFilename,
+          strings.classify(`${options.name}Module`),
+          `.${Folders.Modules}/${strings.dasherize(options.name)}/${strings.dasherize(
+            options.name
+          )}.module`
+        )
+    )
+  ]);
 }
