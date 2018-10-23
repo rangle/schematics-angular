@@ -33,7 +33,7 @@ export default function(options: SchemaOptions): Rule {
             sourceFile,
             moduleFilename,
             strings.classify(`${options.name}Module`),
-            `.${Folders.Modules}/${strings.dasherize(options.name)}.module`
+            `.${Folders.Modules}/${strings.dasherize(options.name)}/${strings.dasherize(options.name)}.module`
           )
       )
     ]);
