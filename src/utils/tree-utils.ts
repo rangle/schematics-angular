@@ -22,7 +22,7 @@ export function findParentFilename(
     }
   }
 
-  return directory.parent ? findParentModuleFilename(directory.parent) : null;
+  return directory.parent ? findParentFilename(directory.parent, fileMatchesCriteria) : null;
 }
 
 export function findParentModuleFilename(directory: DirEntry): string {
