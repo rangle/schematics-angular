@@ -41,10 +41,6 @@ export function addEffectsToModule(
     propertyAssignment.initializer as typescript.ArrayLiteralExpression
   );
 
-  if (imports.length === 0) {
-    return [];
-  }
-
   const effectsModuleImport = imports.find(element =>
     element.getText().startsWith('EffectsModule')
   );
