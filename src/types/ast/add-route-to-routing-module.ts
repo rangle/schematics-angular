@@ -28,9 +28,7 @@ export function addRouteToRoutingModule(
       'path'
     );
 
-    console.log(pathProperty);
-
-    return true;
+    return pathProperty.initializer.getText() !== '**';
   });
 
   return [
