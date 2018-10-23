@@ -12,16 +12,16 @@ export function getNgModuleNode(
     : null;
 }
 
-export function getNgModuleNodeProperty(
-  ngModuleNode: typescript.ObjectLiteralExpression,
+export function getObjectProperty(
+  properties: typescript.NodeArray<typescript.ObjectLiteralElement>,
   propertyName: string
 ): typescript.PropertyAssignment {
-  const properties = ngModuleNode.properties
+  return properties
     .filter(property => property.kind === typescript.SyntaxKind.PropertyAssignment)
     .filter(property => property.name.kind === typescript.SyntaxKind.Identifier)
-    .filter(property => (property.name as typescript.Identifier).text === propertyName);
-
-  return properties.length === 1 ? (properties[0] as typescript.PropertyAssignment) : null;
+    .find(
+      property => (property.name as typescript.Identifier).text === propertyName
+    ) as typescript.PropertyAssignment;
 }
 
 export function getArrayElements(expression: typescript.ArrayLiteralExpression): typescript.Node[] {

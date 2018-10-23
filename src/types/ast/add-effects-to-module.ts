@@ -5,7 +5,7 @@ import * as typescript from 'typescript';
 import {
   getArrayElements,
   getNgModuleNode,
-  getNgModuleNodeProperty,
+  getObjectProperty,
   insertIntoArray
 } from './ast-helpers';
 
@@ -21,7 +21,7 @@ export function addEffectsToModule(
     return [];
   }
 
-  const propertyAssignment = getNgModuleNodeProperty(ngModuleNode, 'imports');
+  const propertyAssignment = getObjectProperty(ngModuleNode.properties, 'imports');
 
   if (
     !propertyAssignment ||

@@ -4,21 +4,13 @@ import * as typescript from 'typescript';
 
 import { Folders } from '../folders/folders.enum';
 
-import { getArrayElements, insertIntoArray } from './ast-helpers';
-
-function printAllChildren(node: typescript.Node, depth = 0) {
-  console.log(new Array(depth + 1).join('--'), node.kind, node.pos, node.end);
-  depth++;
-  node.getChildren().forEach(c => printAllChildren(c, depth));
-}
+import { getArrayElements, getObjectProperty, insertIntoArray } from './ast-helpers';
 
 export function addRouteToRoutingModule(
   sourceFile: typescript.SourceFile,
   modulePath: string,
   name: string
 ): Change[] {
-  printAllChildren(sourceFile);
-
   const variableStatement = sourceFile.statements.find(
     statement => statement.kind === typescript.SyntaxKind.VariableStatement
   );
@@ -28,13 +20,18 @@ export function addRouteToRoutingModule(
       (declaration.type as typescript.TypeReferenceNode).typeName.getText() === 'Routes'
   );
 
-  console.log('routes declaration', routesDeclaration);
-
   const routes = getArrayElements(
     routesDeclaration.initializer as typescript.ArrayLiteralExpression
-  );
+  ).filter(route => {
+    const pathProperty = getObjectProperty(
+      (route as typescript.ObjectLiteralExpression).properties,
+      'path'
+    );
 
-  console.log(routes);
+    console.log(pathProperty);
+
+    return true;
+  });
 
   return [
     insertIntoArray(
@@ -44,7 +41,7 @@ export function addRouteToRoutingModule(
         Folders.Features
       }/${strings.dasherize(name)}/${strings.dasherize(name)}.module#${strings.classify(
         name
-      )}Module }`
+      )}Module' }`
     )
   ];
 }
