@@ -7,11 +7,17 @@ export function addRouteToRoutingModule(
   classifiedName: string,
   importPath: string
 ): Change[] {
-  console.log(
-    sourceFile.statements.find(
-      statement => statement.kind === typescript.SyntaxKind.VariableStatement
-    )
+  const variableStatement = sourceFile.statements.find(
+    statement => statement.kind === typescript.SyntaxKind.VariableStatement
   );
+
+  const declarations = (variableStatement as typescript.VariableStatement).declarationList.declarations;
+
+  console.log(declarations);
+
+  /*const routes = declarations.find(
+    declaration => declaration.type === 'Routes'
+  );*/
 
   return [];
 }
