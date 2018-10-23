@@ -13,9 +13,12 @@ export function addRouteToRoutingModule(
 
   const declarations = (variableStatement as typescript.VariableStatement).declarationList.declarations;
 
-  console.log(declarations.forEach(
-    declaration => (declaration.type as typescript.TypeReferenceNode).typeName
-  ));
+  declarations.forEach(
+    declaration => {
+      console.log(declaration.type);
+      console.log((declaration.type as typescript.TypeReferenceNode).typeName);
+    }
+  );
 
   /*const routes = declarations.find(
     declaration => (declaration.type as typescript.TypeReferenceNode).typeName === 'Routes'
