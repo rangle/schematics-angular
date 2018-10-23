@@ -1,4 +1,3 @@
-import * as strings from '@angular-devkit/core/src/utils/strings';
 import { chain, schematic, Rule, Tree } from '@angular-devkit/schematics';
 
 import { addRouteToRoutingModule } from '../../types/ast/add-route-to-routing-module';
@@ -35,14 +34,7 @@ export default function(options: ProjectSchemaOptions): Rule {
     modifySourceFileRule(
       tree => findParentRoutingModuleFilenameInTree(tree, options),
       (sourceFile, moduleFilename) =>
-        addRouteToRoutingModule(
-          sourceFile,
-          moduleFilename,
-          strings.classify(`${options.name}Module`),
-          `.${Folders.Modules}/${strings.dasherize(options.name)}/${strings.dasherize(
-            options.name
-          )}.module`
-        )
+        addRouteToRoutingModule(sourceFile, moduleFilename, options.name)
     )
   ]);
 }
