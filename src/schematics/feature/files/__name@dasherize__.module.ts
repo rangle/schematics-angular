@@ -6,7 +6,8 @@ import { EffectsModule } from '@ngrx/effects';
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    EffectsModule.forFeature([])
   ],
   declarations: [],
   exports: [],

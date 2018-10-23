@@ -26,6 +26,18 @@ export function getArrayElements(expression: typescript.ArrayLiteralExpression):
   return (expression.elements as {}) as typescript.Node[];
 }
 
+export function insertIntoArray(
+  modulePath: string,
+  array: typescript.Node[],
+  symbolToInsert: string
+): Change {
+  return new InsertChange(
+    modulePath,
+    array.length >= 1 ? array[array.length - 1].end : (array as {} as typescript.TextRange).end,
+    array.length >= 1 ? `, ${symbolToInsert}` : symbolToInsert
+  );
+}
+
 export function addEffectsToModule(
   sourceFile: typescript.SourceFile,
   modulePath: string,
@@ -52,8 +64,6 @@ export function addEffectsToModule(
   );
 
   if (imports.length === 0) {
-    console.log('this array has no imports... how did this happen?');
-
     return [];
   }
 
@@ -63,26 +73,15 @@ export function addEffectsToModule(
 
   if (effectsModuleImport && effectsModuleImport.kind === typescript.SyntaxKind.CallExpression) {
     const forFeatureArguments = (effectsModuleImport as typescript.CallExpression).arguments;
-
-    const effectsArray = getArrayElements(
-      forFeatureArguments[0] as typescript.ArrayLiteralExpression
-    );
+    const effects = getArrayElements(forFeatureArguments[0] as typescript.ArrayLiteralExpression);
 
     return [
-      new InsertChange(
-        modulePath,
-        effectsArray[effectsArray.length - 1].end,
-        `, ${classifiedName}`
-      ),
+      insertIntoArray(modulePath, effects, classifiedName),
       insertImport(sourceFile, modulePath, classifiedName, importPath)
     ];
   } else {
     return [
-      new InsertChange(
-        modulePath,
-        imports[imports.length - 1].getEnd(),
-        `, EffectsModule.forFeature([${classifiedName}])`
-      ),
+      insertIntoArray(modulePath, imports, `EffectsModule.forFeature([${classifiedName}])`),
       insertImport(sourceFile, modulePath, classifiedName, importPath)
     ];
   }
