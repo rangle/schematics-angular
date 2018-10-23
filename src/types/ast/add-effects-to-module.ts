@@ -30,7 +30,7 @@ export function addEffectsToModule(
     return [
       new InsertChange(
         modulePath,
-        ngModuleNode.pos,
+        ngModuleNode.properties.pos,
         `imports: [EffectsModule.forFeature([${classifiedName}])],`
       ),
       insertImport(sourceFile, modulePath, classifiedName, importPath)
