@@ -23,7 +23,7 @@ export function addRouteToRoutingModule(
 
   declarations.forEach(
     declaration => {
-      console.log(declaration.type._typeNodeBrand);
+      console.log(declaration.type);
     }
   );
 
