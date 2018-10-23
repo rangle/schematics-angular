@@ -9,8 +9,6 @@ export function runTslintFix(path: string): Rule {
       file.includes('tslint.json')
     );
 
-    console.log(tslintConfigFilename);
-
     if (tslintConfigFilename) {
       context.addTask(
         new TslintFixTask({
