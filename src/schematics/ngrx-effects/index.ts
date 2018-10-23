@@ -1,7 +1,7 @@
 import * as strings from '@angular-devkit/core/src/utils/strings';
 import { chain, Rule } from '@angular-devkit/schematics';
-import { addImportToModule } from '@schematics/angular/utility/ast-utils';
 
+import { addEffectsToModule } from '../../types/ast/add-effects-to-module';
 import { Folders } from '../../types/folders/folders.enum';
 import { processTemplates } from '../../types/path-options/path-options.functions';
 import { modifySourceFileRule } from '../../types/rules/modify-source-file.rule';
@@ -22,10 +22,10 @@ export default function(options: SchemaOptions): Rule {
     modifySourceFileRule(
       tree => findModuleFilenameInTree(tree, options),
       (sourceFile, moduleFilename) =>
-        addImportToModule(
+        addEffectsToModule(
           sourceFile,
           moduleFilename,
-          `EffectsModule.forFeature([${strings.classify(`${options.name}Effects`)}])`,
+          strings.classify(`${options.name}Effects`),
           `.${Folders.Store}/${strings.dasherize(options.name)}.effects`
         )
     )
