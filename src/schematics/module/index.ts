@@ -1,8 +1,10 @@
+import * as strings from '@angular-devkit/core/src/utils/strings';
 import { chain, schematic, Rule } from '@angular-devkit/schematics';
+import { addImportToModule } from '@schematics/angular/utility/ast-utils';
 
 import { Folders } from '../../types/folders/folders.enum';
 import { processTemplates } from '../../types/path-options/path-options.functions';
-import { runTslintFix } from '../../types/rules/run-tslint-fix';
+import { modifyParentModuleSourceFile } from '../../types/rules/modify-parent-module-source-file';
 import {
   getContainingFolderPath,
   validateRegularSchema
@@ -23,7 +25,14 @@ export default function(options: SchemaOptions): Rule {
         ...options,
         name: `${options.name}-state`
       }),
-      runTslintFix(options.path)
+      modifyParentModuleSourceFile(options, (sourceFile, moduleFilename) =>
+        addImportToModule(
+          sourceFile,
+          moduleFilename,
+          strings.classify(`${options.name}Service`),
+          `.${Folders.Services}/${strings.dasherize(options.name)}.service`
+        )
+      )
     ]);
   };
 }
