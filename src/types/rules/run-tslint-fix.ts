@@ -13,8 +13,7 @@ export function runTslintFix(path: string): Rule {
       context.addTask(
         new TslintFixTask({
           ignoreErrors: true,
-          tslintPath: tslintConfigFilename,
-          tsConfigPath: 'tsconfig.json'
+          tslintPath: tslintConfigFilename
         })
       );
     }
