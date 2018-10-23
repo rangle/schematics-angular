@@ -1,5 +1,5 @@
 import { insertImport } from '@schematics/angular/utility/ast-utils';
-import { Change } from '@schematics/angular/utility/change';
+import { Change, InsertChange } from '@schematics/angular/utility/change';
 import * as typescript from 'typescript';
 
 import {
@@ -27,7 +27,14 @@ export function addEffectsToModule(
     !propertyAssignment ||
     propertyAssignment.initializer.kind !== typescript.SyntaxKind.ArrayLiteralExpression
   ) {
-    return [];
+    return [
+      new InsertChange(
+        modulePath,
+        ngModuleNode.pos,
+        `imports: [EffectsModule.forFeature([${classifiedName}])],`
+      ),
+      insertImport(sourceFile, modulePath, classifiedName, importPath)
+    ];
   }
 
   const imports = getArrayElements(
