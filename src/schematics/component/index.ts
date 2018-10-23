@@ -6,12 +6,13 @@ import { Folders } from '../../types/folders/folders.enum';
 import { processTemplates } from '../../types/path-options/path-options.functions';
 import { getProjectPrefix } from '../../types/project-schema-options/project-schema-options.functions';
 import { ProjectSchemaOptions } from '../../types/project-schema-options/project-schema-options.interface';
-import { modifyParentModuleSourceFile } from '../../types/rules/modify-parent-module-source-file';
+import { modifySourceFileRule } from '../../types/rules/modify-source-file.rule';
 import {
   getContainingFolderPath,
   updateBarrelFile,
   validateRegularSchema
 } from '../../types/schema-options/schema-options.functions';
+import { findModuleFilenameInTree } from '../../utils/tree-utils';
 
 export default function(options: ProjectSchemaOptions): Rule {
   validateRegularSchema(options);
@@ -35,13 +36,15 @@ export default function(options: ProjectSchemaOptions): Rule {
 
       return tree;
     },
-    modifyParentModuleSourceFile(options, (sourceFile, moduleFilename) =>
-      addDeclarationToModule(
-        sourceFile,
-        moduleFilename,
-        strings.classify(`${options.name}Component`),
-        `.${Folders.Components}`
-      )
+    modifySourceFileRule(
+      tree => findModuleFilenameInTree(tree, options),
+      (sourceFile, moduleFilename) =>
+        addDeclarationToModule(
+          sourceFile,
+          moduleFilename,
+          strings.classify(`${options.name}Component`),
+          `.${Folders.Components}`
+        )
     )
   ]);
 }

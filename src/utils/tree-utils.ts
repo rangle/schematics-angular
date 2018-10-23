@@ -1,6 +1,9 @@
+import * as strings from '@angular-devkit/core/src/utils/strings';
 import { DirEntry, Tree } from '@angular-devkit/schematics';
 import { Change, InsertChange } from '@schematics/angular/utility/change';
 import * as typescript from 'typescript';
+
+import { SchemaOptions } from '../types/schema-options/schema-options.interface';
 
 export function deleteFile(tree: Tree, filename: string) {
   if (tree.exists(filename)) {
@@ -8,7 +11,7 @@ export function deleteFile(tree: Tree, filename: string) {
   }
 }
 
-export function findParentFilename(
+export function findFilenameInTree(
   directory: DirEntry,
   fileMatchesCriteria: (file: string) => boolean
 ): string {
@@ -22,13 +25,23 @@ export function findParentFilename(
     }
   }
 
-  return directory.parent ? findParentFilename(directory.parent, fileMatchesCriteria) : null;
+  return directory.parent ? findFilenameInTree(directory.parent, fileMatchesCriteria) : null;
 }
 
-export function findParentModuleFilename(directory: DirEntry): string {
-  return findParentFilename(
-    directory,
+export function findModuleFilenameInTree(tree: Tree, options: SchemaOptions): string {
+  return findFilenameInTree(
+    tree.getDir(options.path),
     file => file.endsWith('.module.ts') && !file.includes('-routing')
+  );
+}
+
+export function findParentModuleFilenameInTree(tree: Tree, options: SchemaOptions): string {
+  return findFilenameInTree(
+    tree.getDir(options.path),
+    file =>
+      file.endsWith('.module.ts') &&
+      !file.includes('-routing') &&
+      file !== `${strings.dasherize(options.name)}.module.ts`
   );
 }
 

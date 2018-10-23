@@ -1,7 +1,7 @@
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { addPackageJsonDependency, NodeDependency } from '@schematics/angular/utility/dependencies';
 
-export function addNpmDependencies(dependencies: NodeDependency[]): Rule {
+export function addNpmDependenciesRule(dependencies: NodeDependency[]): Rule {
   return (tree: Tree, context: SchematicContext) => {
     dependencies.forEach(dependency => {
       addPackageJsonDependency(tree, dependency);

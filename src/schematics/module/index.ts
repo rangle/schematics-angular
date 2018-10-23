@@ -4,12 +4,13 @@ import { addImportToModule } from '@schematics/angular/utility/ast-utils';
 
 import { Folders } from '../../types/folders/folders.enum';
 import { processTemplates } from '../../types/path-options/path-options.functions';
-import { modifyParentModuleSourceFile } from '../../types/rules/modify-parent-module-source-file';
+import { modifySourceFileRule } from '../../types/rules/modify-source-file.rule';
 import {
   getContainingFolderPath,
   validateRegularSchema
 } from '../../types/schema-options/schema-options.functions';
 import { SchemaOptions } from '../../types/schema-options/schema-options.interface';
+import { findParentModuleFilenameInTree } from '../../utils/tree-utils';
 
 export default function(options: SchemaOptions): Rule {
   validateRegularSchema(options);
@@ -25,13 +26,15 @@ export default function(options: SchemaOptions): Rule {
         ...options,
         name: `${options.name}-state`
       }),
-      modifyParentModuleSourceFile(options, (sourceFile, moduleFilename) =>
-        addImportToModule(
-          sourceFile,
-          moduleFilename,
-          strings.classify(`${options.name}Service`),
-          `.${Folders.Services}/${strings.dasherize(options.name)}.service`
-        )
+      modifySourceFileRule(
+        tree => findParentModuleFilenameInTree(tree, options),
+        (sourceFile, moduleFilename) =>
+          addImportToModule(
+            sourceFile,
+            moduleFilename,
+            strings.classify(`${options.name}Module`),
+            `.${Folders.Modules}/${strings.dasherize(options.name)}.module`
+          )
       )
     ]);
   };

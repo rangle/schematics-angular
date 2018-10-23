@@ -3,18 +3,18 @@ import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 
 import { processTemplates } from '../../types/path-options/path-options.functions';
 import { PathOptions } from '../../types/path-options/path-options.interface';
-import { addNpmDependencies } from '../../types/rules/add-npm-dependencies';
-import { deleteFiles } from '../../types/rules/delete-files';
-import { runNpmInstall } from '../../types/rules/run-npm-install';
+import { addNpmDependenciesRule } from '../../types/rules/add-npm-dependencies.rule';
+import { deleteFilesRule } from '../../types/rules/delete-files.rule';
+import { runNpmInstallRule } from '../../types/rules/run-npm-install.rule';
 
 export default function(options: PathOptions): Rule {
   return chain([
-    deleteFiles(['/tslint.json', '/prettier.config.js']),
+    deleteFilesRule(['/tslint.json', '/prettier.config.js']),
     processTemplates(options, '/'),
-    addNpmDependencies([
+    addNpmDependenciesRule([
       { type: NodeDependencyType.Dev, version: '^1.14.3', name: 'prettier' },
       { type: NodeDependencyType.Dev, version: '^1.15.0', name: 'tslint-config-prettier' }
     ]),
-    runNpmInstall()
+    runNpmInstallRule()
   ]);
 }
