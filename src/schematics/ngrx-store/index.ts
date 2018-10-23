@@ -1,7 +1,10 @@
-import { Rule } from '@angular-devkit/schematics';
+import * as strings from '@angular-devkit/core/src/utils/strings';
+import { chain, Rule } from '@angular-devkit/schematics';
+import { addProviderToModule } from '@schematics/angular/utility/ast-utils';
 
 import { Folders } from '../../types/folders/folders.enum';
 import { processTemplates } from '../../types/path-options/path-options.functions';
+import { modifyParentModuleSourceFile } from '../../types/rules/modify-parent-module-source-file';
 import {
   getContainingFolderPath,
   validateRegularSchema
@@ -13,5 +16,15 @@ export default function(options: SchemaOptions): Rule {
 
   options.path = getContainingFolderPath(options.path, Folders.Store);
 
-  return processTemplates(options, options.path);
+  return chain([
+    processTemplates(options, options.path),
+    modifyParentModuleSourceFile(options, (sourceFile, moduleFilename) =>
+      addProviderToModule(
+        sourceFile,
+        moduleFilename,
+        strings.classify(`${options.name}Store`),
+        `.${Folders.Store}/${strings.dasherize(options.name)}.store`
+      )
+    )
+  ]);
 }

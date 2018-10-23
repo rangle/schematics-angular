@@ -16,13 +16,13 @@ export default function(options: SchemaOptions): Rule {
     options.path = `${getContainingFolderPath(options.path, Folders.Modules)}/${options.name}`;
 
     return chain([
+      processTemplates(options),
       schematic('service', options),
       schematic('ngrx', options),
       schematic('type', {
         ...options,
         name: `${options.name}-state`
       }),
-      processTemplates(options),
       runTslintFix(options.path)
     ]);
   };
