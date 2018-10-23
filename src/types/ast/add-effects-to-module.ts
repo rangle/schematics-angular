@@ -42,14 +42,17 @@ export function addEffectsToModule(
 
     if (propertyAssignment) {
       const elements = getPropertyAssignmentArrayElements(propertyAssignment);
-      if (elements.map(element => element.getText()).includes('EffectsModule')) {
-        console.log('has effects module');
+
+      if (elements.length === 0) {
+        console.log('this array has no imports... how did this happen?');
+      } else if (elements.map(element => element.getText()).includes('EffectsModule')) {
+        console.log('has effects module already');
       } else {
         return [
           new InsertChange(
             modulePath,
             elements[elements.length - 1].getEnd(),
-            `EffectsModule.forFeature([${classifiedName}])`
+            `, EffectsModule.forFeature([${classifiedName}])`
           ),
           insertImport(sourceFile, modulePath, classifiedName, importPath)
         ];
