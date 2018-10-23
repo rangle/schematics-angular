@@ -62,10 +62,18 @@ export function addEffectsToModule(
   );
 
   if (effectsModuleImport && effectsModuleImport.kind === typescript.SyntaxKind.CallExpression) {
-    const effects = (effectsModuleImport as typescript.CallExpression).arguments;
+    const forFeatureArguments = (effectsModuleImport as typescript.CallExpression).arguments;
+
+    const effectsArray = getArrayElements(
+      forFeatureArguments[0] as typescript.ArrayLiteralExpression
+    );
 
     return [
-      new InsertChange(modulePath, effects[effects.length - 1].end, `, ${classifiedName}`),
+      new InsertChange(
+        modulePath,
+        effectsArray[effectsArray.length - 1].end,
+        `, ${classifiedName}`
+      ),
       insertImport(sourceFile, modulePath, classifiedName, importPath)
     ];
   } else {
