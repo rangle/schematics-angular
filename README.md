@@ -109,7 +109,7 @@ CREATE /src/app/modules/my-module/types/my-module-state/my-module-state.interfac
 UPDATE /src/app/app.module.ts (2445 bytes)
 ```
 
-#### Creating components
+#### Creating Components
 
 Creating components is equally easy - make sure to point the `path`
 to the module/feature folder you wish the component to be located:
@@ -117,6 +117,9 @@ to the module/feature folder you wish the component to be located:
 ```bash
 schematics @egervari/schematics-angular:component --name=my-form --path=src/app --prefix=rng
 ```
+
+If your path currently does not have a `/components` folder, the
+schematic will create one for you.
 
 You should see the following files be created/updated when running this
 schematic:
@@ -129,17 +132,48 @@ UPDATE /src/app/components/index.ts (192 bytes)
 UPDATE /src/app/app.module.ts (2484 bytes)
 ```
 
-#### Creating Other Stuff
+#### Creating Services
 
-There's also schematics for creating many other types of code artifacts:
+Creates a service and updates the containing module file.
 
-- `service`: Creates a service and updates the containing module file
-- `type`: Creates a paired interface and functions file for a given
-          model
-- `ngrx`: Creates the store, actions, reducer and effects files and
-          wires these up with the containing module. This won't be used
-          very often since you should ideally have 1 store per module or
-          feature anyway.
+Note that this schematic does not require a `prefix` parameter.
+
+```bash
+schematics @egervari/schematics-angular:service --name=my-api --pat
+h=src/app
+```
+
+If your path currently does not have a `/services` folder, the
+schematic will create one for you.
+
+You should see the following files be created/updated when running this
+schematic:
+
+```bash
+CREATE /src/app/services/my-api.service.ts (200 bytes)
+UPDATE /src/app/app.module.ts (2561 bytes)
+```
+
+#### Creating Types
+
+Creates a paired interface and functions file for a given model.
+
+Note that this schematic does not require a `prefix` parameter.
+
+```bash
+schematics @egervari/schematics-angular:type --name=user-profile --path=src/app
+```
+
+If your path currently does not have a `/types` folder, the
+schematic will create one for you.
+
+You should see the following files be created when running this
+schematic:
+
+```bash
+CREATE /src/app/types/user-profile/user-profile.functions.ts (150 bytes)
+CREATE /src/app/types/user-profile/user-profile.interface.ts (56 bytes)
+```
 
 ### Using Schematics Through WebStorm
 
