@@ -54,9 +54,9 @@ export default function() {
     },
     (tree: Tree) => {
       tree.overwrite(
-        'src/app.module.ts',
+        'src/app/app.module.ts',
         tree
-          .read('src/app.module.ts')
+          .read('src/app/app.module.ts')
           .toString()
           .replace(`'./app.component'`, `'./components'`)
           .replace(`'./app.effects'`, `'./store/app.effects'`)
