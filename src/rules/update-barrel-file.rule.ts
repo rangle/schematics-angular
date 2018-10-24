@@ -1,10 +1,8 @@
 import { Rule, Tree } from '@angular-devkit/schematics';
 
-import { SchemaOptions } from '../types/schema-options/schema-options.interface';
-
-export function updateBarrelFile(options: SchemaOptions, newContent: string | Buffer): Rule {
+export function updateBarrelFile(path: string, newContent: string | Buffer): Rule {
   return (tree: Tree) => {
-    const barrelFile = options.path + '/index.ts';
+    const barrelFile = path + '/index.ts';
 
     if (!tree.exists(barrelFile)) {
       tree.create(barrelFile, newContent);

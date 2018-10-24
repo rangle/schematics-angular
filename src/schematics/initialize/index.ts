@@ -1,8 +1,11 @@
 import { chain, schematic, Tree } from '@angular-devkit/schematics';
 
+import { updateBarrelFile } from '../../rules/update-barrel-file.rule';
+
 export default function() {
   return chain([
     schematic('tslint-and-prettier', {}),
+    updateBarrelFile('src/app/components', `export * from './app/app.component.ts'`),
     (tree: Tree) => {
       const filesToDelete = ['src/app/app.component.spec.ts', 'src/app/app.effects.spec.ts'];
 
@@ -15,15 +18,15 @@ export default function() {
       const filesToRename = [
         {
           from: 'src/app/app.component.html',
-          to: 'src/app/components/app.component.html'
+          to: 'src/app/components/app/app.component.html'
         },
         {
           from: 'src/app/app.component.scss',
-          to: 'src/app/components/app.component.scss'
+          to: 'src/app/components/app/app.component.scss'
         },
         {
           from: 'src/app/app.component.ts',
-          to: 'src/app/components/app.component.ts'
+          to: 'src/app/components/app/app.component.ts'
         },
         {
           from: 'src/app/reducers/index.ts',

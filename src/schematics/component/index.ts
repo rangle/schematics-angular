@@ -26,7 +26,7 @@ export default function(options: ProjectSchemaOptions): Rule {
       return processTemplates(options, options.path);
     },
     updateBarrelFile(
-      options,
+      options.path,
       `export * from './${strings.dasherize(options.name)}/${strings.dasherize(
         options.name
       )}.component';\r\n`
