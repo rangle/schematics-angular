@@ -1,5 +1,6 @@
 import { Rule, Tree } from '@angular-devkit/schematics';
-import { Configuration, Linter } from 'tslint';
+import { Linter } from 'tslint';
+import { loadConfigurationFromPath } from 'tslint/lib/configuration';
 
 import { PathOptions } from '../types/path-options/path-options.interface';
 
@@ -7,11 +8,6 @@ import { findFilenameInTree, getTouchedFiles } from './tree-helpers';
 
 function getTslintJsonFilename(tree: Tree, options: PathOptions) {
   return `.${findFilenameInTree(tree.getDir(options.path), file => file.includes('tslint.json'))}`;
-}
-
-function getLinterConfiguration(tslintJsonFilename: string) {
-  return Configuration.findConfiguration(Configuration.JSON_CONFIG_FILENAME, tslintJsonFilename)
-    .results;
 }
 
 export function runTslintFix(options: PathOptions): Rule {
@@ -25,7 +21,11 @@ export function runTslintFix(options: PathOptions): Rule {
       });
 
       getTouchedFiles(tree).forEach(file => {
-        linter.lint(file, tree.read(file).toString(), getLinterConfiguration(tslintJsonFilename));
+        linter.lint(
+          file,
+          tree.read(file).toString(),
+          loadConfigurationFromPath(tslintJsonFilename)
+        );
 
         tree.overwrite(file, linter.getResult().output);
       });
