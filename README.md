@@ -61,7 +61,7 @@ schematics @egervari/schematics-angular:feature --name=my-feature --path=src/app
 If your project currently does not have a `/features` folder, the
 schematic will create one for you.
 
-You should see the following files be created when running this
+You should see the following files be created/updated when running this
 schematic:
 
 ```bash
@@ -94,7 +94,7 @@ schematics @egervari/schematics-angular:module --name=my-module --path=src/app -
 If your project currently does not have a `/modules` folder, the
 schematic will create one for you.
 
-You should see the following files be created when running this
+You should see the following files be created/updated when running this
 schematic:
 
 ```bash
@@ -107,6 +107,26 @@ CREATE /src/app/modules/my-module/store/my-module.store.ts (310 bytes)
 CREATE /src/app/modules/my-module/types/my-module-state/my-module-state.functions.ts (159 bytes)
 CREATE /src/app/modules/my-module/types/my-module-state/my-module-state.interface.ts (58 bytes)
 UPDATE /src/app/app.module.ts (2445 bytes)
+```
+
+#### Creating components
+
+Creating components is equally easy - make sure to point the `path`
+to the module/feature folder you wish the component to be located:
+
+```bash
+schematics @egervari/schematics-angular:component --name=my-form --path=src/app --prefix=rng
+```
+
+You should see the following files be created/updated when running this
+schematic:
+
+```bash
+CREATE /src/app/components/my-form/my-form.component.html (0 bytes)
+CREATE /src/app/components/my-form/my-form.component.scss (12 bytes)
+CREATE /src/app/components/my-form/my-form.component.ts (214 bytes)
+UPDATE /src/app/components/index.ts (192 bytes)
+UPDATE /src/app/app.module.ts (2484 bytes)
 ```
 
 ### Using Schematics Through WebStorm
