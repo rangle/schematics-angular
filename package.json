@@ -1,6 +1,6 @@
 {
   "name": "@egervari/schematics-angular",
-  "version": "0.1.89",
+  "version": "0.1.90",
   "description": "Rangle's Angular Schematics to ensure best-practices and scalable architecture",
   "keywords": [
     "angular",
