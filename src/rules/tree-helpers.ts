@@ -15,8 +15,6 @@ export function findFilenameInTree(
   directory: DirEntry,
   fileMatchesCriteria: (file: string) => boolean
 ): string {
-  console.log(directory.path);
-
   const pathFragment = directory.subfiles.find(fileMatchesCriteria);
 
   if (pathFragment) {
