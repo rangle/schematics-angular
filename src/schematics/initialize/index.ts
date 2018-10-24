@@ -7,15 +7,6 @@ export default function() {
     schematic('tslint-and-prettier', {}),
     updateBarrelFile('src/app/components', `export * from './app/app.component.ts'`),
     (tree: Tree) => {
-      const filesToDelete = ['src/app/app.component.spec.ts', 'src/app/app.effects.spec.ts'];
-
-      filesToDelete.forEach(filename => {
-        if (tree.exists(filename)) {
-          tree.delete(filename);
-        }
-      });
-    },
-    (tree: Tree) => {
       const filesToMove = [
         {
           from: 'src/app/app.component.html',
@@ -45,6 +36,31 @@ export default function() {
           tree.delete(filename.from);
         }
       });
+
+      tree.delete('src/app/reducers');
+    },
+    (tree: Tree) => {
+      const filesToDelete = [
+        'src/app/app.component.spec.ts',
+        'src/app/app.effects.spec.ts',
+        'src/app/reducers'
+      ];
+
+      filesToDelete.forEach(filename => {
+        if (tree.exists(filename)) {
+          tree.delete(filename);
+        }
+      });
+    },
+    (tree: Tree) => {
+      tree.overwrite(
+        'src/app.module.ts',
+        tree
+          .read('src/app.module.ts')
+          .toString()
+          .replace(`'./app.component'`, `'./components'`)
+          .replace(`'./app.effects'`, `'./store/app.effects'`)
+      );
     }
   ]);
 }
