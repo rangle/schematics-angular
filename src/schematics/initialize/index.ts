@@ -60,6 +60,7 @@ export default function() {
           .toString()
           .replace(`'./app.component'`, `'./components'`)
           .replace(`'./app.effects'`, `'./store/app.effects'`)
+          .replace(`'./reducers'`, `'./store/app.reducer'`)
       );
     }
   ]);
