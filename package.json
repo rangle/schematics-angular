@@ -44,6 +44,7 @@
     "@schematics/angular": "^0.8.6",
     "@types/jasmine": "^2.6.0",
     "@types/node": "^8.0.31",
+    "@types/prettier": "^1.13.2",
     "cpr": "^3.0.1",
     "jasmine": "^2.8.0",
     "ng-packagr": "^4.4.0",
