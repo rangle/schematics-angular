@@ -129,6 +129,18 @@ UPDATE /src/app/components/index.ts (192 bytes)
 UPDATE /src/app/app.module.ts (2484 bytes)
 ```
 
+#### Creating Other Stuff
+
+There's also schematics for creating many other types of code artifacts:
+
+- `service`: Creates a service and updates the containing module file
+- `type`: Creates a paired interface and functions file for a given
+          model
+- `ngrx`: Creates the store, actions, reducer and effects files and
+          wires these up with the containing module. This won't be used
+          very often since you should ideally have 1 store per module or
+          feature anyway.
+
 ### Using Schematics Through WebStorm
 
 To use schematics in WebStorm, right-click on a folder, select
