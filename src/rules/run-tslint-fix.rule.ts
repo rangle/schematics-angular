@@ -6,6 +6,7 @@ import { PathOptions } from '../types/path-options/path-options.interface';
 import { findFilenameInTree, getTouchedFiles } from './tree-helpers';
 
 function getTslintJsonFilename(tree: Tree, options: PathOptions) {
+  console.log('searching for tslint')
   return findFilenameInTree(tree.getDir(options.path), file => file.includes('tslint.json'));
 }
 
