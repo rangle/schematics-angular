@@ -222,7 +222,26 @@ schematics @egervari/schematics-angular:initialize
 You should see the following changes:
 
 ```bash
-
+            Added "prettier" into devDependencies
+            Added "tslint-config-prettier" into devDependencies
+DELETE /src/app/app.component.html
+DELETE /src/app/app.component.scss
+DELETE /src/app/app.component.ts
+DELETE /src/app/reducers/index.ts
+DELETE /src/app/app.effects.ts
+DELETE /src/app/reducers
+DELETE /src/app/app.component.spec.ts
+DELETE /src/app/app.effects.spec.ts
+CREATE /prettier.config.js (163 bytes)
+CREATE /src/app/components/index.ts (38 bytes)
+CREATE /src/app/components/app/app.component.html (1173 bytes)
+CREATE /src/app/components/app/app.component.scss (0 bytes)
+CREATE /src/app/components/app/app.component.ts (215 bytes)
+CREATE /src/app/store/app.reducer.ts (359 bytes)
+CREATE /src/app/store/app.effects.ts (180 bytes)
+UPDATE /tslint.json (826 bytes)
+UPDATE /package.json (1493 bytes)
+UPDATE /src/app/app.module.ts (677 bytes)
 ```
 
 ### Using Schematics Through WebStorm
