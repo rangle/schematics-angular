@@ -1,4 +1,4 @@
-import { chain, move, noop, schematic, Tree } from '@angular-devkit/schematics';
+import { chain, move, schematic, Tree } from '@angular-devkit/schematics';
 
 import { updateBarrelFile } from '../../rules/update-barrel-file.rule';
 
@@ -14,7 +14,8 @@ export default function() {
           tree.delete(filename);
         }
       });
-
+    },
+    () => {
       const filesToMove = [
         {
           from: 'src/app/app.component.html',
@@ -38,11 +39,7 @@ export default function() {
         }
       ];
 
-      return chain(
-        filesToMove.map(
-          filename => (tree.exists(filename.from) ? move(filename.from, filename.to) : noop())
-        )
-      );
+      return chain(filesToMove.map(filename => move(filename.from, filename.to)));
     }
   ]);
 }
