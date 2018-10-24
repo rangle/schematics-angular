@@ -28,30 +28,85 @@ npm install @egervari/schematics-angular --save-dev
 
 ### Using Schematics Via Console
 
-To run a schematic (such as creating a new *feature*) through the
-console, specifying the feature's name, path and selector prefix, type
-the following:
+#### Adding prettier and overwriting TSLint and Prettier rules
+
+To add prettier (if you currently don't have it installed) and use
+Rangle's preferred starting point for TSLint and Prettier rules, run
+the following schematic from your console:
 
 ```bash
-schematics @egervari/schematics-angular:feature --name=my-module --path=src/app --prefix=rng
+schematics @egervari/schematics-angular:tslint-and-prettier
 ```
 
-You should see the following files be created:
+You should see the following updates to your project:
 
+```bash
+    Added "prettier" into devDependencies
+    Added "tslint-config-prettier" into devDependencies
+CREATE /prettier.config.js (173 bytes)
+UPDATE /tslint.json (869 bytes)
+UPDATE /package.json (2552 bytes)
 ```
-CREATE /src/app/modules/my-module/components/index.ts (50 bytes)
-CREATE /src/app/modules/my-module/components/my-module/my-module.component.html (0 bytes)
-CREATE /src/app/modules/my-module/components/my-module/my-module.component.scss (12 bytes)
-CREATE /src/app/modules/my-module/components/my-module/my-module.component.ts (222 bytes)
+
+#### Creating Features
+
+To create a feature module containing components, routes, services,
+types and isolated ngrx infrastructure, you must specify the feature's
+`name`, `path` and your project's component `prefix`:
+
+```bash
+schematics @egervari/schematics-angular:feature --name=my-feature --path=src/app --prefix=rng
+```
+
+If your project currently does not have a `/features` folder, the
+schematic will create on for you.
+
+You should see the following files be created when running this
+schematic:
+
+```bash
+CREATE /src/app/features/my-feature/my-feature-routing.module.ts (373 bytes)
+CREATE /src/app/features/my-feature/my-feature.module.ts (687 bytes)
+CREATE /src/app/features/my-feature/components/my-feature/my-feature.component.html (0 bytes)
+CREATE /src/app/features/my-feature/components/my-feature/my-feature.component.scss (12 bytes)
+CREATE /src/app/features/my-feature/components/my-feature/my-feature.component.ts (226 bytes)
+CREATE /src/app/features/my-feature/components/index.ts (52 bytes)
+CREATE /src/app/features/my-feature/services/my-feature.service.ts (204 bytes)
+CREATE /src/app/features/my-feature/store/my-feature.actions.ts (239 bytes)
+CREATE /src/app/features/my-feature/store/my-feature.effects.ts (477 bytes)
+CREATE /src/app/features/my-feature/store/my-feature.reducer.ts (560 bytes)
+CREATE /src/app/features/my-feature/store/my-feature.store.ts (312 bytes)
+CREATE /src/app/features/my-feature/types/my-feature-state/my-feature-state.functions.ts (163 bytes)
+CREATE /src/app/features/my-feature/types/my-feature-state/my-feature-state.interface.ts (59 bytes)
+UPDATE /src/app/app-routing.module.ts (627 bytes)
+```
+
+#### Creating Modules
+
+Sometimes you wish to create modules outside of your routes. They are
+not really features, but reusable pieces of code the rest of the app
+can share. To create such a module, run the following schematic:
+
+```bash
+schematics @egervari/schematics-angular:module --name=my-module --path=src/app --prefix=rng
+```
+
+If your project currently does not have a `/modules` folder, the
+schematic will create on for you.
+
+You should see the following files be created when running this
+schematic:
+
+```bash
+CREATE /src/app/modules/my-module/my-module.module.ts (571 bytes)
 CREATE /src/app/modules/my-module/services/my-module.service.ts (203 bytes)
 CREATE /src/app/modules/my-module/store/my-module.actions.ts (236 bytes)
 CREATE /src/app/modules/my-module/store/my-module.effects.ts (472 bytes)
-CREATE /src/app/modules/my-module/store/my-module.reducer.ts (456 bytes)
+CREATE /src/app/modules/my-module/store/my-module.reducer.ts (547 bytes)
 CREATE /src/app/modules/my-module/store/my-module.store.ts (310 bytes)
 CREATE /src/app/modules/my-module/types/my-module-state/my-module-state.functions.ts (159 bytes)
 CREATE /src/app/modules/my-module/types/my-module-state/my-module-state.interface.ts (58 bytes)
-CREATE /src/app/modules/my-module/my-module-routing.module.ts (370 bytes)
-CREATE /src/app/modules/my-module/my-module.module.ts (726 bytes)
+UPDATE /src/app/app.module.ts (2445 bytes)
 ```
 
 ### Using Schematics Through WebStorm
