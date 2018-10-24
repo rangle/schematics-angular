@@ -1,17 +1,34 @@
 import { Rule, Tree } from '@angular-devkit/schematics';
-import { Linter } from 'tslint';
+import { Configuration, Linter } from 'tslint';
 
-import { getTouchedFiles } from './tree-helpers';
+import { PathOptions } from '../types/path-options/path-options.interface';
 
-export function runTslintFixRule(): Rule {
+import { findFilenameInTree, getTouchedFiles } from './tree-helpers';
+
+function getTslintJsonFilename(tree: Tree, options: PathOptions) {
+  return findFilenameInTree(tree.getDir(options.path), file => file.includes('tslint.json'));
+}
+
+function getLinterConfiguration(tslintJsonFilename: string) {
+  return Configuration.findConfiguration(Configuration.JSON_CONFIG_FILENAME, tslintJsonFilename)
+    .results;
+}
+
+export function runTslintFix(options: PathOptions): Rule {
   return (tree: Tree) => {
-    const linter = new Linter({
-      fix: true
-    });
+    const tslintJsonFilename = getTslintJsonFilename(tree, options);
 
-    getTouchedFiles(tree).forEach(file => {
-      linter.lint(file, tree.read(file).toString());
-      tree.overwrite(file, linter.getResult().output);
-    });
+    if (tslintJsonFilename) {
+      const linter = new Linter({
+        fix: true,
+        formatter: 'verbose'
+      });
+
+      getTouchedFiles(tree).forEach(file => {
+        linter.lint(file, tree.read(file).toString(), getLinterConfiguration(tslintJsonFilename));
+
+        tree.overwrite(file, linter.getResult().output);
+      });
+    }
   };
 }

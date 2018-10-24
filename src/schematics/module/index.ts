@@ -5,7 +5,7 @@ import { addImportToModule } from '@schematics/angular/utility/ast-utils';
 import { modifySourceFileRule } from '../../rules/modify-source-file.rule';
 import { processTemplates } from '../../rules/process-templates.rule';
 import { runPrettier } from '../../rules/run-prettier.rule';
-import { runTslintFixRule } from '../../rules/run-tslint-fix.rule';
+import { runTslintFix } from '../../rules/run-tslint-fix.rule';
 import { findParentModuleFilenameInTree } from '../../rules/tree-helpers';
 import { Folders } from '../../types/folders/folders.enum';
 import {
@@ -40,6 +40,6 @@ export default function(options: SchemaOptions): Rule {
         )
     ),
     runPrettier(),
-    runTslintFixRule()
+    runTslintFix(options)
   ]);
 }

@@ -4,7 +4,7 @@ import { addRouteToRoutingModule } from '../../ast/add-route-to-routing-module';
 import { modifySourceFileRule } from '../../rules/modify-source-file.rule';
 import { processTemplates } from '../../rules/process-templates.rule';
 import { runPrettier } from '../../rules/run-prettier.rule';
-import { runTslintFixRule } from '../../rules/run-tslint-fix.rule';
+import { runTslintFix } from '../../rules/run-tslint-fix.rule';
 import { findParentRoutingModuleFilenameInTree } from '../../rules/tree-helpers';
 import { Folders } from '../../types/folders/folders.enum';
 import { getProjectPrefix } from '../../types/project-schema-options/project-schema-options.functions';
@@ -39,6 +39,6 @@ export default function(options: ProjectSchemaOptions): Rule {
         addRouteToRoutingModule(sourceFile, moduleFilename, options.name)
     ),
     runPrettier(),
-    runTslintFixRule()
+    runTslintFix(options)
   ]);
 }
