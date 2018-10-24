@@ -40,6 +40,8 @@ export default function() {
       ];
 
       filesToMove.forEach(filename => {
+        tree.create(filename.to, '');
+
         if (tree.exists(filename.from)) {
           tree.rename(filename.from, filename.to);
         }
