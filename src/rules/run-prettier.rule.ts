@@ -1,7 +1,7 @@
 import { Tree } from '@angular-devkit/schematics';
 import * as prettier from 'prettier';
 
-// noinspection TsLint
+/* tslint:disable-next-line */
 const prettierConfig = require('../schematics/tslint-and-prettier/files/prettier.config');
 
 import { getTouchedFiles } from './tree-helpers';
