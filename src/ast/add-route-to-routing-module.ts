@@ -2,9 +2,14 @@ import * as strings from '@angular-devkit/core/src/utils/strings';
 import { Change } from '@schematics/angular/utility/change';
 import * as typescript from 'typescript';
 
-import { Folders } from '../folders/folders.enum';
+import { Folders } from '../types/folders/folders.enum';
 
-import { getArrayElements, getObjectProperty, insertIntoArray } from './ast-helpers';
+import {
+  getArrayElements,
+  getObjectProperty,
+  getVariableDeclarationOfType,
+  insertIntoArray
+} from './ast-helpers';
 
 export function addRouteToRoutingModule(
   sourceFile: typescript.SourceFile,
@@ -15,9 +20,9 @@ export function addRouteToRoutingModule(
     statement => statement.kind === typescript.SyntaxKind.VariableStatement
   );
 
-  const routesDeclaration = (variableStatement as typescript.VariableStatement).declarationList.declarations.find(
-    declaration =>
-      (declaration.type as typescript.TypeReferenceNode).typeName.getText() === 'Routes'
+  const routesDeclaration = getVariableDeclarationOfType(
+    variableStatement as typescript.VariableStatement,
+    'Routes'
   );
 
   const routes = getArrayElements(

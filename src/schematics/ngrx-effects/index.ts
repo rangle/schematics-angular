@@ -1,16 +1,16 @@
 import * as strings from '@angular-devkit/core/src/utils/strings';
 import { chain, Rule } from '@angular-devkit/schematics';
 
-import { addEffectsToModule } from '../../types/ast/add-effects-to-module';
+import { addEffectsToModule } from '../../ast/add-effects-to-module';
+import { modifySourceFileRule } from '../../rules/modify-source-file.rule';
+import { findModuleFilenameInTree } from '../../rules/tree-helpers';
 import { Folders } from '../../types/folders/folders.enum';
 import { processTemplates } from '../../types/path-options/path-options.functions';
-import { modifySourceFileRule } from '../../types/rules/modify-source-file.rule';
 import {
   getContainingFolderPath,
   validateRegularSchema
 } from '../../types/schema-options/schema-options.functions';
 import { SchemaOptions } from '../../types/schema-options/schema-options.interface';
-import { findModuleFilenameInTree } from '../../utils/tree-utils';
 
 export default function(options: SchemaOptions): Rule {
   validateRegularSchema(options);

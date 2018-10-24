@@ -1,7 +1,7 @@
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { TslintFixTask } from '@angular-devkit/schematics/tasks';
 
-import { findFilenameInTree } from '../../utils/tree-utils';
+import { findFilenameInTree } from './tree-helpers';
 
 export function runTslintFixRule(path: string): Rule {
   return (tree: Tree, context: SchematicContext) => {

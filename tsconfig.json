@@ -12,7 +12,7 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "noUnusedParameters": false, // This is annoying to deal with while developing
+    "noUnusedParameters": true,
     "noUnusedLocals": true,
     "rootDir": "src/",
     "skipDefaultLibCheck": true,

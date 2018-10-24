@@ -12,6 +12,15 @@ export function getNgModuleNode(
     : null;
 }
 
+export function getVariableDeclarationOfType(
+  variableStatement: typescript.VariableStatement,
+  type: string
+) {
+  return (variableStatement as typescript.VariableStatement).declarationList.declarations.find(
+    declaration => (declaration.type as typescript.TypeReferenceNode).typeName.getText() === type
+  );
+}
+
 export function getObjectProperty(
   properties: typescript.NodeArray<typescript.ObjectLiteralElement>,
   propertyName: string

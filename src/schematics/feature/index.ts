@@ -1,16 +1,16 @@
 import { chain, schematic, Rule, Tree } from '@angular-devkit/schematics';
 
-import { addRouteToRoutingModule } from '../../types/ast/add-route-to-routing-module';
+import { addRouteToRoutingModule } from '../../ast/add-route-to-routing-module';
+import { modifySourceFileRule } from '../../rules/modify-source-file.rule';
+import { findParentRoutingModuleFilenameInTree } from '../../rules/tree-helpers';
 import { Folders } from '../../types/folders/folders.enum';
 import { processTemplates } from '../../types/path-options/path-options.functions';
 import { getProjectPrefix } from '../../types/project-schema-options/project-schema-options.functions';
 import { ProjectSchemaOptions } from '../../types/project-schema-options/project-schema-options.interface';
-import { modifySourceFileRule } from '../../types/rules/modify-source-file.rule';
 import {
   getContainingFolderPath,
   validateRegularSchema
 } from '../../types/schema-options/schema-options.functions';
-import { findParentRoutingModuleFilenameInTree } from '../../utils/tree-utils';
 
 export default function(options: ProjectSchemaOptions): Rule {
   validateRegularSchema(options);

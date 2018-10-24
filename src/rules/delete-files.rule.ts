@@ -1,6 +1,6 @@
 import { Rule, Tree } from '@angular-devkit/schematics';
 
-import { deleteFile } from '../../utils/tree-utils';
+import { deleteFile } from './tree-helpers';
 
 export function deleteFilesRule(files: string[]): Rule {
   return (tree: Tree) => {
