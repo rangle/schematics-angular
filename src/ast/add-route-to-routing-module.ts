@@ -20,10 +20,18 @@ export function addRouteToRoutingModule(
     statement => statement.kind === typescript.SyntaxKind.VariableStatement
   );
 
+  if (!variableStatement) {
+    return [];
+  }
+
   const routesDeclaration = getVariableDeclarationOfType(
     variableStatement as typescript.VariableStatement,
     'Routes'
   );
+
+  if (!routesDeclaration) {
+    return [];
+  }
 
   const routes = getArrayElements(
     routesDeclaration.initializer as typescript.ArrayLiteralExpression
