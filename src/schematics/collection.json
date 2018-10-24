@@ -1,6 +1,11 @@
 {
   "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
+    "initialize": {
+      "description": "Run this schematic after creating a new project with the Angular CLI",
+      "factory": "./initialize",
+      "schema": "./initialize/schema.json"
+    },
     "tslint-and-prettier": {
       "description": "Add TSLint and Prettier. Creates/replaces TSLint and Prettier settings with recommended configuration",
       "factory": "./tslint-and-prettier",

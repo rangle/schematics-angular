@@ -181,6 +181,50 @@ CREATE /src/app/types/user-profile/user-profile.functions.ts (150 bytes)
 CREATE /src/app/types/user-profile/user-profile.interface.ts (56 bytes)
 ```
 
+#### Creating a new project
+
+The Angular CLI and the default @ngrx schematics do not create folders
+and files that help developers scale over the long term. Thus, we also
+provide a schematic to make some adjustments to a newly created Angular
+CLI project to help you get started on the right foot and to support the
+other schematics.
+
+To create a new Angular CLI Project, execute the following commands
+and you're good to go:
+
+```bash
+npm install @angular/cli -g
+
+ng new my-project
+```
+
+When asked:
+
+* Say **(Y)es** to add Angular Routing
+* Select **SCSS** for your stylesheet format
+
+```bash
+cd my-project
+
+ng add @ngrx/store
+ng add @ngrx/effects
+
+npm install @egervari/schematics-angular --save-dev
+```
+
+And then to correct the default structure, run the `initialize`
+schematic with no parameters:
+
+```bash
+schematics @egervari/schematics-angular:initialize
+```
+
+You should see the following changes:
+
+```bash
+
+```
+
 ### Using Schematics Through WebStorm
 
 To use schematics in WebStorm, right-click on a folder, select
