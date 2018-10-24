@@ -11,8 +11,8 @@ export function runPrettier() {
     getTouchedFiles(tree).forEach(file => {
       prettier.format(tree.read(file).toString(), {
         ...prettierConfig,
-        parser: 'typescript',
+        parser: 'typescript'
       });
     });
-  }
+  };
 }
