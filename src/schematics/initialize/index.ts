@@ -5,7 +5,7 @@ import { updateBarrelFile } from '../../rules/update-barrel-file.rule';
 export default function() {
   return chain([
     schematic('tslint-and-prettier', {}),
-    updateBarrelFile('src/app/components', `export * from './app/app.component.ts'`),
+    updateBarrelFile('src/app/components', `export * from './app/app.component'`),
     (tree: Tree) => {
       const filesToMove = [
         {
