@@ -26,6 +26,13 @@ following in the console at the root of your project:
 npm install @egervari/schematics-angular --save-dev
 ```
 
+To run schematics from your console, also add the following global
+npm library:
+
+```bash
+npm install -g @angular-devkit/schematics-cli
+```
+
 ### Using Schematics Via Console
 
 #### Adding prettier and overwriting TSLint and Prettier rules
