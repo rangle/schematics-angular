@@ -59,7 +59,7 @@ schematics @egervari/schematics-angular:feature --name=my-feature --path=src/app
 ```
 
 If your project currently does not have a `/features` folder, the
-schematic will create on for you.
+schematic will create one for you.
 
 You should see the following files be created when running this
 schematic:
@@ -92,7 +92,7 @@ schematics @egervari/schematics-angular:module --name=my-module --path=src/app -
 ```
 
 If your project currently does not have a `/modules` folder, the
-schematic will create on for you.
+schematic will create one for you.
 
 You should see the following files be created when running this
 schematic:
