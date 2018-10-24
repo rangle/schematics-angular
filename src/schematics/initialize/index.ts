@@ -1,5 +1,4 @@
 import { chain, schematic, Tree } from '@angular-devkit/schematics';
-import { mkdirSync } from 'fs';
 
 import { updateBarrelFile } from '../../rules/update-barrel-file.rule';
 
@@ -17,9 +16,6 @@ export default function() {
       });
     },
     (tree: Tree) => {
-      mkdirSync('./src/app/components/app', { recursive: true });
-      mkdirSync('./src/app/store', { recursive: true });
-
       const filesToMove = [
         {
           from: 'src/app/app.component.html',
