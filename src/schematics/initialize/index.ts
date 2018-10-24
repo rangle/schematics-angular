@@ -17,11 +17,8 @@ export default function() {
       });
     },
     (tree: Tree) => {
-      mkdirSync('./src');
-      mkdirSync('./src/app');
-      mkdirSync('./src/app/components');
-      mkdirSync('./src/app/components/app');
-      mkdirSync('./src/app/store');
+      mkdirSync('./src/app/components/app', { recursive: true });
+      mkdirSync('./src/app/store', { recursive: true });
 
       const filesToMove = [
         {
