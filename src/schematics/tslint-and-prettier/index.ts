@@ -3,8 +3,8 @@ import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 
 import { addNpmDependenciesRule } from '../../rules/add-npm-dependencies.rule';
 import { deleteFilesRule } from '../../rules/delete-files.rule';
+import { processTemplates } from '../../rules/process-templates.rule';
 import { runNpmInstallRule } from '../../rules/run-npm-install.rule';
-import { processTemplates } from '../../types/path-options/path-options.functions';
 import { PathOptions } from '../../types/path-options/path-options.interface';
 
 export default function(options: PathOptions): Rule {

@@ -9,7 +9,7 @@ import {
   Rule
 } from '@angular-devkit/schematics';
 
-import { PathOptions } from './path-options.interface';
+import { PathOptions } from '../types/path-options/path-options.interface';
 
 export function processTemplates(options: PathOptions, directory: string = options.path): Rule {
   return branchAndMerge(

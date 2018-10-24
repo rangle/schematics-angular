@@ -3,9 +3,9 @@ import { chain, schematic, Rule } from '@angular-devkit/schematics';
 import { addImportToModule } from '@schematics/angular/utility/ast-utils';
 
 import { modifySourceFileRule } from '../../rules/modify-source-file.rule';
+import { processTemplates } from '../../rules/process-templates.rule';
 import { findParentModuleFilenameInTree } from '../../rules/tree-helpers';
 import { Folders } from '../../types/folders/folders.enum';
-import { processTemplates } from '../../types/path-options/path-options.functions';
 import {
   getContainingFolderPath,
   validateRegularSchema

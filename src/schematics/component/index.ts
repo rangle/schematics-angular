@@ -3,10 +3,10 @@ import { chain, Rule, Tree } from '@angular-devkit/schematics';
 import { addDeclarationToModule } from '@schematics/angular/utility/ast-utils';
 
 import { modifySourceFileRule } from '../../rules/modify-source-file.rule';
+import { processTemplates } from '../../rules/process-templates.rule';
 import { findModuleFilenameInTree } from '../../rules/tree-helpers';
 import { updateBarrelFile } from '../../rules/update-barrel-file.rule';
 import { Folders } from '../../types/folders/folders.enum';
-import { processTemplates } from '../../types/path-options/path-options.functions';
 import { getProjectPrefix } from '../../types/project-schema-options/project-schema-options.functions';
 import { ProjectSchemaOptions } from '../../types/project-schema-options/project-schema-options.interface';
 import {
