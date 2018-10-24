@@ -9,10 +9,13 @@ import { getTouchedFiles } from './tree-helpers';
 export function runPrettier() {
   return (tree: Tree) => {
     getTouchedFiles(tree).forEach(file => {
-      prettier.format(tree.read(file).toString(), {
-        ...prettierConfig,
-        parser: 'typescript'
-      });
+      tree.overwrite(
+        file,
+        prettier.format(tree.read(file).toString(), {
+          ...prettierConfig,
+          parser: 'typescript'
+        })
+      );
     });
   };
 }
