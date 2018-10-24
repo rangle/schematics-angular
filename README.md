@@ -146,8 +146,7 @@ Creates a service and updates the containing module file.
 Note that this schematic does not require a `prefix` parameter.
 
 ```bash
-schematics @egervari/schematics-angular:service --name=my-api --pat
-h=src/app
+schematics @egervari/schematics-angular:service --name=my-api --path=src/app
 ```
 
 If your path currently does not have a `/services` folder, the
