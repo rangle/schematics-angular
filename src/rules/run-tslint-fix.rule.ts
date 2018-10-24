@@ -1,22 +1,17 @@
-import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { TslintFixTask } from '@angular-devkit/schematics/tasks';
+import { Rule, Tree } from '@angular-devkit/schematics';
+import { Linter } from 'tslint';
 
-import { findFilenameInTree } from './tree-helpers';
+import { getTouchedFiles } from './tree-helpers';
 
-export function runTslintFixRule(path: string): Rule {
-  return (tree: Tree, context: SchematicContext) => {
-    const tslintConfigFilename = findFilenameInTree(tree.getDir(path), file =>
-      file.includes('tslint.json')
-    );
+export function runTslintFixRule(): Rule {
+  return (tree: Tree) => {
+    const linter = new Linter({
+      fix: true
+    });
 
-    if (tslintConfigFilename) {
-      context.addTask(
-        new TslintFixTask({
-          ignoreErrors: true,
-          tslintPath: tslintConfigFilename,
-          tsConfigPath: 'tsconfig.json'
-        })
-      );
-    }
+    getTouchedFiles(tree).forEach(file => {
+      linter.lint(file, tree.read(file).toString());
+      tree.overwrite(file, linter.getResult().output);
+    });
   };
 }
