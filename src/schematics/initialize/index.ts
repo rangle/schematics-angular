@@ -1,4 +1,5 @@
-import { chain, move, schematic, Tree } from '@angular-devkit/schematics';
+import { chain, schematic, Tree } from '@angular-devkit/schematics';
+import { mkdirSync } from 'fs';
 
 import { updateBarrelFile } from '../../rules/update-barrel-file.rule';
 
@@ -15,7 +16,13 @@ export default function() {
         }
       });
     },
-    () => {
+    (tree: Tree) => {
+      mkdirSync('./src');
+      mkdirSync('./src/app');
+      mkdirSync('./src/app/components');
+      mkdirSync('./src/app/components/app');
+      mkdirSync('./src/app/store');
+
       const filesToMove = [
         {
           from: 'src/app/app.component.html',
@@ -39,7 +46,11 @@ export default function() {
         }
       ];
 
-      return chain(filesToMove.map(filename => move(filename.from, filename.to)));
+      filesToMove.forEach(filename => {
+        if (tree.exists(filename.from)) {
+          tree.rename(filename.from, filename.to);
+        }
+      });
     }
   ]);
 }
