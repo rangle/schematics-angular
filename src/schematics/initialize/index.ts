@@ -2,7 +2,6 @@ import { chain, schematic, Tree } from '@angular-devkit/schematics';
 
 import { reworkAppReducer } from '../../ast/rework-app-reducer/rework-app-reducer';
 import { modifySourceFile } from '../../rules/modify-source-file.rule';
-import { findFilenameInTree } from '../../rules/tree-helpers';
 import { updateBarrelFile } from '../../rules/update-barrel-file.rule';
 
 export default function() {
