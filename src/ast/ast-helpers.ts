@@ -42,13 +42,21 @@ export function getInterfaceDeclarationByType(sourceFile: typescript.SourceFile,
   );
 }
 
-export function getVariableDeclaration(sourceFile: typescript.SourceFile, type: string) {
-  return sourceFile.statements
+export function getVariableDeclaration(
+  sourceFile: typescript.SourceFile,
+  type: string
+): typescript.VariableDeclaration {
+  const variableDeclarations = sourceFile.statements
     .filter(statement => statement.kind === typescript.SyntaxKind.VariableStatement)
-    .map(statement => (statement as typescript.VariableStatement).declarationList.declarations[0])
-    .find(
-      declaration => (declaration.type as typescript.TypeReferenceNode).typeName.getText() === type
+    .map(statement => (statement as typescript.VariableStatement).declarationList.declarations)
+    .filter(declarations =>
+      declarations.some(
+        declaration =>
+          (declaration.type as typescript.TypeReferenceNode).typeName.getText() === type
+      )
     );
+
+  return variableDeclarations.length > 0 ? variableDeclarations[0][0] : null;
 }
 
 export function getTypeArgumentOfVariableDeclaration(

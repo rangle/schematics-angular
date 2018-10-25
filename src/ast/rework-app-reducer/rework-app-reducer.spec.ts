@@ -22,5 +22,6 @@ describe('reworkAppReducer()', () => {
     );
     expect(changes[1].order).toEqual(195);
     expect(changes[2].order).toEqual(272);
+    expect(changes[3].order).toEqual(327);
   });
 });
