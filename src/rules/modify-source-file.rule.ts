@@ -4,9 +4,9 @@ import * as typescript from 'typescript';
 
 import { insertTreeChanges, openSourceFileFromTree } from './tree-helpers';
 
-export function modifySourceFileRule(
+export function modifySourceFile(
   getFilename: (tree: Tree) => string,
-  computeChanges: (sourceFile: typescript.SourceFile, moduleFilename: string) => Change[]
+  computeChanges: (sourceFile: typescript.SourceFile, filename: string) => Change[]
 ): Rule {
   return (tree: Tree) => {
     const filename = getFilename(tree);

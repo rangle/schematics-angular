@@ -34,13 +34,28 @@ export function getNgModuleNode(
     : null;
 }
 
-export function getVariableDeclarationOfType(
-  variableStatement: typescript.VariableStatement,
-  type: string
-) {
-  return (variableStatement as typescript.VariableStatement).declarationList.declarations.find(
-    declaration => (declaration.type as typescript.TypeReferenceNode).typeName.getText() === type
+export function getInterfaceDeclarationByType(sourceFile: typescript.SourceFile, type: string) {
+  return sourceFile.statements.find(
+    statement =>
+      statement.kind === typescript.SyntaxKind.InterfaceDeclaration &&
+      (statement as typescript.InterfaceDeclaration).name.getText() === type
   );
+}
+
+export function getVariableDeclaration(sourceFile: typescript.SourceFile, type: string) {
+  return sourceFile.statements
+    .filter(statement => statement.kind === typescript.SyntaxKind.VariableStatement)
+    .map(statement => (statement as typescript.VariableStatement).declarationList.declarations[0])
+    .find(
+      declaration => (declaration.type as typescript.TypeReferenceNode).typeName.getText() === type
+    );
+}
+
+export function getTypeArgumentOfVariableDeclaration(
+  variableDeclaration: typescript.VariableDeclaration
+) {
+  return (((variableDeclaration.type as unknown) as typescript.TypeReference)
+    .typeArguments[0] as unknown) as typescript.TypeReferenceNode;
 }
 
 export function getObjectProperty(

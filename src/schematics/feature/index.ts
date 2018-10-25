@@ -1,7 +1,7 @@
 import { chain, schematic, Rule, Tree } from '@angular-devkit/schematics';
 
 import { addRouteToRoutingModule } from '../../ast/add-route-to-routing-module/add-route-to-routing-module';
-import { modifySourceFileRule } from '../../rules/modify-source-file.rule';
+import { modifySourceFile } from '../../rules/modify-source-file.rule';
 import { processTemplates } from '../../rules/process-templates.rule';
 import { runPrettier } from '../../rules/run-prettier.rule';
 import { runTslintFix } from '../../rules/run-tslint-fix.rule';
@@ -33,7 +33,7 @@ export default function(options: ProjectSchemaOptions): Rule {
         })
       ]);
     },
-    modifySourceFileRule(
+    modifySourceFile(
       tree => findParentRoutingModuleFilenameInTree(tree, options),
       (sourceFile, moduleFilename) =>
         addRouteToRoutingModule(sourceFile, moduleFilename, options.name)

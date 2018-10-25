@@ -2,7 +2,7 @@ import * as strings from '@angular-devkit/core/src/utils/strings';
 import { chain, schematic, Rule } from '@angular-devkit/schematics';
 import { addImportToModule } from '@schematics/angular/utility/ast-utils';
 
-import { modifySourceFileRule } from '../../rules/modify-source-file.rule';
+import { modifySourceFile } from '../../rules/modify-source-file.rule';
 import { processTemplates } from '../../rules/process-templates.rule';
 import { runPrettier } from '../../rules/run-prettier.rule';
 import { runTslintFix } from '../../rules/run-tslint-fix.rule';
@@ -27,7 +27,7 @@ export default function(options: SchemaOptions): Rule {
       ...options,
       name: `${options.name}-state`
     }),
-    modifySourceFileRule(
+    modifySourceFile(
       tree => findParentModuleFilenameInTree(tree, options),
       (sourceFile, moduleFilename) =>
         addImportToModule(

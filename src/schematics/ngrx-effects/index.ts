@@ -1,8 +1,8 @@
 import * as strings from '@angular-devkit/core/src/utils/strings';
 import { chain, Rule } from '@angular-devkit/schematics';
 
-import { addEffectsToModule } from '../../ast/add-effects-to-module';
-import { modifySourceFileRule } from '../../rules/modify-source-file.rule';
+import { addEffectsToModule } from '../../ast/add-effects-to-module/add-effects-to-module';
+import { modifySourceFile } from '../../rules/modify-source-file.rule';
 import { processTemplates } from '../../rules/process-templates.rule';
 import { findModuleFilenameInTree } from '../../rules/tree-helpers';
 import { Folders } from '../../types/folders/folders.enum';
@@ -19,7 +19,7 @@ export default function(options: SchemaOptions): Rule {
 
   return chain([
     processTemplates(options, options.path),
-    modifySourceFileRule(
+    modifySourceFile(
       tree => findModuleFilenameInTree(tree, options),
       (sourceFile, moduleFilename) =>
         addEffectsToModule(

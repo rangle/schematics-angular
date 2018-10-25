@@ -2,7 +2,7 @@ import * as strings from '@angular-devkit/core/src/utils/strings';
 import { chain, Rule, Tree } from '@angular-devkit/schematics';
 import { addDeclarationToModule } from '@schematics/angular/utility/ast-utils';
 
-import { modifySourceFileRule } from '../../rules/modify-source-file.rule';
+import { modifySourceFile } from '../../rules/modify-source-file.rule';
 import { processTemplates } from '../../rules/process-templates.rule';
 import { findModuleFilenameInTree } from '../../rules/tree-helpers';
 import { updateBarrelFile } from '../../rules/update-barrel-file.rule';
@@ -31,7 +31,7 @@ export default function(options: ProjectSchemaOptions): Rule {
         options.name
       )}.component';\r\n`
     ),
-    modifySourceFileRule(
+    modifySourceFile(
       tree => findModuleFilenameInTree(tree, options),
       (sourceFile, moduleFilename) =>
         addDeclarationToModule(

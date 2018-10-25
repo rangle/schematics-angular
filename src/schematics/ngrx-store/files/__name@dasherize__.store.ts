@@ -6,7 +6,7 @@ import { Retrieve } from './<%= dasherize(name) %>.actions';
 @Injectable()
 export class <%= classify(name) %>Store {
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<State>) {}
 
   public retrieve() {
     this.store.dispatch(new Retrieve());

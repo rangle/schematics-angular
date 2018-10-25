@@ -2,7 +2,7 @@ import { insertImport } from '@schematics/angular/utility/ast-utils';
 import { Change, InsertChange } from '@schematics/angular/utility/change';
 import * as typescript from 'typescript';
 
-import { getNgModuleNode, getObjectProperty, insertIntoArray } from './ast-helpers';
+import { getNgModuleNode, getObjectProperty, insertIntoArray } from '../ast-helpers';
 
 export function addEffectsToModule(
   sourceFile: typescript.SourceFile,

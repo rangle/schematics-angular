@@ -7,7 +7,7 @@ import { Folders } from '../../types/folders/folders.enum';
 import {
   filterNodeArray,
   getObjectProperty,
-  getVariableDeclarationOfType,
+  getVariableDeclaration,
   insertIntoArray
 } from '../ast-helpers';
 
@@ -16,18 +16,7 @@ export function addRouteToRoutingModule(
   modulePath: string,
   name: string
 ): Change[] {
-  const variableStatement = sourceFile.statements.find(
-    statement => statement.kind === typescript.SyntaxKind.VariableStatement
-  );
-
-  if (!variableStatement) {
-    return [];
-  }
-
-  const routesDeclaration = getVariableDeclarationOfType(
-    variableStatement as typescript.VariableStatement,
-    'Routes'
-  );
+  const routesDeclaration = getVariableDeclaration(sourceFile, 'Routes');
 
   if (!routesDeclaration) {
     return [];

@@ -1,5 +1,8 @@
 import { chain, schematic, Tree } from '@angular-devkit/schematics';
 
+import { reworkAppReducer } from '../../ast/rework-app-reducer/rework-app-reducer';
+import { modifySourceFile } from '../../rules/modify-source-file.rule';
+import { findFilenameInTree } from '../../rules/tree-helpers';
 import { updateBarrelFile } from '../../rules/update-barrel-file.rule';
 
 export default function() {
@@ -62,6 +65,15 @@ export default function() {
           .replace(`'./app.effects'`, `'./store/app.effects'`)
           .replace(`'./reducers'`, `'./store/app.reducer'`)
       );
-    }
+    },
+    schematic('type', {
+      path: 'src/app',
+      name: 'app-state'
+    }),
+    modifySourceFile(
+      tree =>
+        findFilenameInTree(tree.getDir('src/store'), filename => filename === 'app.reducer.ts'),
+      (sourceFile, appReducerPath) => reworkAppReducer(sourceFile, appReducerPath)
+    )
   ]);
 }
