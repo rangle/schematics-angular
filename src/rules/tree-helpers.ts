@@ -1,6 +1,6 @@
 import * as strings from '@angular-devkit/core/src/utils/strings';
 import { DirEntry, Tree } from '@angular-devkit/schematics';
-import { Change, InsertChange, RemoveChange } from '@schematics/angular/utility/change';
+import { Change, InsertChange } from '@schematics/angular/utility/change';
 import * as typescript from 'typescript';
 
 import { openSourceFile } from '../ast/ast-helpers';
