@@ -46,7 +46,7 @@ export function getVariableDeclaration(
   sourceFile: typescript.SourceFile,
   type: string
 ): typescript.VariableDeclaration {
-  const variableDeclarations = sourceFile.statements
+  return sourceFile.statements
     .filter(statement => statement.kind === typescript.SyntaxKind.VariableStatement)
     .map(statement => (statement as typescript.VariableStatement).declarationList.declarations)
     .filter(declarations =>
@@ -54,9 +54,12 @@ export function getVariableDeclaration(
         declaration =>
           (declaration.type as typescript.TypeReferenceNode).typeName.getText() === type
       )
+    )
+    .reduce(
+      (declaration: typescript.VariableDeclaration, declarations) =>
+        declarations.length > 0 ? declarations[0] : declaration,
+      null
     );
-
-  return variableDeclarations.length > 0 ? variableDeclarations[0][0] : null;
 }
 
 export function getTypeArgumentOfVariableDeclaration(
