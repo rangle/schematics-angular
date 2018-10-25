@@ -42,6 +42,8 @@ export function insertIntoArray(
   array: typescript.Node[],
   symbolToInsert: string
 ): Change {
+  console.log(array);
+
   return new InsertChange(
     modulePath,
     array.length >= 1 ? array[array.length - 1].end : ((array as {}) as typescript.TextRange).end,
