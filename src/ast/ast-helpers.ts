@@ -50,10 +50,10 @@ export function getVariableDeclaration(
     .filter(statement => statement.kind === typescript.SyntaxKind.VariableStatement)
     .map(statement => (statement as typescript.VariableStatement).declarationList.declarations)
     .filter(declarations =>
-      declarations.some(
-        declaration =>
-          (declaration.type as typescript.TypeReferenceNode).typeName.getText() === type
-      )
+      declarations
+        .map(declaration => declaration.type as typescript.TypeReferenceNode)
+        .filter(Boolean)
+        .some(declaration => declaration.typeName.getText() === type)
     )
     .reduce(
       (declaration: typescript.VariableDeclaration, declarations) =>
