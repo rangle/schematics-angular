@@ -1,6 +1,6 @@
 import * as strings from '@angular-devkit/core/src/utils/strings';
 import { DirEntry, Tree } from '@angular-devkit/schematics';
-import { Change, InsertChange } from '@schematics/angular/utility/change';
+import { Change, InsertChange, RemoveChange } from '@schematics/angular/utility/change';
 import * as typescript from 'typescript';
 
 import { openSourceFile } from '../ast/ast-helpers';
@@ -60,15 +60,15 @@ export function openSourceFileFromTree(tree: Tree, filename: string): typescript
 }
 
 export function insertTreeChanges(tree: Tree, filename: string, changes: Change[]) {
-  const declarationRecorder = tree.beginUpdate(filename);
+  const updateRecorder = tree.beginUpdate(filename);
 
   changes.forEach(change => {
     if (change instanceof InsertChange) {
-      declarationRecorder.insertLeft(change.pos, change.toAdd);
+      updateRecorder.insertLeft(change.pos, change.toAdd);
     }
   });
 
-  tree.commitUpdate(declarationRecorder);
+  tree.commitUpdate(updateRecorder);
 }
 
 export function getTouchedFiles(tree: Tree) {

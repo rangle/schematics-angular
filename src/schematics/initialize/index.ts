@@ -71,8 +71,7 @@ export default function() {
       name: 'app-state'
     }),
     modifySourceFile(
-      tree =>
-        findFilenameInTree(tree.getDir('src/app/store'), filename => filename === 'app.reducer.ts'),
+      () => 'src/app/store/app.reducer.ts',
       (sourceFile, appReducerPath) => reworkAppReducer(sourceFile, appReducerPath)
     )
   ]);
