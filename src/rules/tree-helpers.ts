@@ -1,9 +1,9 @@
 import * as strings from '@angular-devkit/core/src/utils/strings';
 import { DirEntry, Tree } from '@angular-devkit/schematics';
-import { Change, InsertChange } from '@schematics/angular/utility/change';
 import * as typescript from 'typescript';
 
 import { openSourceFile } from '../ast/ast-helpers';
+import { SourceFileModification } from '../ast/source-file-modification.interface';
 import { SchemaOptions } from '../types/schema-options/schema-options.interface';
 
 export function deleteFile(tree: Tree, filename: string) {
@@ -59,17 +59,20 @@ export function openSourceFileFromTree(tree: Tree, filename: string): typescript
   return openSourceFile(filename, () => tree.read(filename).toString('utf-8'));
 }
 
-export function applyChangesToTreeFile(tree: Tree, filename: string, changes: Change[]) {
+export function applyModificationsToTreeFile(
+  tree: Tree,
+  filename: string,
+  modifications: SourceFileModification[]
+) {
   const updateRecorder = tree.beginUpdate(filename);
 
-  changes.forEach(change => {
-    if (change instanceof InsertChange) {
-      updateRecorder.insertLeft(change.pos, change.toAdd);
-      /*} else if (change instanceof ReplaceChange) {
-      updateRecorder.remove(change.pos, change.oldText.length);
-      updateRecorder.insertLeft(change.order, change.newText);
-    } else if (change instanceof RemoveChange) {
-      updateRecorder.remove(change.pos, change.toRemove);*/
+  modifications.forEach(modification => {
+    if (modification.toRemove) {
+      updateRecorder.remove(modification.index, modification.toRemove.length);
+    }
+
+    if (modification.toAdd) {
+      updateRecorder.insertLeft(modification.index, modification.toAdd);
     }
   });
 

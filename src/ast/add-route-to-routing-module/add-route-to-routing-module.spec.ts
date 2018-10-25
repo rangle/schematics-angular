@@ -1,7 +1,7 @@
-import { InsertChange } from '@schematics/angular/utility/change';
 import * as typescript from 'typescript';
 
 import { openSourceFileFromFileSystem } from '../ast-helpers';
+import { SourceFileModification } from '../source-file-modification.interface';
 
 import { addRouteToRoutingModule } from './add-route-to-routing-module';
 
@@ -13,16 +13,12 @@ describe('addRouteToRoutingModule()', () => {
   });
 
   it('add a route to an empty routes array', () => {
-    const changes: InsertChange[] = addRouteToRoutingModule(
-      sourceFile,
-      'app-routing.module.txt',
-      'stuff'
-    ) as InsertChange[];
+    const modifications: SourceFileModification[] = addRouteToRoutingModule(sourceFile, 'stuff');
 
-    expect(changes.length).toEqual(1);
-    expect(changes[0].toAdd).toEqual(
+    expect(modifications.length).toEqual(1);
+    expect(modifications[0].toAdd).toEqual(
       `{ path: 'stuff', loadChildren: './features/stuff/stuff.module#StuffModule' }`
     );
-    expect(changes[0].order).toEqual(126);
+    expect(modifications[0].index).toEqual(126);
   });
 });

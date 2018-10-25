@@ -35,8 +35,7 @@ export default function(options: ProjectSchemaOptions): Rule {
     },
     modifySourceFile(
       tree => findParentRoutingModuleFilenameInTree(tree, options),
-      (sourceFile, moduleFilename) =>
-        addRouteToRoutingModule(sourceFile, moduleFilename, options.name)
+      sourceFile => addRouteToRoutingModule(sourceFile, options.name)
     ),
     runPrettier(),
     runTslintFix(options)

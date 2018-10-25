@@ -1,0 +1,67 @@
+import {
+  addDeclarationToModule,
+  addImportToModule,
+  addProviderToModule,
+  insertImport
+} from '@schematics/angular/utility/ast-utils';
+import { Change, InsertChange } from '@schematics/angular/utility/change';
+import * as typescript from 'typescript';
+
+import { SourceFileModification } from './source-file-modification.interface';
+
+function mapInsertChangesToModifications(changes: Change[]) {
+  return changes.map(mapInsertChangeToModification);
+}
+
+function mapInsertChangeToModification(change: Change) {
+  const insertChange = change as InsertChange;
+
+  return {
+    index: insertChange.pos,
+    toAdd: insertChange.toAdd
+  };
+}
+
+export function addImportStatementToFile(
+  sourceFile: typescript.SourceFile,
+  filename: string,
+  classifiedName: string,
+  importPath: string
+): SourceFileModification {
+  return mapInsertChangeToModification(
+    insertImport(sourceFile, filename, classifiedName, importPath)
+  );
+}
+
+export function addProviderToNgModule(
+  sourceFile: typescript.SourceFile,
+  filename: string,
+  classifiedName: string,
+  importPath: string
+): SourceFileModification[] {
+  return mapInsertChangesToModifications(
+    addProviderToModule(sourceFile, filename, classifiedName, importPath)
+  );
+}
+
+export function addImportToNgModule(
+  sourceFile: typescript.SourceFile,
+  filename: string,
+  classifiedName: string,
+  importPath: string
+): SourceFileModification[] {
+  return mapInsertChangesToModifications(
+    addImportToModule(sourceFile, filename, classifiedName, importPath)
+  );
+}
+
+export function addDeclarationToNgModule(
+  sourceFile: typescript.SourceFile,
+  filename: string,
+  classifiedName: string,
+  importPath: string
+): SourceFileModification[] {
+  return mapInsertChangesToModifications(
+    addDeclarationToModule(sourceFile, filename, classifiedName, importPath)
+  );
+}

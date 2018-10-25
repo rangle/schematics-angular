@@ -1,5 +1,4 @@
 import * as strings from '@angular-devkit/core/src/utils/strings';
-import { Change } from '@schematics/angular/utility/change';
 import * as typescript from 'typescript';
 
 import { Folders } from '../../types/folders/folders.enum';
@@ -10,12 +9,12 @@ import {
   getVariableDeclaration,
   insertIntoArray
 } from '../ast-helpers';
+import { SourceFileModification } from '../source-file-modification.interface';
 
 export function addRouteToRoutingModule(
   sourceFile: typescript.SourceFile,
-  modulePath: string,
   name: string
-): Change[] {
+): SourceFileModification[] {
   const routesDeclaration = getVariableDeclaration(sourceFile, 'Routes');
 
   if (!routesDeclaration) {
@@ -34,7 +33,6 @@ export function addRouteToRoutingModule(
 
   return [
     insertIntoArray(
-      modulePath,
       routes,
       `{ path: '${strings.dasherize(name)}', loadChildren: '.${
         Folders.Features

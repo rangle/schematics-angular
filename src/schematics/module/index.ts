@@ -1,7 +1,7 @@
 import * as strings from '@angular-devkit/core/src/utils/strings';
 import { chain, schematic, Rule } from '@angular-devkit/schematics';
-import { addImportToModule } from '@schematics/angular/utility/ast-utils';
 
+import { addImportToNgModule } from '../../ast/ast-wrappers';
 import { modifySourceFile } from '../../rules/modify-source-file.rule';
 import { processTemplates } from '../../rules/process-templates.rule';
 import { runPrettier } from '../../rules/run-prettier.rule';
@@ -30,7 +30,7 @@ export default function(options: SchemaOptions): Rule {
     modifySourceFile(
       tree => findParentModuleFilenameInTree(tree, options),
       (sourceFile, moduleFilename) =>
-        addImportToModule(
+        addImportToNgModule(
           sourceFile,
           moduleFilename,
           strings.classify(`${options.name}Module`),

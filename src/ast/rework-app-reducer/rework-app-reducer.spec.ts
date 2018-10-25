@@ -1,4 +1,3 @@
-import { Change, InsertChange } from '@schematics/angular/utility/change';
 import * as typescript from 'typescript';
 
 import { openSourceFileFromFileSystem } from '../ast-helpers';
@@ -13,15 +12,20 @@ describe('reworkAppReducer()', () => {
   });
 
   it('remove State interface and replace State with AppState', () => {
-    const changes: Change[] = reworkAppReducer(sourceFile, 'app.reducer.txt');
+    const modifications = reworkAppReducer(sourceFile, 'app.reducer.txt');
 
-    expect(changes.length).toEqual(4);
-    expect(changes[0].order).toEqual(194);
-    expect((changes[0] as InsertChange).toAdd).toContain(
+    expect(modifications.length).toEqual(4);
+    expect(modifications[0].index).toEqual(192);
+    expect(modifications[0].toAdd).toContain(
       `import { AppState } from '../types/app-state/app-state.interface'`
     );
-    expect(changes[1].order).toEqual(195);
-    expect(changes[2].order).toEqual(272);
-    expect(changes[3].order).toEqual(327);
+    expect(modifications[1].index).toEqual(193);
+    expect(modifications[1].toRemove).toContain('export interface State');
+    expect(modifications[2].index).toEqual(270);
+    expect(modifications[2].toRemove).toEqual('State');
+    expect(modifications[2].toAdd).toEqual('AppState');
+    expect(modifications[3].index).toEqual(331);
+    expect(modifications[3].toRemove).toEqual('MetaReducer<State>');
+    expect(modifications[3].toAdd).toEqual('MetaReducer<AppState>');
   });
 });

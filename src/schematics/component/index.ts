@@ -1,7 +1,7 @@
 import * as strings from '@angular-devkit/core/src/utils/strings';
 import { chain, Rule, Tree } from '@angular-devkit/schematics';
-import { addDeclarationToModule } from '@schematics/angular/utility/ast-utils';
 
+import { addDeclarationToNgModule } from '../../ast/ast-wrappers';
 import { modifySourceFile } from '../../rules/modify-source-file.rule';
 import { processTemplates } from '../../rules/process-templates.rule';
 import { findModuleFilenameInTree } from '../../rules/tree-helpers';
@@ -34,7 +34,7 @@ export default function(options: ProjectSchemaOptions): Rule {
     modifySourceFile(
       tree => findModuleFilenameInTree(tree, options),
       (sourceFile, moduleFilename) =>
-        addDeclarationToModule(
+        addDeclarationToNgModule(
           sourceFile,
           moduleFilename,
           strings.classify(`${options.name}Component`),

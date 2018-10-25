@@ -1,7 +1,8 @@
 import { getDecoratorMetadata } from '@schematics/angular/utility/ast-utils';
-import { Change, InsertChange } from '@schematics/angular/utility/change';
 import * as fs from 'fs';
 import * as typescript from 'typescript';
+
+import { SourceFileModification } from './source-file-modification.interface';
 
 export function openSourceFileFromFileSystem(filename: string) {
   return openSourceFile(filename, () => fs.readFileSync(filename, 'utf-8'));
@@ -50,13 +51,19 @@ export function getVariableDeclaration(
     .filter(statement => statement.kind === typescript.SyntaxKind.VariableStatement)
     .map(statement => (statement as typescript.VariableStatement).declarationList.declarations)
     .filter(declarations =>
-      declarations
-        .filter(Boolean)
-        .map(declaration => declaration.type as typescript.TypeReferenceNode)
-        .filter(Boolean)
-        .map(typeReference => typeReference.typeName)
-        .filter(Boolean)
-        .some(typeName => typeName.getText() === type)
+      declarations.some(declaration => {
+        switch (declaration.type.kind) {
+          case typescript.SyntaxKind.TypeReference:
+            return (declaration.type as typescript.TypeReferenceNode).typeName.getText() === type;
+          case typescript.SyntaxKind.ArrayType:
+            return (
+              ((declaration.type as typescript.ArrayTypeNode)
+                .elementType as typescript.TypeReferenceNode).typeName.getText() === type
+            );
+          default:
+            return false;
+        }
+      })
     )
     .reduce(
       (declaration: typescript.VariableDeclaration, declarations) =>
@@ -68,8 +75,13 @@ export function getVariableDeclaration(
 export function getTypeArgumentOfVariableDeclaration(
   variableDeclaration: typescript.VariableDeclaration
 ) {
-  return (((variableDeclaration.type as unknown) as typescript.TypeReference)
-    .typeArguments[0] as unknown) as typescript.TypeReferenceNode;
+  switch (variableDeclaration.type.kind) {
+    case typescript.SyntaxKind.TypeReference:
+      return (variableDeclaration.type as typescript.TypeReferenceNode).typeArguments[0];
+    case typescript.SyntaxKind.ArrayType:
+      return ((variableDeclaration.type as typescript.ArrayTypeNode)
+        .elementType as typescript.TypeReferenceNode).typeArguments[0];
+  }
 }
 
 export function getObjectProperty(
@@ -101,13 +113,12 @@ export function filterNodeArray<T extends typescript.Node>(
 }
 
 export function insertIntoArray(
-  modulePath: string,
   array: typescript.NodeArray<typescript.Node>,
   symbolToInsert: string
-): Change {
-  return new InsertChange(
-    modulePath,
-    array.length >= 1 ? array[array.length - 1].end : ((array as {}) as typescript.TextRange).end,
-    array.length >= 1 ? `, ${symbolToInsert}` : symbolToInsert
-  );
+): SourceFileModification {
+  return {
+    index:
+      array.length >= 1 ? array[array.length - 1].end : ((array as {}) as typescript.TextRange).end,
+    toAdd: array.length >= 1 ? `, ${symbolToInsert}` : symbolToInsert
+  };
 }

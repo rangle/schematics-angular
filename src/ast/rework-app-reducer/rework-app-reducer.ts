@@ -1,5 +1,3 @@
-import { insertImport } from '@schematics/angular/utility/ast-utils';
-import { Change, RemoveChange, ReplaceChange } from '@schematics/angular/utility/change';
 import * as typescript from 'typescript';
 
 import {
@@ -7,33 +5,50 @@ import {
   getTypeArgumentOfVariableDeclaration,
   getVariableDeclaration
 } from '../ast-helpers';
+import { addImportStatementToFile } from '../ast-wrappers';
+import { SourceFileModification } from '../source-file-modification.interface';
 
 export function reworkAppReducer(
   sourceFile: typescript.SourceFile,
   appReducerPath: string
-): Change[] {
-  const stateDeclaration = getInterfaceDeclarationByType(sourceFile, 'State');
-  const reducers = getVariableDeclaration(sourceFile, 'ActionReducerMap');
-  const metaReducers = getVariableDeclaration(sourceFile, 'Array');
-
-  if (!stateDeclaration || !reducers || !metaReducers) {
-    return [];
-  }
-
-  return [
-    insertImport(sourceFile, appReducerPath, 'AppState', '../types/app-state/app-state.interface'),
-    new RemoveChange(appReducerPath, stateDeclaration.pos, stateDeclaration.getText()),
-    new ReplaceChange(
+): SourceFileModification[] {
+  const modifications = [
+    addImportStatementToFile(
+      sourceFile,
       appReducerPath,
-      getTypeArgumentOfVariableDeclaration(reducers).pos,
-      'State',
-      'AppState'
-    ),
-    new ReplaceChange(
-      appReducerPath,
-      getTypeArgumentOfVariableDeclaration(metaReducers).pos,
-      'MetaReducer<State>',
-      'MetaReducer<AppState>'
+      'AppState',
+      '../types/app-state/app-state.interface'
     )
   ];
+
+  const stateDeclaration = getInterfaceDeclarationByType(sourceFile, 'State');
+
+  if (stateDeclaration) {
+    modifications.push({
+      index: stateDeclaration.pos,
+      toRemove: stateDeclaration.getText()
+    });
+  }
+
+  const reducers = getVariableDeclaration(sourceFile, 'ActionReducerMap');
+
+  if (reducers) {
+    modifications.push({
+      index: getTypeArgumentOfVariableDeclaration(reducers).pos,
+      toRemove: 'State',
+      toAdd: 'AppState'
+    });
+  }
+
+  const metaReducers = getVariableDeclaration(sourceFile, 'MetaReducer');
+
+  if (metaReducers) {
+    modifications.push({
+      index: getTypeArgumentOfVariableDeclaration(metaReducers).pos,
+      toRemove: 'MetaReducer<State>',
+      toAdd: 'MetaReducer<AppState>'
+    });
+  }
+
+  return modifications;
 }

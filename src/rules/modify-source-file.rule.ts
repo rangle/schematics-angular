@@ -1,12 +1,16 @@
 import { Rule, Tree } from '@angular-devkit/schematics';
-import { Change } from '@schematics/angular/utility/change';
 import * as typescript from 'typescript';
 
-import { applyChangesToTreeFile, openSourceFileFromTree } from './tree-helpers';
+import { SourceFileModification } from '../ast/source-file-modification.interface';
+
+import { applyModificationsToTreeFile, openSourceFileFromTree } from './tree-helpers';
 
 export function modifySourceFile(
   getFilename: (tree: Tree) => string,
-  computeChanges: (sourceFile: typescript.SourceFile, filename: string) => Change[]
+  computeModifications: (
+    sourceFile: typescript.SourceFile,
+    filename: string
+  ) => SourceFileModification[]
 ): Rule {
   return (tree: Tree) => {
     const filename = getFilename(tree);
@@ -15,7 +19,7 @@ export function modifySourceFile(
       const sourceFile = openSourceFileFromTree(tree, filename);
 
       if (sourceFile) {
-        applyChangesToTreeFile(tree, filename, computeChanges(sourceFile, filename));
+        applyModificationsToTreeFile(tree, filename, computeModifications(sourceFile, filename));
       }
     }
 
