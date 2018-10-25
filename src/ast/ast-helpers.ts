@@ -1,6 +1,28 @@
 import { getDecoratorMetadata } from '@schematics/angular/utility/ast-utils';
 import { Change, InsertChange } from '@schematics/angular/utility/change';
+import * as fs from 'fs';
 import * as typescript from 'typescript';
+
+export function openSourceFileFromFileSystem(filename: string) {
+  return openSourceFile(filename, () => fs.readFileSync(filename, 'utf-8'));
+}
+
+export function openSourceFile(filename: string, readSourceText: () => string) {
+  if (filename) {
+    const sourceText = readSourceText();
+
+    if (sourceText) {
+      return typescript.createSourceFile(
+        filename,
+        sourceText,
+        typescript.ScriptTarget.Latest,
+        true
+      ) as typescript.SourceFile;
+    }
+  }
+
+  return null;
+}
 
 export function getNgModuleNode(
   sourceFile: typescript.SourceFile
@@ -33,17 +55,27 @@ export function getObjectProperty(
     ) as typescript.PropertyAssignment;
 }
 
-export function getArrayElements(expression: typescript.ArrayLiteralExpression): typescript.Node[] {
-  return (expression.elements as {}) as typescript.Node[];
+export function filterNodeArray<T extends typescript.Node>(
+  array: typescript.NodeArray<T>,
+  condition: (node: T) => boolean
+): typescript.NodeArray<T> {
+  const textRange = {
+    pos: array.pos,
+    end: array.end
+  };
+
+  const newArray = (array.filter(condition) as {}) as typescript.NodeArray<T>;
+  newArray.pos = textRange.pos;
+  newArray.end = textRange.end;
+
+  return newArray;
 }
 
 export function insertIntoArray(
   modulePath: string,
-  array: typescript.Node[],
+  array: typescript.NodeArray<typescript.Node>,
   symbolToInsert: string
 ): Change {
-  console.log(array);
-
   return new InsertChange(
     modulePath,
     array.length >= 1 ? array[array.length - 1].end : ((array as {}) as typescript.TextRange).end,

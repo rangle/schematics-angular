@@ -3,6 +3,7 @@ import { DirEntry, Tree } from '@angular-devkit/schematics';
 import { Change, InsertChange } from '@schematics/angular/utility/change';
 import * as typescript from 'typescript';
 
+import { openSourceFile } from '../ast/ast-helpers';
 import { SchemaOptions } from '../types/schema-options/schema-options.interface';
 
 export function deleteFile(tree: Tree, filename: string) {
@@ -54,21 +55,8 @@ export function findParentRoutingModuleFilenameInTree(tree: Tree, options: Schem
   );
 }
 
-export function openTypescriptSourceFile(tree: Tree, filename: string): typescript.SourceFile {
-  if (filename) {
-    const sourceText = tree.read(filename);
-
-    if (sourceText) {
-      return typescript.createSourceFile(
-        filename,
-        sourceText.toString('utf-8'),
-        typescript.ScriptTarget.Latest,
-        true
-      ) as typescript.SourceFile;
-    }
-  }
-
-  return null;
+export function openSourceFileFromTree(tree: Tree, filename: string): typescript.SourceFile {
+  return openSourceFile(filename, () => tree.read(filename).toString('utf-8'));
 }
 
 export function insertTreeChanges(tree: Tree, filename: string, changes: Change[]) {

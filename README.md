@@ -59,7 +59,9 @@ UPDATE /package.json (2552 bytes)
 
 To create a feature module containing components, routes, services,
 types and isolated ngrx infrastructure, you must specify the feature's
-`name`, `path` and your project's component `prefix`:
+`name`, `path` and optionally, you can specify your project's component
+`prefix` for its selector, but the schematic can often figure this out
+from your Angular project workspace.
 
 ```bash
 schematics @egervari/schematics-angular:feature --name=my-feature --path=src/app --prefix=rng
@@ -95,7 +97,7 @@ not really features, but reusable pieces of code the rest of the app
 can share. To create such a module, run the following schematic:
 
 ```bash
-schematics @egervari/schematics-angular:module --name=my-module --path=src/app --prefix=rng
+schematics @egervari/schematics-angular:module --name=my-module --path=src/app
 ```
 
 If your project currently does not have a `/modules` folder, the
@@ -122,7 +124,7 @@ Creating components is equally easy - make sure to point the `path`
 to the module/feature folder you wish the component to be located:
 
 ```bash
-schematics @egervari/schematics-angular:component --name=my-form --path=src/app --prefix=rng
+schematics @egervari/schematics-angular:component --name=my-form --path=src/app
 ```
 
 If your path currently does not have a `/components` folder, the
@@ -143,8 +145,6 @@ UPDATE /src/app/app.module.ts (2484 bytes)
 
 Creates a service and updates the containing module file.
 
-Note that this schematic does not require a `prefix` parameter.
-
 ```bash
 schematics @egervari/schematics-angular:service --name=my-api --path=src/app
 ```
@@ -163,8 +163,6 @@ UPDATE /src/app/app.module.ts (2561 bytes)
 #### Creating Types
 
 Creates a paired interface and functions file for a given model.
-
-Note that this schematic does not require a `prefix` parameter.
 
 ```bash
 schematics @egervari/schematics-angular:type --name=user-profile --path=src/app

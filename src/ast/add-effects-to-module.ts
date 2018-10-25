@@ -2,12 +2,7 @@ import { insertImport } from '@schematics/angular/utility/ast-utils';
 import { Change, InsertChange } from '@schematics/angular/utility/change';
 import * as typescript from 'typescript';
 
-import {
-  getArrayElements,
-  getNgModuleNode,
-  getObjectProperty,
-  insertIntoArray
-} from './ast-helpers';
+import { getNgModuleNode, getObjectProperty, insertIntoArray } from './ast-helpers';
 
 export function addEffectsToModule(
   sourceFile: typescript.SourceFile,
@@ -37,9 +32,7 @@ export function addEffectsToModule(
     ];
   }
 
-  const imports = getArrayElements(
-    propertyAssignment.initializer as typescript.ArrayLiteralExpression
-  );
+  const imports = (propertyAssignment.initializer as typescript.ArrayLiteralExpression).elements;
 
   const effectsModuleImport = imports.find(element =>
     element.getText().startsWith('EffectsModule')
@@ -47,7 +40,7 @@ export function addEffectsToModule(
 
   if (effectsModuleImport && effectsModuleImport.kind === typescript.SyntaxKind.CallExpression) {
     const forFeatureArguments = (effectsModuleImport as typescript.CallExpression).arguments;
-    const effects = getArrayElements(forFeatureArguments[0] as typescript.ArrayLiteralExpression);
+    const effects = (forFeatureArguments[0] as typescript.ArrayLiteralExpression).elements;
 
     return [
       insertIntoArray(modulePath, effects, classifiedName),

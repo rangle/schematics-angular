@@ -1,6 +1,6 @@
 import { chain, schematic, Rule, Tree } from '@angular-devkit/schematics';
 
-import { addRouteToRoutingModule } from '../../ast/add-route-to-routing-module';
+import { addRouteToRoutingModule } from '../../ast/add-route-to-routing-module/add-route-to-routing-module';
 import { modifySourceFileRule } from '../../rules/modify-source-file.rule';
 import { processTemplates } from '../../rules/process-templates.rule';
 import { runPrettier } from '../../rules/run-prettier.rule';
