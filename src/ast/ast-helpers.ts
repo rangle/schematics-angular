@@ -52,7 +52,7 @@ export function getVariableDeclaration(
     .filter(declarations =>
       declarations
         .map(declaration => declaration.type as typescript.TypeReferenceNode)
-        .filter(Boolean)
+        .filter(declaration => Boolean(declaration.typeName))
         .some(declaration => declaration.typeName.getText() === type)
     )
     .reduce(
