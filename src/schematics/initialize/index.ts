@@ -4,6 +4,9 @@ import { reworkAppReducer } from '../../ast/rework-app-reducer/rework-app-reduce
 import { modifySourceFile } from '../../rules/modify-source-file.rule';
 import { updateBarrelFile } from '../../rules/update-barrel-file.rule';
 
+const AppModule = 'src/app/app.module.ts';
+const AppReducer = 'src/app/store/app.reducer.ts';
+
 export default function() {
   return chain([
     schematic('tslint-and-prettier', {}),
@@ -24,7 +27,7 @@ export default function() {
         },
         {
           from: 'src/app/reducers/index.ts',
-          to: 'src/app/store/app.reducer.ts'
+          to: AppReducer
         },
         {
           from: 'src/app/app.effects.ts',
@@ -38,8 +41,6 @@ export default function() {
           tree.delete(filename.from);
         }
       });
-
-      tree.delete('src/app/reducers');
     },
     (tree: Tree) => {
       const filesToDelete = [
@@ -55,23 +56,29 @@ export default function() {
       });
     },
     (tree: Tree) => {
-      tree.overwrite(
-        'src/app/app.module.ts',
-        tree
-          .read('src/app/app.module.ts')
-          .toString()
-          .replace(`'./app.component'`, `'./components'`)
-          .replace(`'./app.effects'`, `'./store/app.effects'`)
-          .replace(`'./reducers'`, `'./store/app.reducer'`)
-      );
+      if (tree.exists(AppModule)) {
+        tree.overwrite(
+          AppModule,
+          tree
+            .read(AppModule)
+            .toString()
+            .replace(`'./app.component'`, `'./components'`)
+            .replace(`'./app.effects'`, `'./store/app.effects'`)
+            .replace(`'./reducers'`, `'./store/app.reducer'`)
+        );
+      }
     },
     schematic('type', {
       path: 'src/app',
       name: 'app-state'
     }),
-    modifySourceFile(
-      () => 'src/app/store/app.reducer.ts',
-      (sourceFile, appReducerPath) => reworkAppReducer(sourceFile, appReducerPath)
-    )
+    (tree: Tree) => {
+      if (tree.exists(AppReducer)) {
+        return modifySourceFile(
+          () => AppReducer,
+          (sourceFile, appReducerPath) => reworkAppReducer(sourceFile, appReducerPath)
+        );
+      }
+    }
   ]);
 }

@@ -1,6 +1,9 @@
 import * as strings from '@angular-devkit/core/src/utils/strings';
 import { DirEntry, Tree } from '@angular-devkit/schematics';
-import { Change, InsertChange } from '@schematics/angular/utility/change';
+import {
+  Change,
+  InsertChange
+} from '@schematics/angular/utility/change';
 import * as typescript from 'typescript';
 
 import { openSourceFile } from '../ast/ast-helpers';
@@ -59,12 +62,17 @@ export function openSourceFileFromTree(tree: Tree, filename: string): typescript
   return openSourceFile(filename, () => tree.read(filename).toString('utf-8'));
 }
 
-export function insertTreeChanges(tree: Tree, filename: string, changes: Change[]) {
+export function applyChangesToTreeFile(tree: Tree, filename: string, changes: Change[]) {
   const updateRecorder = tree.beginUpdate(filename);
 
   changes.forEach(change => {
     if (change instanceof InsertChange) {
       updateRecorder.insertLeft(change.pos, change.toAdd);
+    /*} else if (change instanceof ReplaceChange) {
+      updateRecorder.remove(change.pos, change.oldText.length);
+      updateRecorder.insertLeft(change.order, change.newText);
+    } else if (change instanceof RemoveChange) {
+      updateRecorder.remove(change.pos, change.toRemove);*/
     }
   });
 

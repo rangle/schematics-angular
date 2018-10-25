@@ -2,7 +2,7 @@ import { Rule, Tree } from '@angular-devkit/schematics';
 import { Change } from '@schematics/angular/utility/change';
 import * as typescript from 'typescript';
 
-import { insertTreeChanges, openSourceFileFromTree } from './tree-helpers';
+import { applyChangesToTreeFile, openSourceFileFromTree } from './tree-helpers';
 
 export function modifySourceFile(
   getFilename: (tree: Tree) => string,
@@ -15,7 +15,7 @@ export function modifySourceFile(
       const sourceFile = openSourceFileFromTree(tree, filename);
 
       if (sourceFile) {
-        insertTreeChanges(tree, filename, computeChanges(sourceFile, filename));
+        applyChangesToTreeFile(tree, filename, computeChanges(sourceFile, filename));
       }
     }
 
