@@ -5,12 +5,23 @@ import { modifySourceFile } from '../../rules/modify-source-file.rule';
 import { updateBarrelFile } from '../../rules/update-barrel-file.rule';
 
 const AppModule = 'src/app/app.module.ts';
-const AppReducer = 'src/app/store/app.reducer.ts';
 
 export default function() {
   return chain([
     schematic('tslint-and-prettier', {}),
+    schematic('type', {
+      path: 'src/app',
+      name: 'app-state'
+    }),
     updateBarrelFile('src/app/components', `export * from './app/app.component'`),
+    (tree: Tree) => {
+      if (tree.exists('src/app/reducers/index.ts')) {
+        return modifySourceFile(
+          () => 'src/app/reducers/index.ts',
+          (sourceFile, appReducerPath) => reworkAppReducer(sourceFile, appReducerPath)
+        );
+      }
+    },
     (tree: Tree) => {
       const filesToMove = [
         {
@@ -27,7 +38,7 @@ export default function() {
         },
         {
           from: 'src/app/reducers/index.ts',
-          to: AppReducer
+          to: 'src/app/store/app.reducer.ts'
         },
         {
           from: 'src/app/app.effects.ts',
@@ -65,18 +76,6 @@ export default function() {
             .replace(`'./app.component'`, `'./components'`)
             .replace(`'./app.effects'`, `'./store/app.effects'`)
             .replace(`'./reducers'`, `'./store/app.reducer'`)
-        );
-      }
-    },
-    schematic('type', {
-      path: 'src/app',
-      name: 'app-state'
-    }),
-    (tree: Tree) => {
-      if (tree.exists(AppReducer)) {
-        return modifySourceFile(
-          () => AppReducer,
-          (sourceFile, appReducerPath) => reworkAppReducer(sourceFile, appReducerPath)
         );
       }
     }
