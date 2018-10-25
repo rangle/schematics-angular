@@ -16,6 +16,10 @@ export function reworkAppReducer(
   const reducers = getVariableDeclaration(sourceFile, 'ActionReducerMap');
   const metaReducers = getVariableDeclaration(sourceFile, 'Array');
 
+  if (!stateDeclaration || !reducers || !metaReducers) {
+    return [];
+  }
+
   return [
     insertImport(sourceFile, appReducerPath, 'AppState', '../types/app-state/app-state.interface'),
     new RemoveChange(appReducerPath, stateDeclaration.pos, stateDeclaration.getText()),
