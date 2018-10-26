@@ -40,7 +40,7 @@ function findParentStateInterfaceFile(tree: Tree, name: string, path: string): s
     const statePath = typesDirEntry.subdirs.find(dir => dir.includes('-state'));
 
     if (statePath) {
-      const stateDirEntry = directory.dir(statePath);
+      const stateDirEntry = typesDirEntry.dir(statePath);
 
       const stateInterfacePath = stateDirEntry.subfiles.find(
         file => file.includes('-state.interface.ts') && file !== `${name}-state.interface.ts`
