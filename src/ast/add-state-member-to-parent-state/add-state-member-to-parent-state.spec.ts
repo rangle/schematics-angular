@@ -11,7 +11,7 @@ describe('addStateMemberToParentState()', () => {
     sourceFile = openSourceFileFromFileSystem(__dirname + '/app-state.interface.txt');
   });
 
-  it('remove State interface and replace State with AppState', () => {
+  it('add child state as a member to the parent state interface', () => {
     const modifications = addStateMemberToParentState(sourceFile, 'stuff');
 
     expect(modifications.length).toEqual(2);

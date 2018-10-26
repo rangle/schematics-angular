@@ -22,11 +22,11 @@ export function addEffectsToModule(
     propertyAssignment.initializer.kind !== typescript.SyntaxKind.ArrayLiteralExpression
   ) {
     return [
+      addImportStatementToFile(sourceFile, classifiedName, importPath),
       {
         index: ngModuleNode.properties.pos,
         toAdd: `imports: [EffectsModule.forFeature([${classifiedName}])],`
-      },
-      addImportStatementToFile(sourceFile, classifiedName, importPath)
+      }
     ];
   }
 
@@ -41,13 +41,13 @@ export function addEffectsToModule(
     const effects = (forFeatureArguments[0] as typescript.ArrayLiteralExpression).elements;
 
     return [
-      insertIntoArray(effects, classifiedName),
-      addImportStatementToFile(sourceFile, classifiedName, importPath)
+      addImportStatementToFile(sourceFile, classifiedName, importPath),
+      insertIntoArray(effects, classifiedName)
     ];
   } else {
     return [
-      insertIntoArray(imports, `EffectsModule.forFeature([${classifiedName}])`),
-      addImportStatementToFile(sourceFile, classifiedName, importPath)
+      addImportStatementToFile(sourceFile, classifiedName, importPath),
+      insertIntoArray(imports, `EffectsModule.forFeature([${classifiedName}])`)
     ];
   }
 }

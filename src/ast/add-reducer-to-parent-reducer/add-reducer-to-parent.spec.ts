@@ -11,7 +11,7 @@ describe('addReducerToParentReducer()', () => {
     sourceFile = openSourceFileFromFileSystem(__dirname + '/app.reducer.txt');
   });
 
-  it('add reducer to ActionReducerMap', () => {
+  it('add child reducer to the parent app state ActionReducerMap', () => {
     const modifications = addReducerToParentReducer(sourceFile, 'stuff');
 
     expect(modifications.length).toEqual(2);
