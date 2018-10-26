@@ -110,15 +110,18 @@ You should see the following files be created/updated when running this
 schematic:
 
 ```bash
-CREATE /src/app/modules/my-module/my-module.module.ts (571 bytes)
-CREATE /src/app/modules/my-module/services/my-module.service.ts (203 bytes)
+CREATE /src/app/modules/my-module/my-module.module.ts (559 bytes)
+CREATE /src/app/modules/my-module/services/my-module.service.ts (199 bytes)
 CREATE /src/app/modules/my-module/store/my-module.actions.ts (236 bytes)
-CREATE /src/app/modules/my-module/store/my-module.effects.ts (472 bytes)
+CREATE /src/app/modules/my-module/store/my-module.effects.ts (448 bytes)
 CREATE /src/app/modules/my-module/store/my-module.reducer.ts (547 bytes)
-CREATE /src/app/modules/my-module/store/my-module.store.ts (310 bytes)
-CREATE /src/app/modules/my-module/types/my-module-state/my-module-state.functions.ts (159 bytes)
+CREATE /src/app/modules/my-module/store/my-module.store.ts (303 bytes)
+CREATE /src/app/modules/my-module/types/my-module-state/my-module-state.functions.ts (161 bytes)
 CREATE /src/app/modules/my-module/types/my-module-state/my-module-state.interface.ts (58 bytes)
-UPDATE /src/app/app.module.ts (2445 bytes)
+UPDATE /src/app/store/app.reducer.ts (660 bytes)
+UPDATE /src/app/types/app-state/app-state.interface.ts (314 bytes)
+UPDATE /src/app/types/app-state/app-state.functions.ts (425 bytes)
+UPDATE /src/app/app.module.ts (768 bytes)
 ```
 
 #### Creating Components
