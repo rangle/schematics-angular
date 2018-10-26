@@ -2,7 +2,7 @@ import * as typescript from 'typescript';
 
 import { openSourceFileFromFileSystem } from '../ast-helpers';
 
-import { addStateMemberToParentState } from './add-state-member-to-parent-state';
+import { addStateMemberToParentStateInterface } from './add-state-member-to-parent-state-interface';
 
 describe('addStateMemberToParentState()', () => {
   let sourceFile: typescript.SourceFile;
@@ -12,7 +12,7 @@ describe('addStateMemberToParentState()', () => {
   });
 
   it('add child state as a member to the parent state interface', () => {
-    const modifications = addStateMemberToParentState(sourceFile, 'stuff');
+    const modifications = addStateMemberToParentStateInterface(sourceFile, 'stuff');
 
     expect(modifications.length).toEqual(2);
     expect(modifications[0].index).toEqual(0);

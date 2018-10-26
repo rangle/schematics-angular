@@ -1,7 +1,8 @@
 import { chain, Rule, Tree } from '@angular-devkit/schematics';
 
+import { addDefaultValueToParentStateFunctions } from '../../ast/add-default-value-to-parent-state-functions/add-default-value-to-parent-state-functions';
 import { addReducerToParentReducer } from '../../ast/add-reducer-to-parent-reducer/add-reducer-to-parent-reducer';
-import { addStateMemberToParentState } from '../../ast/add-state-member-to-parent-state/add-state-member-to-parent-state';
+import { addStateMemberToParentStateInterface } from '../../ast/add-state-member-to-parent-state-interface/add-state-member-to-parent-state-interface';
 import { modifySourceFile } from '../../rules/modify-source-file.rule';
 import { processTemplates } from '../../rules/process-templates.rule';
 import { Folders } from '../../types/folders/folders.enum';
@@ -30,7 +31,12 @@ function findParentReducerFile(tree: Tree, name: string, path: string): string {
   return directory.parent ? findParentReducerFile(tree, name, directory.parent.path) : null;
 }
 
-function findParentStateInterfaceFile(tree: Tree, name: string, path: string): string {
+function findParentStateTypesFile(
+  tree: Tree,
+  extension: string,
+  name: string,
+  path: string
+): string {
   const directory = tree.getDir(path);
   const typesPath = directory.subdirs.find(dir => dir === 'types');
 
@@ -42,17 +48,19 @@ function findParentStateInterfaceFile(tree: Tree, name: string, path: string): s
     if (statePath) {
       const stateDirEntry = typesDirEntry.dir(statePath);
 
-      const stateInterfacePath = stateDirEntry.subfiles.find(
-        file => file.includes('-state.interface.ts') && file !== `${name}-state.interface.ts`
+      const stateTypeFilePath = stateDirEntry.subfiles.find(
+        file => file.includes(`-state.${extension}.ts`) && file !== `${name}-state.${extension}.ts`
       );
 
-      if (stateInterfacePath) {
-        return stateDirEntry.file(stateInterfacePath).path;
+      if (stateTypeFilePath) {
+        return stateDirEntry.file(stateTypeFilePath).path;
       }
     }
   }
 
-  return directory.parent ? findParentStateInterfaceFile(tree, name, directory.parent.path) : null;
+  return directory.parent
+    ? findParentStateTypesFile(tree, extension, name, directory.parent.path)
+    : null;
 }
 
 export default function(options: SchemaOptions): Rule {
@@ -67,8 +75,12 @@ export default function(options: SchemaOptions): Rule {
       sourceFile => addReducerToParentReducer(sourceFile, options.name)
     ),
     modifySourceFile(
-      tree => findParentStateInterfaceFile(tree, options.name, options.path),
-      sourceFile => addStateMemberToParentState(sourceFile, options.name)
+      tree => findParentStateTypesFile(tree, 'interface', options.name, options.path),
+      sourceFile => addStateMemberToParentStateInterface(sourceFile, options.name)
+    ),
+    modifySourceFile(
+      tree => findParentStateTypesFile(tree, 'functions', options.name, options.path),
+      sourceFile => addDefaultValueToParentStateFunctions(sourceFile, options.name)
     )
   ]);
 }

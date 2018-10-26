@@ -1,0 +1,8 @@
+import { childState } from '../../features/child/types/child-state/child-state.function';
+import { AppState } from './app-state.interface';
+
+export function createAppState(): AppState {
+  return {
+    childState: createChildState(),
+  };
+}

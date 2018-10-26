@@ -6,7 +6,7 @@ import { getInterfaceDeclarationByType } from '../ast-helpers';
 import { addImportStatementToFile } from '../ast-wrappers';
 import { SourceFileModification } from '../source-file-modification.interface';
 
-export function addStateMemberToParentState(
+export function addStateMemberToParentStateInterface(
   sourceFile: typescript.SourceFile,
   name: string
 ): SourceFileModification[] {
