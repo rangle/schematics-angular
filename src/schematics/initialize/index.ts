@@ -1,4 +1,4 @@
-import { chain, schematic, Tree } from '@angular-devkit/schematics';
+import { chain, schematic, Rule, Tree } from '@angular-devkit/schematics';
 
 import { reworkAppReducer } from '../../ast/rework-app-reducer/rework-app-reducer';
 import { modifySourceFile } from '../../rules/modify-source-file.rule';
@@ -7,7 +7,7 @@ import { updateBarrelFile } from '../../rules/update-barrel-file.rule';
 const AppModule = 'src/app/app.module.ts';
 const AppReducer = 'src/app/store/app.reducer.ts';
 
-export default function() {
+export default function(): Rule {
   return chain([
     schematic('tslint-and-prettier', {}),
     schematic('type', {
