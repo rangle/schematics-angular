@@ -1,12 +1,12 @@
 import {
   addDeclarationToModule,
   addImportToModule,
-  addProviderToModule,
-  insertImport
+  addProviderToModule
 } from '@schematics/angular/utility/ast-utils';
 import { Change, InsertChange } from '@schematics/angular/utility/change';
 import * as typescript from 'typescript';
 
+import { getLastImportDeclaration } from './ast-helpers';
 import { SourceFileModification } from './source-file-modification.interface';
 
 function mapInsertChangesToModifications(changes: Change[]) {
@@ -24,13 +24,15 @@ function mapInsertChangeToModification(change: Change) {
 
 export function addImportStatementToFile(
   sourceFile: typescript.SourceFile,
-  filename: string,
-  classifiedName: string,
+  symbolToImport: string,
   importPath: string
 ): SourceFileModification {
-  return mapInsertChangeToModification(
-    insertImport(sourceFile, filename, classifiedName, importPath)
-  );
+  const importDeclaration = getLastImportDeclaration(sourceFile);
+
+  return {
+    index: importDeclaration ? importDeclaration.end : 0,
+    toAdd: `import { ${symbolToImport} } from '${importPath}';\r\n`
+  };
 }
 
 export function addProviderToNgModule(

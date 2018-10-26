@@ -1,6 +1,7 @@
 import * as strings from '@angular-devkit/core/src/utils/strings';
 import * as typescript from 'typescript';
 
+import { Folders } from '../../types/folders/folders.enum';
 import { getVariableDeclaration } from '../ast-helpers';
 import { addImportStatementToFile } from '../ast-wrappers';
 import { SourceFileModification } from '../source-file-modification.interface';
@@ -18,12 +19,13 @@ export function addReducerToParentReducer(
       return [
         addImportStatementToFile(
           sourceFile,
-          null,
           `${strings.camelize(name)}Reducer`,
-          `../features/${strings.dasherize(name)}/store/${strings.dasherize(name)}.reducer`
+          `..${Folders.Features}/${strings.dasherize(name)}/store/${strings.dasherize(
+            name
+          )}.reducer`
         ),
         {
-          index: actionReducerMap.pos,
+          index: actionReducerMap.properties.pos,
           toAdd: `${strings.camelize(name)}State: ${strings.camelize(name)}Reducer,`
         }
       ];

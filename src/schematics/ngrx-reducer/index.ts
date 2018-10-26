@@ -1,6 +1,7 @@
 import { chain, Rule, Tree } from '@angular-devkit/schematics';
 
 import { addReducerToParentReducer } from '../../ast/add-reducer-to-parent-reducer/add-reducer-to-parent-reducer';
+import { addStateMemberToParentState } from '../../ast/add-state-member-to-parent-state/add-state-member-to-parent-state';
 import { modifySourceFile } from '../../rules/modify-source-file.rule';
 import { processTemplates } from '../../rules/process-templates.rule';
 import { Folders } from '../../types/folders/folders.enum';
@@ -39,6 +40,10 @@ export default function(options: SchemaOptions): Rule {
     modifySourceFile(
       tree => findParentReducerFile(tree, options.name, options.path),
       sourceFile => addReducerToParentReducer(sourceFile, options.name)
+    ),
+    modifySourceFile(
+      tree => findParentReducerFile(tree, options.name, options.path),
+      sourceFile => addStateMemberToParentState(sourceFile, options.name)
     )
   ]);
 }

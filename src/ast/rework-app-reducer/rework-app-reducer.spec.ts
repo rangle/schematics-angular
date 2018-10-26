@@ -12,10 +12,10 @@ describe('reworkAppReducer()', () => {
   });
 
   it('remove State interface and replace State with AppState', () => {
-    const modifications = reworkAppReducer(sourceFile, 'app.reducer.txt');
+    const modifications = reworkAppReducer(sourceFile);
 
     expect(modifications.length).toEqual(4);
-    expect(modifications[0].index).toEqual(192);
+    expect(modifications[0].index).toEqual(193);
     expect(modifications[0].toAdd).toContain(
       `import { AppState } from '../types/app-state/app-state.interface'`
     );

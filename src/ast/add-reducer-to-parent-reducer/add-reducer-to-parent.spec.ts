@@ -15,11 +15,11 @@ describe('addReducerToParentReducer()', () => {
     const modifications = addReducerToParentReducer(sourceFile, 'stuff');
 
     expect(modifications.length).toEqual(2);
-    expect(modifications[0].index).toEqual(262);
+    expect(modifications[0].index).toEqual(263);
     expect(modifications[0].toAdd).toContain(
       `import { stuffReducer } from '../features/stuff/store/stuff.reducer'`
     );
-    expect(modifications[1].index).toEqual(318);
+    expect(modifications[1].index).toEqual(320);
     expect(modifications[1].toAdd).toEqual('stuffState: stuffReducer,');
   });
 });

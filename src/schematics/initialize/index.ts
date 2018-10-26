@@ -75,10 +75,7 @@ export default function(): Rule {
     },
     (tree: Tree) => {
       if (tree.exists(AppReducer)) {
-        return modifySourceFile(
-          () => AppReducer,
-          (sourceFile, appReducerPath) => reworkAppReducer(sourceFile, appReducerPath)
-        );
+        return modifySourceFile(() => AppReducer, sourceFile => reworkAppReducer(sourceFile));
       }
     }
   ]);

@@ -21,10 +21,9 @@ export default function(options: SchemaOptions): Rule {
     processTemplates(options, options.path),
     modifySourceFile(
       tree => findModuleFilenameInTree(tree, options),
-      (sourceFile, moduleFilename) =>
+      sourceFile =>
         addEffectsToModule(
           sourceFile,
-          moduleFilename,
           strings.classify(`${options.name}Effects`),
           `.${Folders.Store}/${strings.dasherize(options.name)}.effects`
         )

@@ -6,7 +6,6 @@ import { SourceFileModification } from '../source-file-modification.interface';
 
 export function addEffectsToModule(
   sourceFile: typescript.SourceFile,
-  modulePath: string,
   classifiedName: string,
   importPath: string
 ): SourceFileModification[] {
@@ -27,7 +26,7 @@ export function addEffectsToModule(
         index: ngModuleNode.properties.pos,
         toAdd: `imports: [EffectsModule.forFeature([${classifiedName}])],`
       },
-      addImportStatementToFile(sourceFile, modulePath, classifiedName, importPath)
+      addImportStatementToFile(sourceFile, classifiedName, importPath)
     ];
   }
 
@@ -43,12 +42,12 @@ export function addEffectsToModule(
 
     return [
       insertIntoArray(effects, classifiedName),
-      addImportStatementToFile(sourceFile, modulePath, classifiedName, importPath)
+      addImportStatementToFile(sourceFile, classifiedName, importPath)
     ];
   } else {
     return [
       insertIntoArray(imports, `EffectsModule.forFeature([${classifiedName}])`),
-      addImportStatementToFile(sourceFile, modulePath, classifiedName, importPath)
+      addImportStatementToFile(sourceFile, classifiedName, importPath)
     ];
   }
 }

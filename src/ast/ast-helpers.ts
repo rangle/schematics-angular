@@ -35,6 +35,22 @@ export function getNgModuleNode(
     : null;
 }
 
+export function getAllImportDeclarations(sourceFile: typescript.SourceFile) {
+  return sourceFile.statements.filter(
+    statement => statement.kind === typescript.SyntaxKind.ImportDeclaration
+  );
+}
+
+export function getLastImportDeclaration(sourceFile: typescript.SourceFile) {
+  return getAllImportDeclarations(sourceFile).reduce((lastDeclaration, declaration) => {
+    return lastDeclaration
+      ? lastDeclaration.pos > declaration.pos
+        ? lastDeclaration
+        : declaration
+      : declaration;
+  }, null);
+}
+
 export function getInterfaceDeclarationByType(
   sourceFile: typescript.SourceFile,
   type: string

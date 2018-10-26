@@ -8,17 +8,9 @@ import {
 import { addImportStatementToFile } from '../ast-wrappers';
 import { SourceFileModification } from '../source-file-modification.interface';
 
-export function reworkAppReducer(
-  sourceFile: typescript.SourceFile,
-  appReducerPath: string
-): SourceFileModification[] {
+export function reworkAppReducer(sourceFile: typescript.SourceFile): SourceFileModification[] {
   const modifications = [
-    addImportStatementToFile(
-      sourceFile,
-      appReducerPath,
-      'AppState',
-      '../types/app-state/app-state.interface'
-    )
+    addImportStatementToFile(sourceFile, 'AppState', '../types/app-state/app-state.interface')
   ];
 
   const stateDeclaration = getInterfaceDeclarationByType(sourceFile, 'State');
