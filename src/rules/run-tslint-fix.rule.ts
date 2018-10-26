@@ -14,7 +14,8 @@ export function runTslintFix(options: PathOptions): Rule {
     context.addTask(
       new TslintFixTask({
         tslintPath: getTslintJsonFilename(tree, options),
-        files: getTouchedFiles(tree)
+        files: getTouchedFiles(tree),
+        ignoreErrors: true
       })
     );
   };
