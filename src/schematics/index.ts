@@ -1,5 +1,6 @@
 export * from './component';
 export * from './feature';
+export * from './initialize';
 export * from './module';
 export * from './ngrx';
 export * from './ngrx-actions';
