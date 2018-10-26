@@ -19,7 +19,7 @@ describe('addDefaultValueToParentStateFunctions()', () => {
     expect(modifications[0].toAdd).toEqual(
       `import { createStuffState } from '../../features/stuff/types/stuff-state/stuff-state.functions';\r\n`
     );
-    expect(modifications[1].index).toEqual(237);
-    expect(modifications[1].toAdd).toEqual(`, stuffState: createStuffState()\r\n`);
+    expect(modifications[1].index).toEqual(200);
+    expect(modifications[1].toAdd).toEqual(`stuffState: createStuffState(),\r\n`);
   });
 });

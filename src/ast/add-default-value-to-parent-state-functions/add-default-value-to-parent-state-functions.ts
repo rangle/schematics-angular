@@ -33,8 +33,8 @@ export function addDefaultValueToParentStateFunctions(
       )}-state/${strings.dasherize(name)}-state.functions`
     ),
     {
-      index: (returnStatement.expression as typescript.ObjectLiteralExpression).properties.end,
-      toAdd: `, ${strings.camelize(name)}State: create${strings.classify(name)}State()\r\n`
+      index: (returnStatement.expression as typescript.ObjectLiteralExpression).properties.pos,
+      toAdd: `${strings.camelize(name)}State: create${strings.classify(name)}State(),\r\n`
     }
   ];
 }
