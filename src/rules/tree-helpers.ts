@@ -67,8 +67,8 @@ export function applyModificationsToTreeFile(
   const updateRecorder = tree.beginUpdate(filename);
 
   modifications.forEach(modification => {
-    if (modification.toRemove) {
-      updateRecorder.remove(modification.index, modification.toRemove.length);
+    if (modification.removeToIndex) {
+      updateRecorder.remove(modification.index, modification.removeToIndex - modification.index);
     }
 
     if (modification.toAdd) {

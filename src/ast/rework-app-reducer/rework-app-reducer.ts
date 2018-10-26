@@ -26,16 +26,18 @@ export function reworkAppReducer(
   if (stateDeclaration) {
     modifications.push({
       index: stateDeclaration.pos,
-      toRemove: stateDeclaration.getText()
+      removeToIndex: stateDeclaration.end
     });
   }
 
   const reducers = getVariableDeclaration(sourceFile, 'ActionReducerMap');
 
   if (reducers) {
+    const typeArgument = getTypeArgumentOfVariableDeclaration(reducers);
+
     modifications.push({
-      index: getTypeArgumentOfVariableDeclaration(reducers).pos,
-      toRemove: 'State',
+      index: typeArgument.pos,
+      removeToIndex: typeArgument.end,
       toAdd: 'AppState'
     });
   }
@@ -43,10 +45,11 @@ export function reworkAppReducer(
   const metaReducers = getVariableDeclaration(sourceFile, 'MetaReducer');
 
   if (metaReducers) {
+    const typeArgument = getTypeArgumentOfVariableDeclaration(metaReducers);
     modifications.push({
-      index: getTypeArgumentOfVariableDeclaration(metaReducers).pos,
-      toRemove: 'MetaReducer<State>',
-      toAdd: 'MetaReducer<AppState>'
+      index: typeArgument.pos,
+      removeToIndex: typeArgument.end,
+      toAdd: 'AppState'
     });
   }
 

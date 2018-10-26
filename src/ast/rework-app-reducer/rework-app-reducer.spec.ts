@@ -20,12 +20,12 @@ describe('reworkAppReducer()', () => {
       `import { AppState } from '../types/app-state/app-state.interface'`
     );
     expect(modifications[1].index).toEqual(193);
-    expect(modifications[1].toRemove).toContain('export interface State');
+    expect(modifications[1].removeToIndex).toEqual(226);
     expect(modifications[2].index).toEqual(270);
-    expect(modifications[2].toRemove).toEqual('State');
+    expect(modifications[2].removeToIndex).toEqual(275);
     expect(modifications[2].toAdd).toEqual('AppState');
     expect(modifications[3].index).toEqual(331);
-    expect(modifications[3].toRemove).toEqual('MetaReducer<State>');
-    expect(modifications[3].toAdd).toEqual('MetaReducer<AppState>');
+    expect(modifications[3].removeToIndex).toEqual(336);
+    expect(modifications[3].toAdd).toEqual('AppState');
   });
 });

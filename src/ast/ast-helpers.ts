@@ -35,12 +35,15 @@ export function getNgModuleNode(
     : null;
 }
 
-export function getInterfaceDeclarationByType(sourceFile: typescript.SourceFile, type: string) {
+export function getInterfaceDeclarationByType(
+  sourceFile: typescript.SourceFile,
+  type: string
+): typescript.InterfaceDeclaration {
   return sourceFile.statements.find(
     statement =>
       statement.kind === typescript.SyntaxKind.InterfaceDeclaration &&
       (statement as typescript.InterfaceDeclaration).name.getText() === type
-  );
+  ) as typescript.InterfaceDeclaration;
 }
 
 export function getVariableDeclaration(
