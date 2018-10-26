@@ -30,6 +30,31 @@ function findParentReducerFile(tree: Tree, name: string, path: string): string {
   return directory.parent ? findParentReducerFile(tree, name, directory.parent.path) : null;
 }
 
+function findParentStateInterfaceFile(tree: Tree, name: string, path: string): string {
+  const directory = tree.getDir(path);
+  const typesPath = directory.subdirs.find(dir => dir === 'types');
+
+  if (typesPath) {
+    const typesDirEntry = directory.dir(typesPath);
+
+    const statePath = typesDirEntry.subdirs.find(dir => dir.includes('-state'));
+
+    if (statePath) {
+      const stateDirEntry = directory.dir(statePath);
+
+      const stateInterfacePath = stateDirEntry.subfiles.find(
+        file => file.includes('-state.interface.ts') && file !== `${name}-state.interface.ts`
+      );
+
+      if (stateInterfacePath) {
+        return stateDirEntry.file(stateInterfacePath).path;
+      }
+    }
+  }
+
+  return directory.parent ? findParentStateInterfaceFile(tree, name, directory.parent.path) : null;
+}
+
 export default function(options: SchemaOptions): Rule {
   validateRegularSchema(options);
 
@@ -42,7 +67,7 @@ export default function(options: SchemaOptions): Rule {
       sourceFile => addReducerToParentReducer(sourceFile, options.name)
     ),
     modifySourceFile(
-      tree => findParentReducerFile(tree, options.name, options.path),
+      tree => findParentStateInterfaceFile(tree, options.name, options.path),
       sourceFile => addStateMemberToParentState(sourceFile, options.name)
     )
   ]);
