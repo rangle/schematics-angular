@@ -74,20 +74,23 @@ You should see the following files be created/updated when running this
 schematic:
 
 ```bash
-CREATE /src/app/features/my-feature/my-feature-routing.module.ts (373 bytes)
-CREATE /src/app/features/my-feature/my-feature.module.ts (687 bytes)
+CREATE /src/app/features/my-feature/my-feature-routing.module.ts (370 bytes)
+CREATE /src/app/features/my-feature/my-feature.module.ts (676 bytes)
 CREATE /src/app/features/my-feature/components/my-feature/my-feature.component.html (0 bytes)
 CREATE /src/app/features/my-feature/components/my-feature/my-feature.component.scss (12 bytes)
-CREATE /src/app/features/my-feature/components/my-feature/my-feature.component.ts (226 bytes)
+CREATE /src/app/features/my-feature/components/my-feature/my-feature.component.ts (224 bytes)
 CREATE /src/app/features/my-feature/components/index.ts (52 bytes)
-CREATE /src/app/features/my-feature/services/my-feature.service.ts (204 bytes)
+CREATE /src/app/features/my-feature/services/my-feature.service.ts (200 bytes)
 CREATE /src/app/features/my-feature/store/my-feature.actions.ts (239 bytes)
-CREATE /src/app/features/my-feature/store/my-feature.effects.ts (477 bytes)
+CREATE /src/app/features/my-feature/store/my-feature.effects.ts (453 bytes)
 CREATE /src/app/features/my-feature/store/my-feature.reducer.ts (560 bytes)
-CREATE /src/app/features/my-feature/store/my-feature.store.ts (312 bytes)
-CREATE /src/app/features/my-feature/types/my-feature-state/my-feature-state.functions.ts (163 bytes)
+CREATE /src/app/features/my-feature/store/my-feature.store.ts (305 bytes)
+CREATE /src/app/features/my-feature/types/my-feature-state/my-feature-state.functions.ts (165 bytes)
 CREATE /src/app/features/my-feature/types/my-feature-state/my-feature-state.interface.ts (59 bytes)
-UPDATE /src/app/app-routing.module.ts (627 bytes)
+UPDATE /src/app/store/app.reducer.ts (543 bytes)
+UPDATE /src/app/types/app-state/app-state.interface.ts (175 bytes)
+UPDATE /src/app/types/app-state/app-state.functions.ts (273 bytes)
+UPDATE /src/app/app-routing.module.ts (355 bytes)
 ```
 
 #### Creating Modules

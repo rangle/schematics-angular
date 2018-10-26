@@ -34,7 +34,7 @@ export function addDefaultValueToParentStateFunctions(
     ),
     {
       index: (returnStatement.expression as typescript.ObjectLiteralExpression).properties.end,
-      toAdd: 'stuffState: createStuffState(),\r\n'
+      toAdd: ', stuffState: createStuffState()\r\n'
     }
   ];
 }
