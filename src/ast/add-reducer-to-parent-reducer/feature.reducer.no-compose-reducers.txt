@@ -1,0 +1,17 @@
+import { Action } from '@ngrx/store';
+
+import { createStuffState } from '../types/stuff-state/stuff-state.functions';
+import { StuffState } from '../types/stuff-state/stuff-state.interface';
+
+import { StuffActions } from './stuff.actions';
+
+export function stuffReducer(state: StuffState = createStuffState(), action: Action): StuffState {
+  switch (action.type) {
+    case StuffActions.RETRIEVE:
+      return {
+        ...state
+      };
+    default:
+      return state;
+  }
+}
