@@ -30,7 +30,7 @@ export function addDefaultValueToParentStateFunctions(
       `create${strings.classify(name)}State`,
       `../../features/${strings.dasherize(name)}/types/${strings.dasherize(
         name
-      )}-state/${strings.dasherize(name)}-state.function`
+      )}-state/${strings.dasherize(name)}-state.functions`
     ),
     {
       index: (returnStatement.expression as typescript.ObjectLiteralExpression).properties.end,
