@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "tslint-and-prettier",
+  "id": "TslintAndPrettier",
   "title": "TSLint & Prettier Schema",
   "type": "object",
   "properties": {}

@@ -6,9 +6,10 @@ import {
   getContainingFolderPath,
   validateRegularSchema
 } from '../../types/schema-options/schema-options.functions';
-import { SchemaOptions } from '../../types/schema-options/schema-options.interface';
 
-export default function(options: SchemaOptions): Rule {
+import { TypeSchemaOptions } from './type-schema-options.interface';
+
+export default function(options: TypeSchemaOptions): Rule {
   validateRegularSchema(options);
 
   options.path = getContainingFolderPath(options.path, Folders.Types);

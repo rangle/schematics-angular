@@ -12,7 +12,8 @@ export default function(): Rule {
     schematic('tslint-and-prettier', {}),
     schematic('type', {
       path: 'src/app',
-      name: 'app-state'
+      name: 'app-state',
+      addMember: false
     }),
     updateBarrelFile('src/app/components', `export * from './app/app.component'`),
     (tree: Tree) => {

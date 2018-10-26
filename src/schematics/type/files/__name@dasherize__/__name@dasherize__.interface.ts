@@ -1,3 +1,3 @@
 export interface <%= classify(name) %> {
-  removeMe: number;
+  <% if(addMember) { %> removeMe: number; <% } %>
 }

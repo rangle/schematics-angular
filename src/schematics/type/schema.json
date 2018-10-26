@@ -18,6 +18,11 @@
         "index": 0
       },
       "x-prompt": "What name would you like to use for the feature?"
+    },
+    "addMember": {
+      "description": "Add a 'removeMe' member to the interface as a placeholder",
+      "type": "boolean",
+      "default": true
     }
   },
   "required": [
