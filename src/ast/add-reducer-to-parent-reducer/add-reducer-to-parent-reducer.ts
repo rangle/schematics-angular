@@ -51,8 +51,6 @@ function addChildReducerToParentReducer(
     statement => statement.kind === typescript.SyntaxKind.FunctionDeclaration
   ) as typescript.FunctionDeclaration;
 
-  const parentStateClass = (reducerFunction.type as typescript.TypeReferenceNode).typeName.getText();
-
   const switchStatement = reducerFunction.body.statements.find(
     statement => statement.kind === typescript.SyntaxKind.SwitchStatement
   ) as typescript.SwitchStatement;
@@ -68,27 +66,25 @@ function addChildReducerToParentReducer(
   switch (returnStatement.expression.kind) {
     case typescript.SyntaxKind.Identifier:
       return [
-        addImportStatementToFile(sourceFile, 'combineReducers', '@ngrx/store'),
         addImportModification(sourceFile, childName),
         {
           index: returnStatement.expression.pos,
-          toAdd: ` combineReducers<${parentStateClass}>({ ${strings.camelize(
+          toAdd: ` { ...state, ${strings.camelize(childName)}State: ${strings.camelize(
             childName
-          )}State: ${strings.camelize(childName)}Reducer })(state, action);`,
+          )}Reducer(state.${strings.camelize(childName)}State, action) };`,
           removeToIndex: returnStatement.end
         }
       ];
-    case typescript.SyntaxKind.CallExpression:
-      const callExpression = returnStatement.expression as typescript.CallExpression;
-
-      const argument = (callExpression.expression as typescript.CallExpression)
-        .arguments[0] as typescript.ObjectLiteralExpression;
+    case typescript.SyntaxKind.ObjectLiteralExpression:
+      const newStateObject = returnStatement.expression as typescript.ObjectLiteralExpression;
 
       return [
         addImportModification(sourceFile, childName),
         {
-          index: argument.properties.end,
-          toAdd: `, ${strings.camelize(childName)}State: ${strings.camelize(childName)}Reducer`
+          index: newStateObject.properties.end,
+          toAdd: `, ${strings.camelize(childName)}State: ${strings.camelize(
+            childName
+          )}Reducer(state.${strings.camelize(childName)}State, action)`
         }
       ];
     default:

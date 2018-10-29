@@ -22,30 +22,24 @@ describe('addReducerToParentReducer()', () => {
   });
 
   it('add child reducer to the parent feature state reducer that has no compose reducers', () => {
-    sourceFile = openSourceFileFromFileSystem(
-      __dirname + '/feature.reducer.no-compose-reducers.txt'
-    );
+    sourceFile = openSourceFileFromFileSystem(__dirname + '/feature.reducer.no-child-states.txt');
 
     const modifications = addReducerToParentReducer(sourceFile, 'child');
 
-    expect(modifications.length).toEqual(3);
+    expect(modifications.length).toEqual(2);
     expect(modifications[0].index).toEqual(244);
-    expect(modifications[0].toAdd).toContain(`import { combineReducers } from '@ngrx/store'`);
-    expect(modifications[1].index).toEqual(244);
-    expect(modifications[1].toAdd).toContain(
+    expect(modifications[0].toAdd).toContain(
       `import { childReducer } from '../features/child/store/child.reducer'`
     );
-    expect(modifications[2].index).toEqual(477);
-    expect(modifications[2].removeToIndex).toEqual(484);
-    expect(modifications[2].toAdd).toEqual(
-      ' combineReducers<StuffState>({ childState: childReducer })(state, action);'
+    expect(modifications[1].index).toEqual(477);
+    expect(modifications[1].removeToIndex).toEqual(484);
+    expect(modifications[1].toAdd).toEqual(
+      ' { ...state, childState: childReducer(state.childState, action) };'
     );
   });
 
   it('add child reducer to the parent feature state reducer that has has compose reducers', () => {
-    sourceFile = openSourceFileFromFileSystem(
-      __dirname + '/feature.reducer.has-compose-reducers.txt'
-    );
+    sourceFile = openSourceFileFromFileSystem(__dirname + '/feature.reducer.has-child-states.txt');
 
     const modifications = addReducerToParentReducer(sourceFile, 'child');
 
@@ -54,7 +48,7 @@ describe('addReducerToParentReducer()', () => {
     expect(modifications[0].toAdd).toContain(
       `import { childReducer } from '../features/child/store/child.reducer'`
     );
-    expect(modifications[1].index).toEqual(609);
-    expect(modifications[1].toAdd).toEqual(', childState: childReducer');
+    expect(modifications[1].index).toEqual(623);
+    expect(modifications[1].toAdd).toEqual(', childState: childReducer(state.childState, action)');
   });
 });

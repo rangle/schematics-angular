@@ -13,8 +13,9 @@ export function stuffReducer(state: StuffState = createStuffState(), action: Act
         ...state
       };
     default:
-      return combineReducers<LandingState>({
-        homeState: homeReducer
-      })(state, action);
+      return {
+        ...state,
+        homeState: homeReducer(state.homeState, action)
+      };
   }
 }
