@@ -18,7 +18,7 @@ describe('addDefaultValueToParentStateFunctions()', () => {
       `import { createStuffState } from '../../features/stuff/types/stuff-state/stuff-state.functions';\r\n`
     );
     expect(modifications[1].index).toEqual(109);
-    expect(modifications[1].toAdd).toEqual(`stuffState: createStuffState(),\r\n`);
+    expect(modifications[1].toAdd).toEqual(`stuffState: createStuffState(),`);
   });
 
   it('add default child state value to the existing parent state create function', () => {
@@ -32,6 +32,6 @@ describe('addDefaultValueToParentStateFunctions()', () => {
       `import { createStuffState } from '../../features/stuff/types/stuff-state/stuff-state.functions';\r\n`
     );
     expect(modifications[1].index).toEqual(200);
-    expect(modifications[1].toAdd).toEqual(`stuffState: createStuffState(),\r\n`);
+    expect(modifications[1].toAdd).toEqual(`stuffState: createStuffState(),`);
   });
 });

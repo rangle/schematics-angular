@@ -34,7 +34,7 @@ export function addDefaultValueToParentStateFunctions(
     ),
     {
       index: (returnStatement.expression as typescript.ObjectLiteralExpression).properties.pos,
-      toAdd: `${strings.camelize(name)}State: create${strings.classify(name)}State(),\r\n`
+      toAdd: `${strings.camelize(name)}State: create${strings.classify(name)}State(),`
     }
   ];
 }
