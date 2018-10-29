@@ -11,14 +11,17 @@ import {
 
 import { PathOptions } from '../types/path-options/path-options.interface';
 
-export function processTemplates(options: PathOptions, directory: string = options.path): Rule {
+export function processTemplates<T extends PathOptions>(
+  options: T,
+  directory: string = options.path
+): Rule {
   return branchAndMerge(
     mergeWith(
       apply(url('./files'), [
         template({
           ...strings,
           ...{ uppercase: (value: string) => value.toUpperCase() },
-          ...options
+          ...(options as {})
         }),
         move(directory)
       ])
