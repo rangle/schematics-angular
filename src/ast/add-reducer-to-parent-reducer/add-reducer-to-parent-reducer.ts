@@ -8,6 +8,7 @@ import { SourceFileModification } from '../source-file-modification.interface';
 
 function addChildReducerToAppReducer(
   sourceFile: typescript.SourceFile,
+  folderType: Folders,
   name: string,
   reducers: typescript.VariableDeclaration
 ): SourceFileModification[] {
@@ -18,7 +19,7 @@ function addChildReducerToAppReducer(
       addImportStatementToFile(
         sourceFile,
         `${strings.camelize(name)}Reducer`,
-        `..${Folders.Features}/${strings.dasherize(name)}/store/${strings.dasherize(name)}.reducer`
+        `..${folderType}/${strings.dasherize(name)}/store/${strings.dasherize(name)}.reducer`
       ),
       {
         index: actionReducerMap.properties.pos,
@@ -32,19 +33,19 @@ function addChildReducerToAppReducer(
 
 function addImportModification(
   sourceFile: typescript.SourceFile,
+  folderType: Folders,
   childName: string
 ): SourceFileModification {
   return addImportStatementToFile(
     sourceFile,
     `${strings.camelize(childName)}Reducer`,
-    `..${Folders.Features}/${strings.dasherize(childName)}/store/${strings.dasherize(
-      childName
-    )}.reducer`
+    `..${folderType}/${strings.dasherize(childName)}/store/${strings.dasherize(childName)}.reducer`
   );
 }
 
 function addChildReducerToParentReducer(
   sourceFile: typescript.SourceFile,
+  folderType: Folders,
   childName: string
 ): SourceFileModification[] {
   const reducerFunction = sourceFile.statements.find(
@@ -66,7 +67,7 @@ function addChildReducerToParentReducer(
   switch (returnStatement.expression.kind) {
     case typescript.SyntaxKind.Identifier:
       return [
-        addImportModification(sourceFile, childName),
+        addImportModification(sourceFile, folderType, childName),
         {
           index: returnStatement.expression.pos,
           toAdd: ` { ...state, ${strings.camelize(childName)}State: ${strings.camelize(
@@ -79,7 +80,7 @@ function addChildReducerToParentReducer(
       const newStateObject = returnStatement.expression as typescript.ObjectLiteralExpression;
 
       return [
-        addImportModification(sourceFile, childName),
+        addImportModification(sourceFile, folderType, childName),
         {
           index: newStateObject.properties.end,
           toAdd: `, ${strings.camelize(childName)}State: ${strings.camelize(
@@ -94,11 +95,12 @@ function addChildReducerToParentReducer(
 
 export function addReducerToParentReducer(
   sourceFile: typescript.SourceFile,
+  folderType: Folders,
   name: string
 ): SourceFileModification[] {
   const reducers = getVariableDeclaration(sourceFile, 'ActionReducerMap');
 
   return reducers
-    ? addChildReducerToAppReducer(sourceFile, name, reducers)
-    : addChildReducerToParentReducer(sourceFile, name);
+    ? addChildReducerToAppReducer(sourceFile, folderType, name, reducers)
+    : addChildReducerToParentReducer(sourceFile, folderType, name);
 }

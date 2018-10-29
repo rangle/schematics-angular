@@ -1,11 +1,13 @@
 import * as strings from '@angular-devkit/core/src/utils/strings';
 import * as typescript from 'typescript';
 
+import { Folders } from '../../types/folders/folders.enum';
 import { addImportStatementToFile } from '../ast-wrappers';
 import { SourceFileModification } from '../source-file-modification.interface';
 
 export function addDefaultValueToParentStateFunctions(
   sourceFile: typescript.SourceFile,
+  folderType: Folders,
   name: string
 ): SourceFileModification[] {
   const createFunction = sourceFile.statements.find(
@@ -28,7 +30,7 @@ export function addDefaultValueToParentStateFunctions(
     addImportStatementToFile(
       sourceFile,
       `create${strings.classify(name)}State`,
-      `../../features/${strings.dasherize(name)}/types/${strings.dasherize(
+      `../..${folderType}/${strings.dasherize(name)}/types/${strings.dasherize(
         name
       )}-state/${strings.dasherize(name)}-state.functions`
     ),

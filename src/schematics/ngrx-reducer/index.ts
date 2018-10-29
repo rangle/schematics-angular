@@ -60,15 +60,17 @@ export default function(options: SchemaOptions): Rule {
     processTemplates(options, options.path),
     modifySourceFile(
       tree => findParentReducerFile(tree.getDir(options.path), options.name),
-      sourceFile => addReducerToParentReducer(sourceFile, options.name)
+      (sourceFile, folderType) => addReducerToParentReducer(sourceFile, folderType, options.name)
     ),
     modifySourceFile(
       tree => findParentStateTypesFile(tree.getDir(options.path), 'interface', options.name),
-      sourceFile => addStateMemberToParentStateInterface(sourceFile, options.name)
+      (sourceFile, folderType) =>
+        addStateMemberToParentStateInterface(sourceFile, folderType, options.name)
     ),
     modifySourceFile(
       tree => findParentStateTypesFile(tree.getDir(options.path), 'functions', options.name),
-      sourceFile => addDefaultValueToParentStateFunctions(sourceFile, options.name)
+      (sourceFile, folderType) =>
+        addDefaultValueToParentStateFunctions(sourceFile, folderType, options.name)
     )
   ]);
 }

@@ -1,5 +1,6 @@
 import * as typescript from 'typescript';
 
+import { Folders } from '../../types/folders/folders.enum';
 import { openSourceFileFromFileSystem } from '../ast-helpers';
 
 import { addReducerToParentReducer } from './add-reducer-to-parent-reducer';
@@ -10,7 +11,7 @@ describe('addReducerToParentReducer()', () => {
   it('add child reducer to the parent app state ActionReducerMap', () => {
     sourceFile = openSourceFileFromFileSystem(__dirname + '/app.reducer.txt');
 
-    const modifications = addReducerToParentReducer(sourceFile, 'stuff');
+    const modifications = addReducerToParentReducer(sourceFile, Folders.Features, 'stuff');
 
     expect(modifications.length).toEqual(2);
     expect(modifications[0].index).toEqual(263);
@@ -24,7 +25,7 @@ describe('addReducerToParentReducer()', () => {
   it('add child reducer to the parent feature state reducer that has no compose reducers', () => {
     sourceFile = openSourceFileFromFileSystem(__dirname + '/feature.reducer.no-child-states.txt');
 
-    const modifications = addReducerToParentReducer(sourceFile, 'child');
+    const modifications = addReducerToParentReducer(sourceFile, Folders.Features, 'child');
 
     expect(modifications.length).toEqual(2);
     expect(modifications[0].index).toEqual(244);
@@ -41,7 +42,7 @@ describe('addReducerToParentReducer()', () => {
   it('add child reducer to the parent feature state reducer that has has compose reducers', () => {
     sourceFile = openSourceFileFromFileSystem(__dirname + '/feature.reducer.has-child-states.txt');
 
-    const modifications = addReducerToParentReducer(sourceFile, 'child');
+    const modifications = addReducerToParentReducer(sourceFile, Folders.Features, 'child');
 
     expect(modifications.length).toEqual(2);
     expect(modifications[0].index).toEqual(312);

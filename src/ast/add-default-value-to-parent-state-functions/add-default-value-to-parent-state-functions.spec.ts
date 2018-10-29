@@ -1,5 +1,6 @@
 import * as typescript from 'typescript';
 
+import { Folders } from '../../types/folders/folders.enum';
 import { openSourceFileFromFileSystem } from '../ast-helpers';
 
 import { addDefaultValueToParentStateFunctions } from './add-default-value-to-parent-state-functions';
@@ -10,7 +11,11 @@ describe('addDefaultValueToParentStateFunctions()', () => {
   it('add default child state value to the empty parent state create function', () => {
     sourceFile = openSourceFileFromFileSystem(__dirname + '/app-state.functions.empty.txt');
 
-    const modifications = addDefaultValueToParentStateFunctions(sourceFile, 'stuff');
+    const modifications = addDefaultValueToParentStateFunctions(
+      sourceFile,
+      Folders.Features,
+      'stuff'
+    );
 
     expect(modifications.length).toEqual(2);
     expect(modifications[0].index).toEqual(49);
@@ -24,7 +29,11 @@ describe('addDefaultValueToParentStateFunctions()', () => {
   it('add default child state value to the existing parent state create function', () => {
     sourceFile = openSourceFileFromFileSystem(__dirname + '/app-state.functions.existing.txt');
 
-    const modifications = addDefaultValueToParentStateFunctions(sourceFile, 'stuff');
+    const modifications = addDefaultValueToParentStateFunctions(
+      sourceFile,
+      Folders.Features,
+      'stuff'
+    );
 
     expect(modifications.length).toEqual(2);
     expect(modifications[0].index).toEqual(140);

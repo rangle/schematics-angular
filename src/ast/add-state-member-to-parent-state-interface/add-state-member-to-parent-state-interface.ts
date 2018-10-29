@@ -7,6 +7,7 @@ import { SourceFileModification } from '../source-file-modification.interface';
 
 export function addStateMemberToParentStateInterface(
   sourceFile: typescript.SourceFile,
+  folderType: Folders,
   name: string
 ): SourceFileModification[] {
   const appStateInterface = sourceFile.statements.find(
@@ -20,7 +21,7 @@ export function addStateMemberToParentStateInterface(
       addImportStatementToFile(
         sourceFile,
         `${strings.classify(name)}State`,
-        `../..${Folders.Features}/${strings.dasherize(name)}/types/${strings.dasherize(
+        `../..${folderType}/${strings.dasherize(name)}/types/${strings.dasherize(
           name
         )}-state/${strings.dasherize(name)}-state.interface`
       ),
