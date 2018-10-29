@@ -26,11 +26,11 @@ export default function(options: ProjectSchemaOptions): Rule {
         processTemplates(options),
         schematic('component', options),
         schematic('service', options),
-        schematic('ngrx', options),
         schematic('type', {
           ...options,
           name: `${options.name}-state`
-        })
+        }),
+        schematic('ngrx', options)
       ]);
     },
     modifySourceFile(

@@ -2,7 +2,6 @@ import * as strings from '@angular-devkit/core/src/utils/strings';
 import * as typescript from 'typescript';
 
 import { Folders } from '../../types/folders/folders.enum';
-import { getInterfaceDeclarationByType } from '../ast-helpers';
 import { addImportStatementToFile } from '../ast-wrappers';
 import { SourceFileModification } from '../source-file-modification.interface';
 
@@ -10,7 +9,11 @@ export function addStateMemberToParentStateInterface(
   sourceFile: typescript.SourceFile,
   name: string
 ): SourceFileModification[] {
-  const appStateInterface = getInterfaceDeclarationByType(sourceFile, 'AppState');
+  const appStateInterface = sourceFile.statements.find(
+    statement =>
+      statement.kind === typescript.SyntaxKind.InterfaceDeclaration &&
+      (statement as typescript.InterfaceDeclaration).name.getText().endsWith('State')
+  ) as typescript.InterfaceDeclaration;
 
   if (appStateInterface) {
     return [

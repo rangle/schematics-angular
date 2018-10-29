@@ -1,5 +1,5 @@
 import * as strings from '@angular-devkit/core/src/utils/strings';
-import { chain, noop, DirEntry, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { chain, DirEntry, Rule, Tree } from '@angular-devkit/schematics';
 
 import { addProviderToNgModule } from '../../ast/ast-wrappers';
 import { modifySourceFile } from '../../rules/modify-source-file.rule';
@@ -20,7 +20,7 @@ function findAppStateTypesFile(directory: DirEntry): string {
   );
 
   if (appStateInterfaceFileEntry) {
-    return appStateInterfaceFileEntry.path.replace(/\.ts$/gi, '');
+    return appStateInterfaceFileEntry.path.replace(/\.ts$/gi, '').slice(1);
   }
 
   return directory.parent ? findAppStateTypesFile(directory.parent) : null;
@@ -32,26 +32,14 @@ export default function(options: SchemaOptions): Rule {
   options.path = getContainingFolderPath(options.path, Folders.Store);
 
   return chain([
-    (tree: Tree, context: SchematicContext) => {
-      const appStateInterfacePath = findAppStateTypesFile(tree.getDir(options.path));
-
-      if (appStateInterfacePath) {
-        return processTemplates(
-          {
-            ...options,
-            appStateInterfacePath
-          },
-          options.path
-        );
-      } else {
-        context.logger.error(
-          `Could not create the Store in '${
-            options.path
-          }' because we can't find your 'app-state.interface.ts' file.`
-        );
-
-        return noop();
-      }
+    (tree: Tree) => {
+      return processTemplates(
+        {
+          ...options,
+          appStateInterfacePath: findAppStateTypesFile(tree.getDir(options.path))
+        },
+        options.path
+      );
     },
     modifySourceFile(
       tree => findModuleFilenameInTree(tree, options),

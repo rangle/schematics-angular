@@ -22,11 +22,11 @@ export default function(options: SchemaOptions): Rule {
   return chain([
     processTemplates(options),
     schematic('service', options),
-    schematic('ngrx', options),
     schematic('type', {
       ...options,
       name: `${options.name}-state`
     }),
+    schematic('ngrx', options),
     modifySourceFile(
       tree => findParentModuleFilenameInTree(tree, options),
       (sourceFile, moduleFilename) =>

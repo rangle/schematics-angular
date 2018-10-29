@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { AppState } from '<%= appStateInterfacePath %>';
+<% if (appStateInterfacePath) { %> import { AppState } from '<%= appStateInterfacePath %>';<% } %>
 
 import { Retrieve } from './<%= dasherize(name) %>.actions';
 
