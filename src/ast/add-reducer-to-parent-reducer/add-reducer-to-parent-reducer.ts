@@ -72,7 +72,7 @@ function addChildReducerToParentReducer(
         addImportModification(sourceFile, childName),
         {
           index: returnStatement.expression.pos,
-          toAdd: `combineReducers<${parentStateClass}>({ ${strings.camelize(
+          toAdd: ` combineReducers<${parentStateClass}>({ ${strings.camelize(
             childName
           )}State: ${strings.camelize(childName)}Reducer })(state, action);`,
           removeToIndex: returnStatement.end

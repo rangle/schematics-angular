@@ -38,7 +38,7 @@ describe('addReducerToParentReducer()', () => {
     expect(modifications[2].index).toEqual(477);
     expect(modifications[2].removeToIndex).toEqual(484);
     expect(modifications[2].toAdd).toEqual(
-      'combineReducers<StuffState>({ childState: childReducer })(state, action);'
+      ' combineReducers<StuffState>({ childState: childReducer })(state, action);'
     );
   });
 
