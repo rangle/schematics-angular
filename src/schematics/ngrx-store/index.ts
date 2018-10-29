@@ -4,7 +4,7 @@ import { chain, DirEntry, Rule, Tree } from '@angular-devkit/schematics';
 import { addProviderToNgModule } from '../../ast/ast-wrappers';
 import { modifySourceFile } from '../../rules/modify-source-file.rule';
 import { processTemplates } from '../../rules/process-templates.rule';
-import { findModuleFilenameInTree, getTreeSubDirFileEntry } from '../../rules/tree-helpers';
+import { findModuleFilenameInTree, getSubDirFileEntry } from '../../rules/tree-helpers';
 import { Folders } from '../../types/folders/folders.enum';
 import {
   getContainingFolderPath,
@@ -13,7 +13,7 @@ import {
 import { SchemaOptions } from '../../types/schema-options/schema-options.interface';
 
 function findAppStateTypesFile(directory: DirEntry): string {
-  const appStateInterfaceFileEntry = getTreeSubDirFileEntry(
+  const appStateInterfaceFileEntry = getSubDirFileEntry(
     directory,
     ['types', 'app-state'],
     'app-state.interface.ts'

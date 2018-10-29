@@ -20,9 +20,9 @@ export function addStateMemberToParentStateInterface(
       addImportStatementToFile(
         sourceFile,
         `${strings.classify(name)}State`,
-        `../..${Folders.Features}/${strings.camelize(name)}/types/${strings.camelize(
+        `../..${Folders.Features}/${strings.dasherize(name)}/types/${strings.dasherize(
           name
-        )}-state/${strings.camelize(name)}-state.interface`
+        )}-state/${strings.dasherize(name)}-state.interface`
       ),
       {
         index: appStateInterface.members.pos,

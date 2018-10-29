@@ -5,7 +5,7 @@ import { addReducerToParentReducer } from '../../ast/add-reducer-to-parent-reduc
 import { addStateMemberToParentStateInterface } from '../../ast/add-state-member-to-parent-state-interface/add-state-member-to-parent-state-interface';
 import { modifySourceFile } from '../../rules/modify-source-file.rule';
 import { processTemplates } from '../../rules/process-templates.rule';
-import { getTreeSubDirEntry } from '../../rules/tree-helpers';
+import { getSubDirEntry } from '../../rules/tree-helpers';
 import { Folders } from '../../types/folders/folders.enum';
 import {
   getContainingFolderPath,
@@ -14,7 +14,7 @@ import {
 import { SchemaOptions } from '../../types/schema-options/schema-options.interface';
 
 function findParentReducerFile(directory: DirEntry, name: string): string {
-  const storeDirEntry = getTreeSubDirEntry(directory, ['store']);
+  const storeDirEntry = getSubDirEntry(directory, ['store']);
 
   if (storeDirEntry) {
     const reducerPath = storeDirEntry.subfiles.find(
@@ -30,7 +30,7 @@ function findParentReducerFile(directory: DirEntry, name: string): string {
 }
 
 function findParentStateTypesFile(directory: DirEntry, extension: string, name: string): string {
-  const typesDirEntry = getTreeSubDirEntry(directory, ['types']);
+  const typesDirEntry = getSubDirEntry(directory, ['types']);
 
   if (typesDirEntry) {
     const statePath = typesDirEntry.subdirs.find(dir => dir.includes('-state'));

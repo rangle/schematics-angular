@@ -12,7 +12,7 @@ export function deleteFile(tree: Tree, filename: string) {
   }
 }
 
-export function getTreeSubDirEntry(directory: DirEntry, subDirectoryNames: string[]): DirEntry {
+export function getSubDirEntry(directory: DirEntry, subDirectoryNames: string[]): DirEntry {
   if (subDirectoryNames.length > 0) {
     const subDirectoryPath = directory.subdirs.find(dir => dir === subDirectoryNames[0]);
 
@@ -20,7 +20,7 @@ export function getTreeSubDirEntry(directory: DirEntry, subDirectoryNames: strin
       const subDirectory = directory.dir(subDirectoryPath);
 
       return subDirectoryNames.length > 1
-        ? getTreeSubDirEntry(subDirectory, subDirectoryNames.slice(1))
+        ? getSubDirEntry(subDirectory, subDirectoryNames.slice(1))
         : subDirectory;
     }
   }
@@ -28,21 +28,21 @@ export function getTreeSubDirEntry(directory: DirEntry, subDirectoryNames: strin
   return null;
 }
 
-export function getTreeSubFileEntry(directory: DirEntry, subFileName: string): FileEntry {
+export function getSubFileEntry(directory: DirEntry, subFileName: string): FileEntry {
   const stateTypeFilePath = directory.subfiles.find(file => file.includes(subFileName));
 
   return stateTypeFilePath ? directory.file(stateTypeFilePath) : null;
 }
 
-export function getTreeSubDirFileEntry(
+export function getSubDirFileEntry(
   directory: DirEntry,
   subDirectoryNames: string[],
   subFileName: string
 ): FileEntry {
-  const subDirEntry = getTreeSubDirEntry(directory, subDirectoryNames);
+  const subDirEntry = getSubDirEntry(directory, subDirectoryNames);
 
   if (subDirEntry) {
-    const subFileEntry = getTreeSubFileEntry(subDirEntry, subFileName);
+    const subFileEntry = getSubFileEntry(subDirEntry, subFileName);
 
     if (subFileEntry) {
       return subFileEntry;
