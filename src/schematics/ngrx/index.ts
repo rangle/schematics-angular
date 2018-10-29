@@ -1,9 +1,9 @@
 import { chain, schematic, Rule } from '@angular-devkit/schematics';
 
+import { NgrxSchemaOptions } from '../../types/ngrx-schema-options/ngrx-schema-options.interface';
 import { validateRegularSchema } from '../../types/schema-options/schema-options.functions';
-import { SchemaOptions } from '../../types/schema-options/schema-options.interface';
 
-export default function(options: SchemaOptions): Rule {
+export default function(options: NgrxSchemaOptions): Rule {
   validateRegularSchema(options);
 
   return chain([

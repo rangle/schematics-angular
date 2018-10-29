@@ -30,7 +30,10 @@ export default function(options: ProjectSchemaOptions): Rule {
           ...options,
           name: `${options.name}-state`
         }),
-        schematic('ngrx', options)
+        schematic('ngrx', {
+          ...options,
+          asFeature: true
+        })
       ]);
     },
     modifySourceFile(

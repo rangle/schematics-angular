@@ -26,7 +26,10 @@ export default function(options: SchemaOptions): Rule {
       ...options,
       name: `${options.name}-state`
     }),
-    schematic('ngrx', options),
+    schematic('ngrx', {
+      ...options,
+      asFeature: false
+    }),
     modifySourceFile(
       tree => findParentModuleFilenameInTree(tree, options),
       (sourceFile, moduleFilename) =>

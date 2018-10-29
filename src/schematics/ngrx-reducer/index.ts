@@ -7,11 +7,11 @@ import { modifySourceFile } from '../../rules/modify-source-file.rule';
 import { processTemplates } from '../../rules/process-templates.rule';
 import { getSubDirEntry } from '../../rules/tree-helpers';
 import { Folders } from '../../types/folders/folders.enum';
+import { NgrxSchemaOptions } from '../../types/ngrx-schema-options/ngrx-schema-options.interface';
 import {
   getContainingFolderPath,
   validateRegularSchema
 } from '../../types/schema-options/schema-options.functions';
-import { SchemaOptions } from '../../types/schema-options/schema-options.interface';
 
 function findParentReducerFile(directory: DirEntry, name: string): string {
   const storeDirEntry = getSubDirEntry(directory, ['store']);
@@ -51,26 +51,26 @@ function findParentStateTypesFile(directory: DirEntry, extension: string, name: 
   return directory.parent ? findParentStateTypesFile(directory.parent, extension, name) : null;
 }
 
-export default function(options: SchemaOptions): Rule {
+export default function(options: NgrxSchemaOptions): Rule {
   validateRegularSchema(options);
 
   options.path = getContainingFolderPath(options.path, Folders.Store);
+
+  const folderType = options.asFeature ? Folders.Features : Folders.Modules;
 
   return chain([
     processTemplates(options, options.path),
     modifySourceFile(
       tree => findParentReducerFile(tree.getDir(options.path), options.name),
-      (sourceFile, folderType) => addReducerToParentReducer(sourceFile, folderType, options.name)
+      sourceFile => addReducerToParentReducer(sourceFile, folderType, options.name)
     ),
     modifySourceFile(
       tree => findParentStateTypesFile(tree.getDir(options.path), 'interface', options.name),
-      (sourceFile, folderType) =>
-        addStateMemberToParentStateInterface(sourceFile, folderType, options.name)
+      sourceFile => addStateMemberToParentStateInterface(sourceFile, folderType, options.name)
     ),
     modifySourceFile(
       tree => findParentStateTypesFile(tree.getDir(options.path), 'functions', options.name),
-      (sourceFile, folderType) =>
-        addDefaultValueToParentStateFunctions(sourceFile, folderType, options.name)
+      sourceFile => addDefaultValueToParentStateFunctions(sourceFile, folderType, options.name)
     )
   ]);
 }
