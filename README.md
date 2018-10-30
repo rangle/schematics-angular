@@ -45,6 +45,10 @@ the following schematic from your console:
 schematics @egervari/schematics-angular:tslint-and-prettier
 ```
 
+Running this schematic will also create a bunch of scripts to
+conveniently check and fix your project so you don't have to add them
+yourself.
+
 You should see the following updates to your project:
 
 ```bash
