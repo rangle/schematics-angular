@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 <% if (appStateInterfacePath) { %> import { AppState } from '<%= appStateInterfacePath %>';<% } %>
 
-import { <%= classify(name) %>State } from '../types/<%= dasherize(name) %>/<%= dasherize(name) %>.interface';
+import { <%= classify(parentName) %>Store } from '../../../store/<%= dasherize(parentName) %>.store';
+import { <%= classify(name) %>State } from '../types/<%= dasherize(name) %>-state/<%= dasherize(name) %>-state.interface';
 
 import { Retrieve } from './<%= dasherize(name) %>.actions';
 
