@@ -1,7 +1,9 @@
 import { chain, schematic, Rule, Tree } from '@angular-devkit/schematics';
 
+import { addProviderToNgModule } from '../../ast/ast-wrappers';
 import { reworkAppReducer } from '../../ast/rework-app-reducer/rework-app-reducer';
 import { modifySourceFile } from '../../rules/modify-source-file.rule';
+import { processTemplates } from '../../rules/process-templates.rule';
 import { updateBarrelFile } from '../../rules/update-barrel-file.rule';
 
 const AppModule = 'src/app/app.module.ts';
@@ -70,6 +72,18 @@ export default function(): Rule {
             .replace(`'./app.component'`, `'./components'`)
             .replace(`'./app.effects'`, `'./store/app.effects'`)
             .replace(`'./reducers'`, `'./store/app.reducer'`)
+        );
+      }
+    },
+    processTemplates({
+      path: 'src/app/store'
+    }),
+    (tree: Tree) => {
+      if (tree.exists(AppModule)) {
+        return modifySourceFile(
+          () => AppModule,
+          (sourceFile, moduleFilename) =>
+            addProviderToNgModule(sourceFile, moduleFilename, 'AppStore', `./store/app.store`)
         );
       }
     },

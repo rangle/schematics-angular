@@ -13,9 +13,9 @@ describe('addEffectsToModule()', () => {
     const modifications = addEffectsToModule(sourceFile, 'Stuff', './store/stuff.effects');
 
     expect(modifications.length).toEqual(2);
-    expect(modifications[0].index).toEqual(89);
-    expect(modifications[0].toAdd).toEqual(`import { Stuff } from './store/stuff.effects';\r\n`);
-    expect(modifications[1].index).toEqual(104);
+    expect(modifications[0].index).toEqual(87);
+    expect(modifications[0].toAdd).toEqual(`import { Stuff } from './store/stuff.effects';\n`);
+    expect(modifications[1].index).toEqual(100);
     expect(modifications[1].toAdd).toEqual(`imports: [EffectsModule.forFeature([Stuff])],`);
   });
 
@@ -25,9 +25,9 @@ describe('addEffectsToModule()', () => {
     const modifications = addEffectsToModule(sourceFile, 'Stuff', './store/stuff.effects');
 
     expect(modifications.length).toEqual(2);
-    expect(modifications[0].index).toEqual(207);
-    expect(modifications[0].toAdd).toEqual(`import { Stuff } from './store/stuff.effects';\r\n`);
-    expect(modifications[1].index).toEqual(278);
+    expect(modifications[0].index).toEqual(203);
+    expect(modifications[0].toAdd).toEqual(`import { Stuff } from './store/stuff.effects';\n`);
+    expect(modifications[1].index).toEqual(269);
     expect(modifications[1].toAdd).toEqual(`, EffectsModule.forFeature([Stuff])`);
   });
 
@@ -39,9 +39,9 @@ describe('addEffectsToModule()', () => {
     const modifications = addEffectsToModule(sourceFile, 'Stuff', './store/stuff.effects');
 
     expect(modifications.length).toEqual(2);
-    expect(modifications[0].index).toEqual(255);
-    expect(modifications[0].toAdd).toEqual(`import { Stuff } from './store/stuff.effects';\r\n`);
-    expect(modifications[1].index).toEqual(356);
+    expect(modifications[0].index).toEqual(250);
+    expect(modifications[0].toAdd).toEqual(`import { Stuff } from './store/stuff.effects';\n`);
+    expect(modifications[1].index).toEqual(345);
     expect(modifications[1].toAdd).toEqual(`Stuff`);
   });
 
@@ -53,9 +53,9 @@ describe('addEffectsToModule()', () => {
     const modifications = addEffectsToModule(sourceFile, 'Stuff', './store/stuff.effects');
 
     expect(modifications.length).toEqual(2);
-    expect(modifications[0].index).toEqual(306);
-    expect(modifications[0].toAdd).toEqual(`import { Stuff } from './store/stuff.effects';\r\n`);
-    expect(modifications[1].index).toEqual(417);
+    expect(modifications[0].index).toEqual(300);
+    expect(modifications[0].toAdd).toEqual(`import { Stuff } from './store/stuff.effects';\n`);
+    expect(modifications[1].index).toEqual(405);
     expect(modifications[1].toAdd).toEqual(`, Stuff`);
   });
 });

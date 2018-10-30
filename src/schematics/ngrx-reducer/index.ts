@@ -7,11 +7,12 @@ import { modifySourceFile } from '../../rules/modify-source-file.rule';
 import { processTemplates } from '../../rules/process-templates.rule';
 import { getSubDirEntry } from '../../rules/tree-helpers';
 import { Folders } from '../../types/folders/folders.enum';
-import { NgrxSchemaOptions } from '../../types/ngrx-schema-options/ngrx-schema-options.interface';
+import { getFolderType } from '../../types/path-options/path-options.functions';
 import {
   getContainingFolderPath,
   validateRegularSchema
 } from '../../types/schema-options/schema-options.functions';
+import { SchemaOptions } from '../../types/schema-options/schema-options.interface';
 
 function findParentReducerFile(directory: DirEntry, name: string): string {
   const storeDirEntry = getSubDirEntry(directory, ['store']);
@@ -51,12 +52,12 @@ function findParentStateTypesFile(directory: DirEntry, extension: string, name: 
   return directory.parent ? findParentStateTypesFile(directory.parent, extension, name) : null;
 }
 
-export default function(options: NgrxSchemaOptions): Rule {
+export default function(options: SchemaOptions): Rule {
   validateRegularSchema(options);
 
   options.path = getContainingFolderPath(options.path, Folders.Store);
 
-  const folderType = options.asFeature ? Folders.Features : Folders.Modules;
+  const folderType = getFolderType(options);
 
   return chain([
     processTemplates(options, options.path),

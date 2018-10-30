@@ -6,6 +6,7 @@ import { modifySourceFile } from '../../rules/modify-source-file.rule';
 import { processTemplates } from '../../rules/process-templates.rule';
 import { findModuleFilenameInTree, getSubDirFileEntry } from '../../rules/tree-helpers';
 import { Folders } from '../../types/folders/folders.enum';
+import { findParentModuleName } from '../../types/path-options/path-options.functions';
 import {
   getContainingFolderPath,
   validateRegularSchema
@@ -36,7 +37,8 @@ export default function(options: SchemaOptions): Rule {
       return processTemplates(
         {
           ...options,
-          appStateInterfacePath: findAppStateTypesFile(tree.getDir(options.path))
+          appStateInterfacePath: findAppStateTypesFile(tree.getDir(options.path)),
+          parentName: findParentModuleName(options)
         },
         options.path
       );

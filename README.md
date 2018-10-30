@@ -45,6 +45,10 @@ the following schematic from your console:
 schematics @egervari/schematics-angular:tslint-and-prettier
 ```
 
+Running this schematic will also create a bunch of scripts to
+conveniently check and fix your project so you don't have to add them
+yourself.
+
 You should see the following updates to your project:
 
 ```bash
@@ -85,8 +89,9 @@ CREATE /src/app/features/my-feature/store/my-feature.actions.ts (239 bytes)
 CREATE /src/app/features/my-feature/store/my-feature.effects.ts (453 bytes)
 CREATE /src/app/features/my-feature/store/my-feature.reducer.ts (560 bytes)
 CREATE /src/app/features/my-feature/store/my-feature.store.ts (305 bytes)
-CREATE /src/app/features/my-feature/types/my-feature-state/my-feature-state.functions.ts (165 bytes)
-CREATE /src/app/features/my-feature/types/my-feature-state/my-feature-state.interface.ts (59 bytes)
+CREATE /src/app/features/my-feature/types/my-feature-state/my-feature-state.functions.spec.ts (419 bytes)
+CREATE /src/app/features/my-feature/types/my-feature-state/my-feature-state.functions.ts (158 bytes)
+CREATE /src/app/features/my-feature/types/my-feature-state/my-feature-state.interface.ts (56 bytes)
 UPDATE /src/app/store/app.reducer.ts (543 bytes)
 UPDATE /src/app/types/app-state/app-state.interface.ts (175 bytes)
 UPDATE /src/app/types/app-state/app-state.functions.ts (273 bytes)
@@ -116,8 +121,9 @@ CREATE /src/app/modules/my-module/store/my-module.actions.ts (236 bytes)
 CREATE /src/app/modules/my-module/store/my-module.effects.ts (448 bytes)
 CREATE /src/app/modules/my-module/store/my-module.reducer.ts (547 bytes)
 CREATE /src/app/modules/my-module/store/my-module.store.ts (303 bytes)
-CREATE /src/app/modules/my-module/types/my-module-state/my-module-state.functions.ts (161 bytes)
-CREATE /src/app/modules/my-module/types/my-module-state/my-module-state.interface.ts (58 bytes)
+CREATE /src/app/modules/my-module/types/my-module-state/my-module-state.functions.spec.ts (410 bytes)
+CREATE /src/app/modules/my-module/types/my-module-state/my-module-state.functions.ts (154 bytes)
+CREATE /src/app/modules/my-module/types/my-module-state/my-module-state.interface.ts (55 bytes)
 UPDATE /src/app/store/app.reducer.ts (660 bytes)
 UPDATE /src/app/types/app-state/app-state.interface.ts (314 bytes)
 UPDATE /src/app/types/app-state/app-state.functions.ts (425 bytes)
@@ -181,8 +187,9 @@ You should see the following files be created when running this
 schematic:
 
 ```bash
-CREATE /src/app/types/user-profile/user-profile.functions.ts (150 bytes)
-CREATE /src/app/types/user-profile/user-profile.interface.ts (56 bytes)
+CREATE /src/app/types/user-profile/user-profile.functions.spec.ts (390 bytes)
+CREATE /src/app/types/user-profile/user-profile.functions.ts (146 bytes)
+CREATE /src/app/types/user-profile/user-profile.interface.ts (55 bytes)
 ```
 
 #### Creating a new project
@@ -235,18 +242,19 @@ DELETE /src/app/reducers/index.ts
 DELETE /src/app/app.effects.ts
 DELETE /src/app/app.component.spec.ts
 DELETE /src/app/app.effects.spec.ts
-CREATE /prettier.config.js (172 bytes)
-CREATE /src/app/types/app-state/app-state.functions.ts (138 bytes)
-CREATE /src/app/types/app-state/app-state.interface.ts (53 bytes)
+CREATE /prettier.config.js (163 bytes)
+CREATE /src/app/types/app-state/app-state.functions.ts (118 bytes)
+CREATE /src/app/types/app-state/app-state.interface.ts (33 bytes)
 CREATE /src/app/components/index.ts (35 bytes)
 CREATE /src/app/components/app/app.component.html (1173 bytes)
 CREATE /src/app/components/app/app.component.scss (0 bytes)
 CREATE /src/app/components/app/app.component.ts (215 bytes)
 CREATE /src/app/store/app.reducer.ts (403 bytes)
 CREATE /src/app/store/app.effects.ts (180 bytes)
-UPDATE /tslint.json (869 bytes)
-UPDATE /package.json (1493 bytes)
-UPDATE /src/app/app.module.ts (686 bytes)
+CREATE /src/app/store/app.store.ts (385 bytes)
+UPDATE /tslint.json (826 bytes)
+UPDATE /package.json (1784 bytes)
+UPDATE /src/app/app.module.ts (740 bytes)
 ```
 
 ### Using Schematics Through WebStorm

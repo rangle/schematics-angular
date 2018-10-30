@@ -20,9 +20,9 @@ describe('addDefaultValueToParentStateFunctions()', () => {
     expect(modifications.length).toEqual(2);
     expect(modifications[0].index).toEqual(49);
     expect(modifications[0].toAdd).toEqual(
-      `import { createStuffState } from '../../features/stuff/types/stuff-state/stuff-state.functions';\r\n`
+      `import { createStuffState } from '../../features/stuff/types/stuff-state/stuff-state.functions';\n`
     );
-    expect(modifications[1].index).toEqual(109);
+    expect(modifications[1].index).toEqual(106);
     expect(modifications[1].toAdd).toEqual(`stuffState: createStuffState(),`);
   });
 
@@ -36,11 +36,11 @@ describe('addDefaultValueToParentStateFunctions()', () => {
     );
 
     expect(modifications.length).toEqual(2);
-    expect(modifications[0].index).toEqual(140);
+    expect(modifications[0].index).toEqual(139);
     expect(modifications[0].toAdd).toEqual(
-      `import { createStuffState } from '../../features/stuff/types/stuff-state/stuff-state.functions';\r\n`
+      `import { createStuffState } from '../../features/stuff/types/stuff-state/stuff-state.functions';\n`
     );
-    expect(modifications[1].index).toEqual(200);
+    expect(modifications[1].index).toEqual(196);
     expect(modifications[1].toAdd).toEqual(`stuffState: createStuffState(),`);
   });
 });
