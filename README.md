@@ -239,18 +239,19 @@ DELETE /src/app/reducers/index.ts
 DELETE /src/app/app.effects.ts
 DELETE /src/app/app.component.spec.ts
 DELETE /src/app/app.effects.spec.ts
-CREATE /prettier.config.js (172 bytes)
-CREATE /src/app/types/app-state/app-state.functions.ts (138 bytes)
-CREATE /src/app/types/app-state/app-state.interface.ts (53 bytes)
+CREATE /prettier.config.js (163 bytes)
+CREATE /src/app/types/app-state/app-state.functions.ts (118 bytes)
+CREATE /src/app/types/app-state/app-state.interface.ts (33 bytes)
 CREATE /src/app/components/index.ts (35 bytes)
 CREATE /src/app/components/app/app.component.html (1173 bytes)
 CREATE /src/app/components/app/app.component.scss (0 bytes)
 CREATE /src/app/components/app/app.component.ts (215 bytes)
 CREATE /src/app/store/app.reducer.ts (403 bytes)
 CREATE /src/app/store/app.effects.ts (180 bytes)
-UPDATE /tslint.json (869 bytes)
-UPDATE /package.json (1493 bytes)
-UPDATE /src/app/app.module.ts (686 bytes)
+CREATE /src/app/store/app.store.ts (385 bytes)
+UPDATE /tslint.json (826 bytes)
+UPDATE /package.json (1784 bytes)
+UPDATE /src/app/app.module.ts (740 bytes)
 ```
 
 ### Using Schematics Through WebStorm
