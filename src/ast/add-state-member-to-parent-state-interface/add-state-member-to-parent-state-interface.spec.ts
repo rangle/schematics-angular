@@ -20,7 +20,7 @@ describe('addStateMemberToParentState()', () => {
     expect(modifications.length).toEqual(2);
     expect(modifications[0].index).toEqual(0);
     expect(modifications[0].toAdd).toEqual(
-      `import { StuffState } from '../../features/stuff/types/stuff-state/stuff-state.interface';\r\n`
+      `import { StuffState } from '../../features/stuff/types/stuff-state/stuff-state.interface';\n`
     );
     expect(modifications[1].index).toEqual(27);
     expect(modifications[1].toAdd).toEqual(`stuffState: StuffState;`);
@@ -38,7 +38,7 @@ describe('addStateMemberToParentState()', () => {
     expect(modifications.length).toEqual(2);
     expect(modifications[0].index).toEqual(0);
     expect(modifications[0].toAdd).toEqual(
-      `import { StuffState } from '../../features/stuff/types/stuff-state/stuff-state.interface';\r\n`
+      `import { StuffState } from '../../features/stuff/types/stuff-state/stuff-state.interface';\n`
     );
     expect(modifications[1].index).toEqual(31);
     expect(modifications[1].toAdd).toEqual(`stuffState: StuffState;`);

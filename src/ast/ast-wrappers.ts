@@ -31,7 +31,7 @@ export function addImportStatementToFile(
 
   return {
     index: importDeclaration ? importDeclaration.end : 0,
-    toAdd: `import { ${symbolToImport} } from '${importPath}';\r\n`
+    toAdd: `import { ${symbolToImport} } from '${importPath}';\n`
   };
 }
 

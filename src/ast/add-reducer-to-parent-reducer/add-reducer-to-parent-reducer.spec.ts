@@ -14,11 +14,11 @@ describe('addReducerToParentReducer()', () => {
     const modifications = addReducerToParentReducer(sourceFile, Folders.Features, 'stuff');
 
     expect(modifications.length).toEqual(2);
-    expect(modifications[0].index).toEqual(263);
+    expect(modifications[0].index).toEqual(254);
     expect(modifications[0].toAdd).toContain(
       `import { stuffReducer } from '../features/stuff/store/stuff.reducer'`
     );
-    expect(modifications[1].index).toEqual(320);
+    expect(modifications[1].index).toEqual(309);
     expect(modifications[1].toAdd).toEqual('stuffState: stuffReducer,');
   });
 
@@ -28,12 +28,12 @@ describe('addReducerToParentReducer()', () => {
     const modifications = addReducerToParentReducer(sourceFile, Folders.Features, 'child');
 
     expect(modifications.length).toEqual(2);
-    expect(modifications[0].index).toEqual(244);
+    expect(modifications[0].index).toEqual(239);
     expect(modifications[0].toAdd).toContain(
       `import { childReducer } from '../features/child/store/child.reducer'`
     );
-    expect(modifications[1].index).toEqual(477);
-    expect(modifications[1].removeToIndex).toEqual(484);
+    expect(modifications[1].index).toEqual(463);
+    expect(modifications[1].removeToIndex).toEqual(470);
     expect(modifications[1].toAdd).toEqual(
       ' { ...state, childState: childReducer(state.childState, action) };'
     );
@@ -45,11 +45,11 @@ describe('addReducerToParentReducer()', () => {
     const modifications = addReducerToParentReducer(sourceFile, Folders.Features, 'child');
 
     expect(modifications.length).toEqual(2);
-    expect(modifications[0].index).toEqual(312);
+    expect(modifications[0].index).toEqual(306);
     expect(modifications[0].toAdd).toContain(
       `import { childReducer } from '../features/child/store/child.reducer'`
     );
-    expect(modifications[1].index).toEqual(623);
+    expect(modifications[1].index).toEqual(606);
     expect(modifications[1].toAdd).toEqual(', childState: childReducer(state.childState, action)');
   });
 });

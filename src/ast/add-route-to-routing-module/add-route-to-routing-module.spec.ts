@@ -17,7 +17,7 @@ describe('addRouteToRoutingModule()', () => {
     expect(modifications[0].toAdd).toEqual(
       `{ path: 'stuff', loadChildren: './features/stuff/stuff.module#StuffModule' }`
     );
-    expect(modifications[0].index).toEqual(126);
+    expect(modifications[0].index).toEqual(123);
   });
 
   it('add a route to an existing routes array', () => {
@@ -31,6 +31,6 @@ describe('addRouteToRoutingModule()', () => {
     expect(modifications[0].toAdd).toEqual(
       `, { path: 'stuff', loadChildren: './features/stuff/stuff.module#StuffModule' }`
     );
-    expect(modifications[0].index).toEqual(211);
+    expect(modifications[0].index).toEqual(203);
   });
 });
