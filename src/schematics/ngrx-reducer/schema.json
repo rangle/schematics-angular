@@ -17,11 +17,6 @@
         "index": 0
       },
       "x-prompt": "What name would you like to use for the feature?"
-    },
-    "asFeature": {
-      "description": "Does this artifact belong to a feature?",
-      "type": "boolean",
-      "default": true
     }
   },
   "required": [
