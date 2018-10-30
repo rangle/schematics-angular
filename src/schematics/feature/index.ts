@@ -48,9 +48,7 @@ export default function(options: ProjectSchemaOptions): Rule {
           sourceFile,
           moduleFilename,
           strings.classify(`${options.name}RoutingModule`),
-          `.${Folders.Features}/${strings.dasherize(options.name)}/${strings.dasherize(
-            options.name
-          )}-routing.module`
+          `./${strings.dasherize(options.name)}-routing.module`
         )
     ),
     modifySourceFile(
