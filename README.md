@@ -257,6 +257,8 @@ UPDATE /package.json (1784 bytes)
 UPDATE /src/app/app.module.ts (740 bytes)
 ```
 
+#### Where to go from here?
+
 From here, you can run schematics for creating features to get your
 project started. For example, to create a `landing` section for your
 application, run the following schematic:
@@ -276,11 +278,14 @@ schematics @egervari/schematics-angular:feature --name=forgot-password --path=sr
 
 At this point, take a quick look at your source code and you'll be
 astounded as to how much manual labour was saved as a result of using
-the schematics. And if you're new to Angular and didn't know the right
-way to begin your project architecturally, this will put you on the
-path to having a great, scalable architecture over the long-term if you
-continue using the schematics and follow the patterns and best
-practices.
+these schematics. Everything is modularized and chained together for
+you, such as your routes, lazy-loading, states, state default values and
+reducers. Your NgModule's are properly connected. You have clear
+separation of concerns everywhere.
+
+And if you're new to Angular and didn't know the right way to begin
+your first project architecturally, this will put you on the right path
+to having a great, scalable architecture over the long-term.
 
 ### Using Schematics Through WebStorm
 
