@@ -257,6 +257,31 @@ UPDATE /package.json (1784 bytes)
 UPDATE /src/app/app.module.ts (740 bytes)
 ```
 
+From here, you can run schematics for creating features to get your
+project started. For example, to create a `landing` section for your
+application, run the following schematic:
+
+```bash
+schematics @egervari/schematics-angular:feature --name=landing --path=src/app
+```
+
+And to create the `home`, `login` and `forgot-password` sections within the
+landing module, run the following 3 schematics:
+
+```bash
+schematics @egervari/schematics-angular:feature --name=home --path=src/app/features/landing
+schematics @egervari/schematics-angular:feature --name=login --path=src/app/features/landing
+schematics @egervari/schematics-angular:feature --name=forgot-password --path=src/app/features/landing
+```
+
+At this point, take a quick look at your source code and you'll be
+astounded as to how much manual labour was saved as a result of using
+the schematics. And if you're new to Angular and didn't know the right
+way to begin your project architecturally, this will put you on the
+path to having a great, scalable architecture over the long-term if you
+continue using the schematics and follow the patterns and best
+practices.
+
 ### Using Schematics Through WebStorm
 
 To use schematics in WebStorm, right-click on a folder, select
